@@ -11,3 +11,18 @@
  example re -> then press tab 
 
  step 4 pip install -r .\requirements.txt
+
+ step 5 testing streamlet 
+
+ import streamlit as st
+
+def main():
+    st.header("This is title")
+main() -> in app.py 
+
+
+then run the command 
+streamlit run app.py
+
+Local URL: http://localhost:8501
+  Network URL: http://10.164.9.194:8501 --> this url anyone on thesame wifi can aess (like in office )
