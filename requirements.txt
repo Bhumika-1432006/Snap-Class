@@ -1,0 +1,45 @@
+# utilities 
+
+numpy
+pandas
+
+# Face recognition
+
+scikit-learn
+
+ # for cassification and regression(face recognition)
+dlib-bin  
+
+ # u have to give dlib a model -> where the human nose is face is ..
+ # these are called as face embedings 
+
+# this is how we download from premade git repos -> git+ repo name   
+
+git+https://github.com/ageitgey/face_recognition_models
+
+setuptools<70.0.0   
+
+ # this helps us to install everything from git since its not a direct library
+
+
+supabase 
+
+#gives extra storage
+
+bcrypt  
+
+  # for hasing 
+
+# for QR code
+segno  
+
+# give URL -> it generates a code for that url 
+
+pillow 
+
+# image preprocessing 
+
+
+streamlit 
+# for all frontend -> buttons ...
+ 
