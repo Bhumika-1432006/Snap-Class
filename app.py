@@ -1,4 +1,9 @@
 import streamlit as st
+import sys
+import os
+
+# This tells Python to look inside the current directory for packages
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from src.screens.home_screen import home_screen
 from src.screens.teacher_screen import teacher_screen
