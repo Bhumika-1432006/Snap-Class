@@ -1,12 +1,32 @@
-.env
-.vscode
-
-*.pyc
-.DS_Store
-_pycache_/
-
+# Environments
 venv/
+env/
+.env
 
+# Python internals
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDEs
+.vscode/
+.idea/
+
+# Large binaries/models
+*.dat
+*.pkl
+*.h5
+
+# Streamlit
 .streamlit/
+static/
 
+# OS trash
+.DS_Store
+Thumbs.db
+
+# Build artifacts
 dist/
+build/
+*.egg-info/

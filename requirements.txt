@@ -1,3 +1,7 @@
+
+streamlit 
+# for all frontend -> buttons ...
+
 # utilities 
 
 numpy
@@ -40,6 +44,9 @@ pillow
 # image preprocessing 
 
 
-streamlit 
-# for all frontend -> buttons ...
  
+
+
+resemblyzer  # make the embedding for the final comparisions if its the same voice or not 
+
+librosa #editing nd loading the audio files , cutting segments , removing noise 
