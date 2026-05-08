@@ -2,9 +2,9 @@ import streamlit as st
 from PIL import Image
 import time
 
-# Use relative imports (two dots go up to 'src', then into 'database')
-from ..database.db import enroll_student_to_subject
-from ..database.config import supabase
+# Change these back to Absolute Imports
+from src.database.db import enroll_student_to_subject
+from src.database.config import supabase
 
 
 @st.dialog("Capture or upload photos")

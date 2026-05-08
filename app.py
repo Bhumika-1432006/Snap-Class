@@ -1,19 +1,19 @@
 
-import sys
 import os
+import sys
 import streamlit as st
 
-# MUST BE BEFORE ANY 'from src...' IMPORTS
-dir_path = os.path.dirname(os.path.abspath(__file__))
-if dir_path not in sys.path:
-    sys.path.insert(0, dir_path)
+# 1. FORCE the root directory into Python's search path
+# This ensures that 'from src...' works everywhere in the app
+root_dir = os.path.dirname(os.path.abspath(__file__))
+if root_dir not in sys.path:
+    sys.path.insert(0, root_dir)
 
+# 2. NOW import your screens and components
 from src.screens.home_screen import home_screen
 from src.screens.teacher_screen import teacher_screen
 from src.screens.student_screen import student_screen
-
 from src.components.dialog_auto_enroll import auto_enroll_dialog
-
 def main():
     st.set_page_config(
         page_title='SnapClass - Making Attendance faster using AI',
