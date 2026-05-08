@@ -1,5 +1,12 @@
 
+import sys
+import os
 import streamlit as st
+
+# MUST BE BEFORE ANY 'from src...' IMPORTS
+dir_path = os.path.dirname(os.path.abspath(__file__))
+if dir_path not in sys.path:
+    sys.path.insert(0, dir_path)
 
 from src.screens.home_screen import home_screen
 from src.screens.teacher_screen import teacher_screen
