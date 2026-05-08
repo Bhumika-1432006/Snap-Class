@@ -1,8 +1,10 @@
 import streamlit as st
-from src.database.db import enroll_student_to_subject
-from src.database.config import supabase
 from PIL import Image
 import time
+
+# Use relative imports (two dots go up to 'src', then into 'database')
+from ..database.db import enroll_student_to_subject
+from ..database.config import supabase
 
 
 @st.dialog("Capture or upload photos")
@@ -36,7 +38,8 @@ def add_photos_dialog():
 
 
     if st.session_state.photo_tab == 'upload':
-        uploaded_files = st.file_uploader( 'choose image files', type=['jpg', 'png', 'jpeg' ], accept_multiple_files=True, key='dialog_upload')
+        uploaded_files = st.file_uploader( 'choose image files', type=['jpg', 'png', 'jpeg' ], accept_multiple_files=True, key='dialog_upload') # WE CAN ACCEPT MULTIPLE FILES TOO 
+
 
         if uploaded_files:
             for f in uploaded_files:
