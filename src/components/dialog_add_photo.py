@@ -11,7 +11,7 @@ if project_root not in sys.path:
 
 # NOW your imports will work on both Windows and Linux
 from src.database.db import enroll_student_to_subject
-from src.database.config import get_supabase_client
+from src.database.config import supabase
 from PIL import Image
 import time
 
