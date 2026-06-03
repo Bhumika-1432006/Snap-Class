@@ -1,6 +1,6 @@
 from src.database.config import supabase
 import bcrypt
-
+from src.database.config import get_supabase_client
 
 
 def hash_pass(pwd):  # function for hashing 
@@ -35,9 +35,10 @@ def teacher_login(username, password):
 
 
 def get_all_students():
+    supabase = get_supabase_client() # Get the cached instance
     response = supabase.table('students').select("*").execute()
     return response.data
-
+    
 def create_student(new_name, face_embedding=None, voice_embedding=None):
     data = {'name': new_name, 'face_embedding':face_embedding, "voice_embedding": voice_embedding}
     response = supabase.table('students').insert(data).execute()
