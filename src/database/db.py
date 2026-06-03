@@ -1,7 +1,7 @@
 from src.database.config import supabase
 import bcrypt
 from src.database.config import get_supabase_client
-
+from httpx import ConnectError
 
 def hash_pass(pwd):  # function for hashing 
     return bcrypt.hashpw(pwd.encode(), bcrypt.gensalt()).decode()
@@ -36,14 +36,14 @@ def teacher_login(username, password):
 
 def get_all_students():
     try:
-        # Attempt to fetch data
+        # Now Python knows what ConnectError is!
         response = supabase.table('students').select("*").execute()
         return response.data
     except ConnectError:
-        st.error("Database connection failed. Please check your internet or Supabase project status.")
+        st.error("Could not connect to the database. Please check your internet or Supabase status.")
         return []
     except Exception as e:
-        st.error(f"An unexpected database error occurred: {e}")
+        st.error(f"An unexpected error occurred: {e}")
         return []
 
 def create_student(new_name, face_embedding=None, voice_embedding=None):
