@@ -11,7 +11,8 @@ if project_root not in sys.path:
 
 # NOW your imports will work on both Windows and Linux
 from src.database.db import enroll_student_to_subject
-from src.database.config import supabase
+# Change the import to pull the new variable name
+from src.database.config import db_instance as supabase
 from PIL import Image
 import time
 

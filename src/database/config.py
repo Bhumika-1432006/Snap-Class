@@ -8,5 +8,5 @@ def get_supabase_client():
         st.secrets["SUPABASE_KEY"]
     )
 
-# Rename this to 'client' so it doesn't collide with the cached 'supabase' property
-client = get_supabase_client()
+# Rename the global variable to something entirely new
+db_instance = get_supabase_client()
