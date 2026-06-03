@@ -1,6 +1,6 @@
 import streamlit as st
 import bcrypt
-from src.database.config import get_supabase_client
+from src.database.config import client as supabase
 from httpx import ConnectError
 
 # Helper to get the client instance correctly
