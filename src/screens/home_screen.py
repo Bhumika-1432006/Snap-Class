@@ -10,6 +10,32 @@ def home_screen():
     style_base_layout()
 
 
+    # --- ADD THIS CUSTOM STYLING ---
+    st.markdown("""
+    <style>
+    /* Modern card look for the columns */
+    div[data-testid="column"] {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    div[data-testid="column"]:hover {
+        transform: translateY(-10px);
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+    /* Enhance the buttons */
+    div.stButton > button {
+        border-radius: 50px !important;
+        padding: 0 30px !important;
+        font-weight: 600 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    # -------------------------------
+
     col1, col2 = st.columns(2, gap="large")
 
     with col1:
