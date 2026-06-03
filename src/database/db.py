@@ -35,10 +35,17 @@ def teacher_login(username, password):
 
 
 def get_all_students():
-    supabase = get_supabase_client() # Get the cached instance
-    response = supabase.table('students').select("*").execute()
-    return response.data
-    
+    try:
+        # Attempt to fetch data
+        response = supabase.table('students').select("*").execute()
+        return response.data
+    except ConnectError:
+        st.error("Database connection failed. Please check your internet or Supabase project status.")
+        return []
+    except Exception as e:
+        st.error(f"An unexpected database error occurred: {e}")
+        return []
+
 def create_student(new_name, face_embedding=None, voice_embedding=None):
     data = {'name': new_name, 'face_embedding':face_embedding, "voice_embedding": voice_embedding}
     response = supabase.table('students').insert(data).execute()
