@@ -2,6 +2,7 @@
 import streamlit as st
 from src.database.config import supabase
 import bcrypt
+from src.database.config import get_supabase_client
 from httpx import ConnectError
 
 def hash_pass(pwd):  # function for hashing 
@@ -34,6 +35,8 @@ def teacher_login(username, password):
             return teacher
     return None
 
+
+# ... now your code will work ...
 def get_all_students():
     try:
         response = supabase.table('students').select("*").execute()
