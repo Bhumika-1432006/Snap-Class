@@ -1,20 +1,9 @@
-import os
-import sys
 import streamlit as st
-
-# This logic finds the 'Snap-class' root folder regardless of OS
-current_dir = os.path.dirname(os.path.abspath(__file__)) # src/components
-project_root = os.path.abspath(os.path.join(current_dir, "../../")) # Move up to Snap-class
-
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
-
-# NOW your imports will work on both Windows and Linux
 from src.database.db import enroll_student_to_subject
-# Change the import to pull the new variable name
-from src.database.config import db_instance as supabase
+from src.database.config import supabase
 from PIL import Image
 import time
+
 
 @st.dialog("Capture or upload photos")
 def add_photos_dialog():
@@ -47,8 +36,7 @@ def add_photos_dialog():
 
 
     if st.session_state.photo_tab == 'upload':
-        uploaded_files = st.file_uploader( 'choose image files', type=['jpg', 'png', 'jpeg' ], accept_multiple_files=True, key='dialog_upload') # WE CAN ACCEPT MULTIPLE FILES TOO 
-
+        uploaded_files = st.file_uploader( 'choose image files', type=['jpg', 'png', 'jpeg' ], accept_multiple_files=True, key='dialog_upload')
 
         if uploaded_files:
             for f in uploaded_files:

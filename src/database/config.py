@@ -1,12 +1,9 @@
 import streamlit as st
-from supabase import create_client
 
-@st.cache_resource
-def get_supabase_client():
-    return create_client(
-        st.secrets["SUPABASE_URL"],
-        st.secrets["SUPABASE_KEY"]
-    )
 
-# Rename the global variable to something entirely new
-db_instance = get_supabase_client()
+from supabase import create_client, Client
+
+supabase: Client = create_client(
+    st.secrets["SUPABASE_URL"],
+    st.secrets["SUPABASE_KEY"]
+)
