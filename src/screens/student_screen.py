@@ -60,23 +60,28 @@ def student_dashboard():
 
 
     cols = st.columns(2)
+    # ... inside your for loop in student_dashboard() ...
     for i, sub_node in enumerate(subjects):
         sub = sub_node['subjects']
         sid = sub['subject_id']
 
-
-        stats = stats_map.get(sid,{"total":0, "attended": 0} )
-        def unenroll_button():
-                if st.button("Unenroll from tihs course", type='tertiary', width='stretch', icon=':material/delete_forever:'):
-                    unenroll_student_to_subject(student_id, sid)
-                    st.toast(f'Unenrolled from {sub['name']} successfully!')
-                    st.rerun()
+        stats = stats_map.get(sid, {"total":0, "attended": 0})
+        
+        # FIX: The key ensures each button is unique even if the label is the same
+        def unenroll_button(subject_id=sid, sub_name=sub['name']):
+            if st.button("Unenroll from this course", 
+                         key=f"unenroll_{subject_id}", 
+                         type='tertiary', 
+                         width='stretch', 
+                         icon=':material/delete_forever:'):
+                unenroll_student_to_subject(student_id, subject_id)
+                st.toast(f'Unenrolled from {sub_name} successfully!')
+                st.rerun()
 
         with cols[i % 2]:
-
             subject_card(
                 name = sub['name'],
-                code =sub['subject_code'],
+                code = sub['subject_code'],
                 section = sub['section'],
                 stats = [
                     ('📅', 'Total', stats['total']),
