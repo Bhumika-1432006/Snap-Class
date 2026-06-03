@@ -7,8 +7,3 @@ def get_supabase_client():
         st.secrets["SUPABASE_URL"],
         st.secrets["SUPABASE_KEY"]
     )
-
-# Use this property to access the client in your db.py files
-@property
-def supabase():
-    return get_supabase_client()

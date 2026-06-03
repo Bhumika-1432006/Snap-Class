@@ -1,11 +1,13 @@
 import streamlit as st
 import bcrypt
-from src.database.config import get_supabase_client
+from src.database.config import get_supabase_client # Import ONLY this
 from httpx import ConnectError
 
-# Helper to get the client instance
+# Define your helper inside db.py to fetch the client
 def get_db():
     return get_supabase_client()
+
+# ... NOW use get_db().table(...) everywhere instead of supabase.table(...)
 
 def hash_pass(pwd):  # function for hashing 
     return bcrypt.hashpw(pwd.encode(), bcrypt.gensalt()).decode()
