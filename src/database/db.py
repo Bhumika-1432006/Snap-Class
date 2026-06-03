@@ -3,7 +3,7 @@ import bcrypt
 
 
 
-def hash_pass(pwd):
+def hash_pass(pwd):  # function for hashing 
     return bcrypt.hashpw(pwd.encode(), bcrypt.gensalt()).decode()
 
 def check_pass(pwd, hashed):
@@ -13,13 +13,14 @@ def check_pass(pwd, hashed):
 def check_teacher_exists(username):
     # Check for unique username, returns false when username is already taken
     response = supabase.table("teachers").select("username").eq("username", username).execute()
-    return len(response.data) > 0 
+    return len(response.data) > 0 # if there exists then it will give as 1 or greater so then u have to change the username 
+
 
 
 
 def create_teacher(username, password, name):
 
-    data = { "username" : username, "password": hash_pass(password), "name": name}
+    data = { "username" : username, "password": hash_pass(password), "name": name} # hashng using hass_pass
     response = supabase.table("teachers").insert(data).execute()
     return response.data
 
@@ -54,7 +55,8 @@ def get_teacher_subjects(teacher_id):
 
 
     for sub in subjects:
-        sub['total_students'] = sub.get("subject_students", [{}])[0].get('count', 0) if sub.get('subject_students') else 0
+        sub['total_students'] = sub.get("subject_students", [{}])[0].get('count', 0) if sub.get('subject_students') else 0 # we are using time stams cause to check how any unique times that many classes 
+        
         attendance = sub.get('attendance_logs', [])
         unique_sessions = len(set(log['timestamp'] for log in attendance))
         sub['total_classes'] = unique_sessions

@@ -113,7 +113,7 @@ def teacher_tab_take_attendance():
         selected_subject_label = st.selectbox('Select Subject', options=list(subject_options.keys()))
 
     with col2:
-        if st.button('Add Photos', type='primary', icon=':material/photo_prints:', width='stretch'):
+        if st.button('Add Photos', type='primary', icon=':material/photo_prints:', width='stretch'): # this is how we take icons from material UI icon=':material/photo_prints:'
             add_photos_dialog()
 
     selected_subject_id = subject_options[selected_subject_label]
@@ -142,7 +142,8 @@ def teacher_tab_take_attendance():
             with st.spinner('Deep scanning classroom photos...'):
                 all_detected_ids = {}
 
-                for idx, img in enumerate(st.session_state.attendance_images):
+                for idx, img in enumerate(st.session_state.attendance_images): # TAKING EACH IMAGE 
+
                     img_np = np.array(img.convert('RGB'))
                     detected, _, _ = predict_attendance(img_np)
 
@@ -153,7 +154,7 @@ def teacher_tab_take_attendance():
 
                             all_detected_ids.setdefault(student_id, []).append(f"Photo {idx+1}")
 
-                enrolled_res = supabase.table('subject_students').select("*, students(*)").eq('subject_id',selected_subject_id ).execute()
+                enrolled_res = supabase.table('subject_students').select("*, students(*)").eq('subject_id',selected_subject_id ).execute() # AL THE students that are present in the photo -> present else absent 
                 enrolled_students = enrolled_res.data
 
                 if not enrolled_students:
@@ -162,19 +163,19 @@ def teacher_tab_take_attendance():
 
                     results, attendance_to_log  = [], []
 
-                    current_timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+                    current_timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S") # when the attendence was taken 
 
 
                     for node in enrolled_students:
                         student = node['students']
-                        sources = all_detected_ids.get(int(student['student_id']), [])
+                        sources = all_detected_ids.get(int(student['student_id']), []) # which photo was it where a certain person was detected 
                         is_present= len(sources) > 0
 
-                        results.append({
+                        results.append({   # well append all the details 
                             "Name": student['name'],
                             "ID": student['student_id'],
                             "Source": ", ".join(sources) if is_present else "-",
-                            "Status": "✅ Present" if is_present else "❌ Absent"
+                            "Status": "✅ Present" if is_present else "❌ Absent" # if in less than 0 pics then put absent -> if is_present else "❌ Absent"
                         })
 
                         attendance_to_log.append({
@@ -189,14 +190,6 @@ def teacher_tab_take_attendance():
     with c3:
         if st.button('Use Voice Attendance', type='primary', width='stretch', icon=':material/mic:'):
             voice_attendance_dialog(selected_subject_id)
-
-
-
-
-
-
-
-
 
 
 
