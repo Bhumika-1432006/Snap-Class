@@ -1,6 +1,7 @@
 import streamlit as st
-from supabase import create_client, Client
+from supabase import create_client
 
+# Define the client creation function
 @st.cache_resource
 def get_supabase_client():
     return create_client(
@@ -8,5 +9,5 @@ def get_supabase_client():
         st.secrets["SUPABASE_KEY"]
     )
 
-# This creates the global variable 'supabase' that all your files are looking for
+# Force the creation of the global variable
 supabase = get_supabase_client()
