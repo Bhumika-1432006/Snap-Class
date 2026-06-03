@@ -1,6 +1,7 @@
+
+import streamlit as st
 from src.database.config import supabase
 import bcrypt
-from src.database.config import get_supabase_client
 from httpx import ConnectError
 
 def hash_pass(pwd):  # function for hashing 
@@ -33,14 +34,12 @@ def teacher_login(username, password):
             return teacher
     return None
 
-
 def get_all_students():
     try:
-        # Now Python knows what ConnectError is!
         response = supabase.table('students').select("*").execute()
         return response.data
     except ConnectError:
-        st.error("Could not connect to the database. Please check your internet or Supabase status.")
+        st.error("Could not connect to the database.")
         return []
     except Exception as e:
         st.error(f"An unexpected error occurred: {e}")
