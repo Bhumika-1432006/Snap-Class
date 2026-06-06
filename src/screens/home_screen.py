@@ -10,9 +10,10 @@ def home_screen():
 
     col1, col2 = st.columns(2, gap="large")
 
-    def render_portal(title, image_url, button_text, key):
-        st.markdown('<div class="content-wrapper">', unsafe_allow_html=True)
+    def render_portal(title, image_url, button_text, key, extra_class=""):
+        st.markdown(f'<div class="content-wrapper {extra_class}">', unsafe_allow_html=True)
         st.header(title)
+        # Adding a specific class to the image container
         st.markdown('<div class="img-container">', unsafe_allow_html=True)
         st.image(image_url)
         st.markdown('</div>', unsafe_allow_html=True)
@@ -25,10 +26,12 @@ def home_screen():
         render_portal("I'm Student", "https://i.ibb.co/844D9Lrt/mascot-student.png", "Student Portal", "btn_student")
 
     with col2:
-        render_portal("I'm Teacher", "https://i.ibb.co/CsmQQV6X/mascot-prof.png", "Teacher Portal", "btn_teacher")
+        # Added 'teacher-card' class here
+        render_portal("I'm Teacher", "https://i.ibb.co/CsmQQV6X/mascot-prof.png", "Teacher Portal", "btn_teacher", "teacher-card")
 
     st.markdown("""
     <style>
+    /* ... (Your existing styles remain the same) ... */
     [data-testid="stAppViewContainer"] {
         background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) !important;
     }
@@ -42,32 +45,25 @@ def home_screen():
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
+        justify-content: space-between !important;
         height: 100% !important;
+        gap: 20px !important;
     }
-    
-    /* Perfect Bottom Alignment */
-    .img-container {
-        height: 200px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: flex-end !important;
-        margin-bottom: 20px !important;
-    }
-    .img-container img {
+    .content-wrapper img {
         width: 150px !important;
-        max-height: 200px !important;
+        height: 150px !important;
         object-fit: contain !important;
-    }
-    div.stButton {
-        margin-top: auto !important;
-        width: 100% !important;
     }
     div.stButton > button {
         width: 100% !important;
         border-radius: 8px !important;
         background: #3b82f6 !important;
         color: white !important;
+    }
+
+    /* THE SPECIFIC FIX: Shift Teacher Image Down */
+    .teacher-card .img-container {
+        margin-top: 60px !important; /* Adjust this number to shift more/less */
     }
     </style>
     """, unsafe_allow_html=True)
