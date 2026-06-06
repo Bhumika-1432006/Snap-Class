@@ -26,53 +26,53 @@ def home_screen():
             st.session_state['login_type'] = 'teacher'
             st.rerun()
 
-    # --- EXTRAVAGANT NEUMORPHIC STYLING ---
+    # --- PROFESSIONAL DARK-TONED STYLING ---
     st.markdown("""
     <style>
-    /* 1. Deep Vibrant Gradient Background */
+    /* 1. Deep Midnight Background */
     [data-testid="stAppViewContainer"] {
-        background: linear-gradient(135deg, #4c1d95 0%, #db2777 100%) !important;
+        background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) !important;
     }
 
-    /* 2. Neumorphic Floating Cards */
+    /* 2. Sleek Dark Cards */
     div[data-testid="column"] {
-        background: #ffffff !important;
+        background: #1e293b !important;
         padding: 50px !important;
-        border-radius: 40px !important;
-        border: none !important;
+        border-radius: 24px !important;
+        border: 1px solid #334155 !important;
         text-align: center !important;
-        transition: all 0.5s ease !important;
-        /* The signature soft-shadow look */
-        box-shadow: 20px 20px 60px #3b0764, -20px -20px 60px #9d174d !important;
+        transition: all 0.4s ease !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3) !important;
     }
     
     div[data-testid="column"]:hover {
-        transform: translateY(-10px) !important;
-        box-shadow: 30px 30px 80px #3b0764, -30px -30px 80px #9d174d !important;
+        transform: translateY(-5px) !important;
+        background: #334155 !important;
+        border: 1px solid #475569 !important;
     }
 
-    /* 3. Typography */
+    /* 3. Refined Typography */
     h2 {
-        color: #1e293b !important;
-        font-family: 'Segoe UI', sans-serif !important;
-        font-weight: 800 !important;
+        color: #f1f5f9 !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.02em !important;
         margin-bottom: 25px !important;
     }
 
-    /* 4. Sleek Action Buttons */
+    /* 4. Elegant Action Buttons */
     div.stButton > button {
-        border-radius: 20px !important;
-        padding: 15px 40px !important;
-        font-weight: 700 !important;
-        background: #db2777 !important;
+        border-radius: 8px !important;
+        padding: 12px 30px !important;
+        font-weight: 500 !important;
+        background: #3b82f6 !important;
         color: white !important;
         border: none !important;
-        box-shadow: 0 10px 20px rgba(219, 39, 119, 0.3) !important;
-        transition: 0.3s !important;
+        transition: 0.3s ease !important;
     }
     div.stButton > button:hover {
-        background: #be185d !important;
-        transform: scale(1.05) !important;
+        background: #2563eb !important;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
     }
     </style>
     """, unsafe_allow_html=True)
