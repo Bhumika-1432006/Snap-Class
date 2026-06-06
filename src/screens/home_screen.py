@@ -10,20 +10,21 @@ def home_screen():
 
     col1, col2 = st.columns(2, gap="large")
 
-    with col1:
-        st.header("I'm Student")
-        # Images are now controlled by the CSS below
-        st.image("https://i.ibb.co/844D9Lrt/mascot-student.png") 
-        if st.button('Student Portal', type='primary', icon=':material/arrow_outward:', icon_position='right', key='btn_student'):
-            st.session_state['login_type'] = 'student'
+    # We use a helper function to keep the code clean
+    def render_portal(title, image_url, button_text, key):
+        st.markdown('<div class="content-wrapper">', unsafe_allow_html=True)
+        st.header(title)
+        st.image(image_url)
+        if st.button(button_text, type='primary', icon=':material/arrow_outward:', icon_position='right', key=key):
+            st.session_state['login_type'] = 'student' if 'student' in key else 'teacher'
             st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with col1:
+        render_portal("I'm Student", "https://i.ibb.co/844D9Lrt/mascot-student.png", "Student Portal", "btn_student")
 
     with col2:
-        st.header("I'm Teacher")
-        st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png")
-        if st.button('Teacher Portal', type='primary', icon=':material/arrow_outward:', icon_position='right', key='btn_teacher'):
-            st.session_state['login_type'] = 'teacher'
-            st.rerun()
+        render_portal("I'm Teacher", "https://i.ibb.co/CsmQQV6X/mascot-prof.png", "Teacher Portal", "btn_teacher")
 
     st.markdown("""
     <style>
@@ -32,43 +33,37 @@ def home_screen():
         background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) !important;
     }
 
-    /* 2. Sleek Dark Cards */
+    /* 2. Neumorphic Card */
     div[data-testid="column"] {
         background: #1e293b !important;
-        padding: 50px !important;
+        padding: 40px !important;
         border-radius: 24px !important;
         border: 1px solid #334155 !important;
-        text-align: center !important;
-        transition: all 0.4s ease !important;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3) !important;
-    }
-    
-    /* 3. NEW: Force images to be larger and consistent */
-    div[data-testid="column"] img {
-        width: 180px !important; 
-        margin-bottom: 20px !important;
-        transition: transform 0.3s ease !important;
-    }
-    
-    div[data-testid="column"]:hover img {
-        transform: scale(1.1) !important;
     }
 
-    /* 4. Elegant Typography */
-    h2 {
-        color: #f1f5f9 !important;
-        font-family: 'Inter', sans-serif !important;
-        font-weight: 600 !important;
-        margin-bottom: 25px !important;
+    /* 3. THE FIX: Flexbox Wrapper for perfect alignment */
+    .content-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        height: 100% !important;
+        gap: 20px !important;
+    }
+    
+    /* Ensure image sizing is constrained */
+    .content-wrapper img {
+        width: 150px !important;
+        height: 150px !important;
+        object-fit: contain !important;
     }
 
-    /* 5. Elegant Action Buttons */
+    /* 4. Elegant Action Buttons */
     div.stButton > button {
+        width: 100% !important;
         border-radius: 8px !important;
-        padding: 12px 30px !important;
         background: #3b82f6 !important;
         color: white !important;
-        border: none !important;
     }
     </style>
     """, unsafe_allow_html=True)
