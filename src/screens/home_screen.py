@@ -1,21 +1,11 @@
-def home_screen():
-    # MOVE STYLING TO THE VERY TOP
-    st.markdown("""
-    <style>
-    /* Force override everything by using the most specific selectors possible */
-    div.stApp, div.stAppViewContainer {
-        background: radial-gradient(circle at 50% -20%, #1e293b 0%, #0f172a 80%) !important;
-    }
-    div[data-testid="column"] {
-        background: rgba(255, 255, 255, 0.03) !important;
-        border-radius: 30px !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+import streamlit as st
+from src.components.header import header_home
+from src.components.footer import footer_home
+from src.ui.base_layout import style_base_layout, style_background_home
 
+def home_screen():
     header_home()
-    style_background_home() # <-- If this function contains 'background-color' code, it will likely override what is above.
+    style_background_home()
     style_base_layout()
 
     # Highly specific CSS block to override internal Streamlit styling
