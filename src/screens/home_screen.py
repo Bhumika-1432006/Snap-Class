@@ -24,67 +24,53 @@ def home_screen():
             st.session_state['login_type']='teacher'
             st.rerun()
 
-    # --- THE MOST EXTRAVAGANT STYLING YET ---
+    # --- CHEERFUL & VIBRANT STYLING ---
     st.markdown("""
     <style>
-    /* 1. Animated Background Gradient */
-    @keyframes gradient {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
-    }
-    
+    /* 1. Cheerful Sunset/Vibrant Background */
     [data-testid="stAppViewContainer"] {
-        background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e1b4b);
-        background-size: 400% 400% !important;
-        animation: gradient 15s ease infinite !important;
+        background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%) !important;
     }
 
-    /* 2. Glass Cards with Animated Border Gradient */
+    /* 2. Soft, Bouncy Cards */
     [data-testid="column"] {
-        position: relative;
-        background: rgba(255, 255, 255, 0.02) !important;
-        backdrop-filter: blur(40px) !important;
-        padding: 60px !important;
-        border-radius: 40px !important;
-        border: 2px solid rgba(255, 255, 255, 0.1) !important;
+        background: rgba(255, 255, 255, 0.9) !important;
+        padding: 45px !important;
+        border-radius: 50px !important;
+        border: 4px solid rgba(255, 255, 255, 0.5) !important;
         text-align: center !important;
-        transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1) !important;
-        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5) !important;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15) !important;
     }
     
     [data-testid="column"]:hover {
-        transform: translateY(-25px) scale(1.06) !important;
-        border: 2px solid rgba(59, 130, 246, 0.5) !important;
-        box-shadow: 0 0 50px rgba(59, 130, 246, 0.3) !important;
+        transform: translateY(-20px) rotate(2deg) !important;
+        background: #ffffff !important;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.25) !important;
     }
 
-    /* 3. Text & Header Extravagance */
+    /* 3. Playful Typography */
     h2 {
-        background: linear-gradient(to right, #fff, #94a3b8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 3rem !important;
-        font-weight: 900 !important;
-        margin-bottom: 30px !important;
+        color: #5D3FD3 !important;
+        font-family: 'Comic Sans MS', 'Arial', sans-serif !important;
+        font-weight: 800 !important;
+        letter-spacing: 1px !important;
     }
 
-    /* 4. Liquid-Fill Button Effect */
+    /* 4. Energetic Buttons */
     div.stButton > button {
-        border-radius: 25px !important;
-        padding: 20px 60px !important;
-        font-weight: 800 !important;
-        font-size: 1.2rem !important;
-        background: linear-gradient(90deg, #2563eb, #7c3aed) !important;
+        border-radius: 30px !important;
+        padding: 18px 40px !important;
+        font-weight: 700 !important;
+        font-size: 1.1rem !important;
+        background: #5D3FD3 !important;
+        color: white !important;
         border: none !important;
-        transition: 0.4s !important;
-        text-transform: uppercase;
-        letter-spacing: 2px;
+        transition: 0.3s ease !important;
     }
     div.stButton > button:hover {
-        transform: scale(1.1) !important;
-        filter: hue-rotate(45deg);
-        box-shadow: 0 0 40px rgba(124, 58, 237, 0.6) !important;
+        background: #FF6A88 !important;
+        transform: scale(1.08) !important;
     }
     </style>
     """, unsafe_allow_html=True)
