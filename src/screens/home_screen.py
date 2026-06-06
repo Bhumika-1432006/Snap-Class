@@ -63,7 +63,7 @@ def home_screen():
 
     /* THE SPECIFIC FIX: Shift Teacher Image Down */
     .teacher-card .img-container {
-        margin-top: 50px !important; /* Adjust this number to shift more/less */
+        margin-top: 60px !important; /* Adjust this number to shift more/less */
     }
     </style>
     """, unsafe_allow_html=True)
