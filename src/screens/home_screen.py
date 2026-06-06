@@ -8,51 +8,6 @@ def home_screen():
     style_background_home()
     style_base_layout()
 
-    # Highly specific CSS block to override internal Streamlit styling
-    st.markdown("""
-    <style>
-    /* 1. Force the Main App Container Background */
-    div.stApp {
-        background: radial-gradient(circle at 50% -20%, #1e293b 0%, #0f172a 80%) !important;
-    }
-
-    /* 2. Target the column containers more specifically to override base_layout */
-    div[data-testid="column"] {
-        background: rgba(255, 255, 255, 0.03) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        padding: 40px !important;
-        border-radius: 30px !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        text-align: center !important;
-        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important;
-    }
-    
-    div[data-testid="column"]:hover {
-        transform: translateY(-15px) scale(1.02) !important;
-        background: rgba(255, 255, 255, 0.06) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    }
-
-    /* 3. Force Header Color Override */
-    div[data-testid="column"] h2 {
-        color: #ffffff !important;
-        font-family: 'Inter', sans-serif !important;
-        font-weight: 700 !important;
-    }
-
-    /* 4. Force Button Styling */
-    div[data-testid="column"] div.stButton > button {
-        border-radius: 16px !important;
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-        color: white !important;
-        border: none !important;
-        padding: 15px 40px !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
     col1, col2 = st.columns(2, gap="large")
 
     with col1:
@@ -68,5 +23,60 @@ def home_screen():
         if st.button('Teacher Portal', type='primary', icon=':material/arrow_outward:', icon_position='right', key='btn_teacher'):
             st.session_state['login_type']='teacher'
             st.rerun()
+
+    # --- THE EXTRAVAGANT CSS INJECTION ---
+    st.markdown("""
+    <style>
+    /* 1. Deep Space Gradient Background */
+    [data-testid="stAppViewContainer"] {
+        background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 50%, #020617 100%) !important;
+    }
+
+    /* 2. Extravagant Glowing Glass Cards */
+    [data-testid="column"] {
+        background: rgba(255, 255, 255, 0.04) !important;
+        backdrop-filter: blur(30px) !important;
+        -webkit-backdrop-filter: blur(30px) !important;
+        padding: 50px !important;
+        border-radius: 40px !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        text-align: center !important;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.1) !important;
+    }
+    
+    [data-testid="column"]:hover {
+        transform: translateY(-20px) scale(1.05) !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        box-shadow: 0 30px 60px rgba(30, 58, 138, 0.6), inset 0 0 0 1px rgba(255,255,255,0.2) !important;
+    }
+
+    /* 3. Glowing Typography */
+    [data-testid="column"] h2 {
+        color: #ffffff !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 800 !important;
+        text-shadow: 0 0 20px rgba(255,255,255,0.3) !important;
+    }
+
+    /* 4. Neon-Border Button */
+    div.stButton > button {
+        border-radius: 20px !important;
+        padding: 18px 50px !important;
+        font-weight: 700 !important;
+        font-size: 18px !important;
+        border: 2px solid rgba(59, 130, 246, 0.5) !important;
+        background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%) !important;
+        color: white !important;
+        transition: all 0.4s ease !important;
+        box-shadow: 0 5px 15px rgba(29, 78, 216, 0.4) !important;
+    }
+    div.stButton > button:hover {
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.8) !important;
+        transform: scale(1.05) !important;
+        border-color: #60a5fa !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
     footer_home()
