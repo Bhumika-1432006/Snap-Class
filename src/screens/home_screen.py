@@ -13,7 +13,6 @@ def home_screen():
     def render_portal(title, image_url, button_text, key, img_class=""):
         st.markdown('<div class="content-wrapper">', unsafe_allow_html=True)
         st.header(title)
-        # We add the img_class here to target specific sizes
         st.markdown(f'<div class="img-container {img_class}">', unsafe_allow_html=True)
         st.image(image_url)
         st.markdown('</div>', unsafe_allow_html=True)
@@ -26,12 +25,11 @@ def home_screen():
         render_portal("I'm Student", "https://i.ibb.co/844D9Lrt/mascot-student.png", "Student Portal", "btn_student", "student-img")
 
     with col2:
-        # 'teacher-img' class allows us to make it bigger
+        # Teacher image class set to make it slightly larger than the previous version
         render_portal("I'm Teacher", "https://i.ibb.co/CsmQQV6X/mascot-prof.png", "Teacher Portal", "btn_teacher", "teacher-img")
 
     st.markdown("""
     <style>
-    /* 1. Deep Midnight Background */
     [data-testid="stAppViewContainer"] {
         background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) !important;
     }
@@ -50,7 +48,6 @@ def home_screen():
         height: 100% !important;
     }
     
-    /* 2. Container for Bottom Alignment */
     .img-container {
         height: 220px !important; 
         display: flex !important;
@@ -60,19 +57,18 @@ def home_screen():
         margin-bottom: 20px !important;
     }
     
-    /* 3. Image Sizing */
+    /* Standard Student Image */
     .student-img img {
         width: 150px !important;
         object-fit: contain !important;
     }
     
-    /* Teacher image is now 15% larger */
+    /* Teacher image scaled up to be larger */
     .teacher-img img {
-        width: 175px !important; 
+        width: 190px !important; 
         object-fit: contain !important;
     }
 
-    /* 4. Button Alignment */
     div.stButton {
         margin-top: auto !important;
         width: 100% !important;
