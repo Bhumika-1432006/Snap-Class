@@ -81,12 +81,13 @@ def home_screen():
     }
     
     /* 7. Professional Typography */
-    h2 {
-        color: #f1f5f9 !important;
-        font-family: 'Inter', sans-serif !important;
-        font-weight: 600 !important;
-        margin-bottom: 10px !important;
-    }
+     /* Update your CSS h2 block to this: */
+h2 {
+    color: #f1f5f9 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+}
     </style>
     """, unsafe_allow_html=True)
 
