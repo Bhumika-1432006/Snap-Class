@@ -12,24 +12,9 @@ from src.components.dialog_enroll import enroll_dialog
 from src.components.subject_card import subject_card
 
 def student_dashboard():
-    # --- DASHBOARD STYLING ---
-    st.markdown("""
-        <style>
-            /* Glassmorphism for Dashboard Cards */
-            .stApp div[data-testid="stVerticalBlock"] > div[data-testid="stContainer"],
-            .stApp div[data-testid="stHorizontalBlock"] {
-                background: rgba(255, 255, 255, 0.05) !important;
-                backdrop-filter: blur(20px) !important;
-                border: 1px solid rgba(255, 255, 255, 0.1) !important;
-                border-radius: 2rem !important;
-                padding: 1.5rem !important;
-                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-    
     student_data = st.session_state.student_data
     student_id = student_data['student_id']
+    
     c1, c2 = st.columns(2, vertical_alignment='center', gap='xxlarge')
     with c1:
         header_dashboard()
@@ -42,7 +27,7 @@ def student_dashboard():
 
     st.write("<br>", unsafe_allow_html=True)
 
-    c1, c2 =st.columns(2)
+    c1, c2 = st.columns(2)
     with c1:
         st.header('Your Enrolled Subjects')
     with c2:
@@ -93,22 +78,45 @@ def student_dashboard():
     footer_dashboard()
 
 def student_screen():
+    # Global styling to match the Home Page "Extravagant" Theme
     st.markdown("""
         <style>
+            /* Hide top bar & import fonts */
             [data-testid="stHeader"] { display: none !important; }
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
             
+            /* Radial Gradient background shared with Home */
             .stApp {
                 background: radial-gradient(circle at 100% 0%, #3d1b66, #210e3d, #140826) !important;
                 background-attachment: fixed !important;
             }
-            h1, h2 {
+            
+            /* Glassmorphism for containers/cards */
+            div[data-testid="stVerticalBlock"] > div[data-testid="stContainer"],
+            div[data-testid="stHorizontalBlock"] {
+                background: rgba(255, 255, 255, 0.05) !important;
+                backdrop-filter: blur(20px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                border-radius: 2rem !important;
+                padding: 1.5rem !important;
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+            }
+
+            h1, h2, h3 {
                 font-family: 'Climate Crisis', sans-serif !important;
                 color: #ffffff !important;
             }
-            p, button, div {
+            p, button, div, span {
                 font-family: 'Outfit', sans-serif !important;
+            }
+            
+            /* Button styling */
+            button {
+                background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
+                border-radius: 1.5rem !important;
+                border: none !important;
+                color: white !important;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -119,6 +127,7 @@ def student_screen():
         student_dashboard()
         return
     
+    # Login screen layout
     c1, c2 = st.columns(2, vertical_alignment='center', gap='xxlarge')
     with c1:
         header_dashboard()
