@@ -8,55 +8,55 @@ def home_screen():
             /* --- HIDE TOP BAR --- */
             [data-testid="stHeader"] { display: none !important; }
             
-            /* --- FONTS --- */
+            /* --- ORIGINAL FONT SETUP --- */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-            
-            /* --- BACKGROUND --- */
-            .stApp {
-                /* A deeper, clean violet base */
-                background: #1e0a3c !important; 
-                background-attachment: fixed !important;
-            }
-            
-            /* --- POPPING CARDS (Lighter than background) --- */
-            .stApp div[data-testid="stColumn"] {
-                /* Lighter semi-transparent card for contrast */
-                background: rgba(255, 255, 255, 0.08) !important;
-                backdrop-filter: blur(15px) !important;
-                border: 1px solid rgba(255, 255, 255, 0.15) !important;
-                padding: 3rem !important;
-                border-radius: 2.5rem !important;
-                /* Stronger shadow to lift the card */
-                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4) !important;
-                transition: transform 0.4s ease, box-shadow 0.4s ease !important;
-            }
 
-            .stApp div[data-testid="stColumn"]:hover {
-                transform: translateY(-10px);
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
-            }
-            
-            /* --- FONT SETTINGS (Unchanged) --- */
             h1 {
                 font-family: 'Climate Crisis', sans-serif !important;
                 font-size: 3.5rem !important;
-                color: white !important;
+                line-height:1.1 !important;
+                margin-bottom:0rem !important;
+                color: #1e3a5f !important; /* Dark text for light background */
             }
             
             h2 {
                 font-family: 'Climate Crisis', sans-serif !important;
                 font-size: 2rem !important;
-                color: white !important;
+                line-height:0.9 !important;
+                margin-bottom:0rem !important;
+                color: #1e3a5f !important;
             }
             
             h3, h4, p {
-                font-family: 'Outfit', sans-serif !important;
+                font-family: 'Outfit', sans-serif !important;    
+                color: #333 !important;
+            }
+
+            /* --- BACKGROUND & CARDS --- */
+            .stApp {
+                /* Deep Teal/Blue background from your reference */
+                background: #2a7380 !important; 
+                background-attachment: fixed !important;
             }
             
+            /* White Pop-out Cards */
+            .stApp div[data-testid="stColumn"] {
+                background: #ffffff !important;
+                border-radius: 2.5rem !important;
+                padding: 3rem !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+                transition: transform 0.3s ease !important;
+            }
+
+            .stApp div[data-testid="stColumn"]:hover {
+                transform: translateY(-5px);
+            }
+            
+            /* --- BUTTONS --- */
             button {
                 font-family: 'Outfit', sans-serif !important;
-                background: linear-gradient(90deg, #7c3aed, #4f46e5) !important;
+                background: #2a7380 !important;
                 border-radius: 1.5rem !important;
                 border: none !important;
                 color: white !important;
@@ -66,14 +66,13 @@ def home_screen():
 
     header_home()
 
-    # Spacing for alignment
     st.write("<br><br>", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2, gap="large")
 
     with col1:
         st.header("I'm Student")
-        st.image("https://i.ibb.co/844D9Lrt/mascot-student.png", width=120)
+        st.image("https://i.ibb.co/844D9Lrt/mascot-student.png", width=180)
         if st.button('Student Portal', type='primary', icon=':material/arrow_outward:'):
             st.session_state['login_type'] = 'student'
             st.rerun()
@@ -81,7 +80,7 @@ def home_screen():
     with col2:
         st.header("I'm Teacher")
         st.write("<br>", unsafe_allow_html=True) 
-        st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=145)
+        st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=200)
         if st.button('Teacher Portal', type='primary', icon=':material/arrow_outward:'):
             st.session_state['login_type'] = 'teacher'
             st.rerun()
