@@ -93,11 +93,71 @@ def student_dashboard():
 
 
 def student_screen():
+    st.markdown("""
+        <style>
+            /* --- HIDE TOP BAR --- */
+            [data-testid="stHeader"] { display: none !important; }
+            
+            /* --- FONT & COLOR REFINEMENT --- */
+            @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+            /* High Visibility Headers */
+            h1, h2, h3, .stHeader, div h1, div h2 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                color: #ffffff !important; /* Pure white for maximum contrast */
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+            }
+            
+            /* High Visibility Body Text */
+            p, label, .stMarkdown, .stInfo, .stWarning {
+                font-family: 'Outfit', sans-serif !important;
+                color: #ffffff !important;
+                font-weight: 500 !important;
+            }
 
-    style_background_dashboard()
+            /* --- DRAMATIC ANIMATED STRIATIONS --- */
+            .stApp {
+                background: linear-gradient(-45deg, #1d5863, #2a7380, #3a8a9a, #2a7380) !important;
+                background-size: 400% 400% !important;
+                animation: gradientShift 15s ease infinite !important;
+                background-attachment: fixed !important;
+            }
+            
+            @keyframes gradientShift {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            
+            /* White Pop-out Cards (with adjusted text color) */
+            .stApp div[data-testid="stColumn"], .stApp div[data-testid="stContainer"], .stApp div[data-testid="stVerticalBlock"] {
+                background: rgba(255, 255, 255, 0.1) !important;
+                backdrop-filter: blur(10px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                border-radius: 2rem !important;
+                padding: 2rem !important;
+                color: #ffffff !important;
+            }
+
+            /* Fix input field readability */
+            .stTextInput input {
+                background-color: rgba(255,255,255,0.2) !important;
+                color: #ffffff !important;
+            }
+            
+            /* Buttons */
+            button {
+                background: #2a7380 !important;
+                border-radius: 1.5rem !important;
+                border: none !important;
+                color: white !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+    
     style_base_layout()
-
+    # ... (Rest of your original logic remains exactly the same)
 
     if "student_data" in st.session_state:
         student_dashboard()
