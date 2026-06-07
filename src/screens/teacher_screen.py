@@ -26,11 +26,20 @@ from src.components.dialog_voice_attendance import voice_attendance_dialog
 def set_global_styles():
     st.markdown("""
         <style>
+            /* General text color */
             .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
                 color: #2E1A47 !important; 
             }
+            /* Buttons */
             .stButton button {
                 color: #FFFFFF !important;
+            }
+            /* Input box styling - making them light as requested */
+            .stTextInput input {
+                background-color: #F0F2F6 !important;
+                color: #2E1A47 !important;
+                border: 1px solid #D3D3D3 !important;
+                border-radius: 8px !important;
             }
         </style>
     """, unsafe_allow_html=True)
