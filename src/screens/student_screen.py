@@ -81,49 +81,44 @@ def student_screen():
     # --- UNIFIED EXTRAVAGANT STYLING ---
     st.markdown("""
         <style>
-            /* Hide Streamlit components */
+            /* 1. Reset everything to hide top bar */
             [data-testid="stHeader"] { display: none !important; }
             
-            /* Fonts */
+            /* 2. Fonts */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-
-            /* Force Original Fonts for Headers */
-            h1, h2, .stHeader, div h1, div h2 {
-                font-family: 'Climate Crisis', sans-serif !important;
-                color: #1e3a5f !important;
-            }
-            p, button, .stButton button, div:not(.stApp) {
-                font-family: 'Outfit', sans-serif !important;    
-            }
-
-            /* Animated Background */
+            
+            /* 3. Deep Elegant Dark Background */
             .stApp {
-                background: linear-gradient(-45deg, #1d5863, #2a7380, #3a8a9a, #2a7380) !important;
-                background-size: 400% 400% !important;
-                animation: gradientShift 15s ease infinite !important;
-                background-attachment: fixed !important;
-            }
-            @keyframes gradientShift {
-                0% { background-position: 0% 50%; }
-                50% { background-position: 100% 50%; }
-                100% { background-position: 0% 50%; }
+                background-color: #0f0f1a !important;
             }
             
-            /* White Pop-out Cards */
-            .stApp div[data-testid="stColumn"], .stApp div[data-testid="stContainer"] {
-                background: #ffffff !important;
-                border-radius: 2.5rem !important;
-                padding: 3rem !important;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
-            }
-            
-            /* Buttons */
-            button {
-                background: #2a7380 !important;
+            /* 4. Elegant "Dark-Glass" Cards */
+            .stApp div[data-testid="stVerticalBlock"] > div[data-testid="stContainer"],
+            .stApp div[data-testid="stHorizontalBlock"] {
+                background: rgba(255, 255, 255, 0.03) !important;
+                backdrop-filter: blur(10px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
                 border-radius: 1.5rem !important;
-                border: none !important;
-                color: white !important;
+                padding: 2rem !important;
+            }
+            
+            /* 5. Typography (The fix for your headers) */
+            h1, h2, h3, .stHeader, div h1, div h2 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                color: #e0e3ff !important; /* Soft, light violet-white */
+            }
+            p, button, .stButton button, div {
+                font-family: 'Outfit', sans-serif !important;
+                color: #b0b0c0 !important; /* Soft grey for readability */
+            }
+            
+            /* 6. Subtle Buttons */
+            button {
+                background: #2a2a40 !important;
+                border: 1px solid #444466 !important;
+                border-radius: 1rem !important;
+                color: #ffffff !important;
             }
         </style>
     """, unsafe_allow_html=True)
