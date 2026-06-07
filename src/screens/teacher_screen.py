@@ -23,42 +23,39 @@ from src.database.config import supabase
 
 from src.components.dialog_voice_attendance import voice_attendance_dialog
 
-def set_global_styles():
+def apply_light_theme():
+    """Applies a light theme exclusively to the dashboard interface."""
     st.markdown("""
         <style>
-            /* General text color */
-            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
-                color: #2E1A47 !important; 
+            /* Light background for containers in the dashboard */
+            .stApp, [data-testid="stVerticalBlock"] {
+                background-color: #F8F9FA !important;
             }
-            /* Buttons */
-            .stButton button {
-                color: #FFFFFF !important;
-            }
-            /* Input box styling - making them light as requested */
-            .stTextInput input {
-                background-color: #F0F2F6 !important;
+            /* Style input elements to be light */
+            .stTextInput input, .stSelectbox select {
+                background-color: #FFFFFF !important;
                 color: #2E1A47 !important;
                 border: 1px solid #D3D3D3 !important;
                 border-radius: 8px !important;
+            }
+            /* Text elements */
+            h1, h2, h3, div, p, span, label {
+                color: #2E1A47 !important;
             }
         </style>
     """, unsafe_allow_html=True)
 
 def teacher_screen():
-    set_global_styles()
     style_background_dashboard()
     style_base_layout()
 
     if "teacher_data" in st.session_state:
+        apply_light_theme() # Applies light theme only when logged in
         teacher_dashboard()
     elif 'teacher_login_type' not in st.session_state or st.session_state.teacher_login_type=="login":
         teacher_screen_login()
     elif st.session_state.teacher_login_type == "register":
         teacher_screen_register()
-
-
-
-
 
 def teacher_dashboard():
     teacher_data = st.session_state.teacher_data
