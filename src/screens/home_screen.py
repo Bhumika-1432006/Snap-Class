@@ -1,14 +1,15 @@
+import streamlit as st
+from src.components.header import header_home
+from src.components.footer import footer_home
+
 def home_screen():
-    # Injecting the styling directly here for a fully self-contained home screen
+    # 1. Styling injected directly
     st.markdown("""
         <style>
-            /* Deep purple background matching the reference */
             .stApp {
                 background: linear-gradient(135deg, #2b1055 0%, #45217a 50%, #2b1055 100%) !important;
                 background-attachment: fixed !important;
             }
-            
-            /* Glassmorphism card effect for columns */
             .stApp div[data-testid="stColumn"] {
                 background-color: rgba(255, 255, 255, 0.05) !important;
                 backdrop-filter: blur(10px) !important;
@@ -17,15 +18,13 @@ def home_screen():
                 border-radius: 2rem !important;
                 text-align: center;
             }
-            
-            /* Ensure text inside these cards is white */
             h1, h2 {
                 color: white !important;
             }
         </style>
     """, unsafe_allow_html=True)
 
-    # Render components
+    # 2. Components
     header_home()
 
     col1, col2 = st.columns(2, gap="large")
@@ -39,7 +38,6 @@ def home_screen():
 
     with col2:
         st.header("I'm Teacher")
-        # Added a little extra top-margin via empty header for balance
         st.write(" ") 
         st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=145)
         if st.button('Teacher Portal', type='primary', icon=':material/arrow_outward:', icon_position='right'):
