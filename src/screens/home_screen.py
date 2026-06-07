@@ -38,8 +38,8 @@ def home_screen():
 
     with col1:
         st.header("I'm Student")
-        # Images increased to 300 for a larger, bolder presence
-        st.image("https://i.ibb.co/844D9Lrt/mascot-student.png", width=300)
+        # Images set to 350 for maximum impact
+        st.image("https://i.ibb.co/844D9Lrt/mascot-student.png", width=350)
         st.write("<br>", unsafe_allow_html=True)
         if st.button('Student Portal', type='primary', icon=':material/arrow_outward:', icon_position='right'):
             st.session_state['login_type']='student'
@@ -47,8 +47,8 @@ def home_screen():
 
     with col2:
         st.header("I'm Teacher")
-        # Images increased to 300 for a larger, bolder presence
-        st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=300)
+        # Images set to 350 for maximum impact
+        st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=350)
         st.write("<br>", unsafe_allow_html=True)
         if st.button('Teacher Portal', type='primary', icon=':material/arrow_outward:', icon_position='right'):
             st.session_state['login_type']='teacher'
