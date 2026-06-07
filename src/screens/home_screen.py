@@ -14,24 +14,52 @@ def home_screen():
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+             /* Restoring your original font family settings */
+
             h1 {
+
                 font-family: 'Climate Crisis', sans-serif !important;
+
                 font-size: 3.5rem !important;
-                line-height:1.1 !important;
-                margin-bottom:0rem !important;
+
                 color: white !important;
+
             }
+
             
+
             h2 {
+
                 font-family: 'Climate Crisis', sans-serif !important;
+
                 font-size: 2rem !important;
-                line-height:0.9 !important;
-                margin-bottom:0rem !important;
+
                 color: white !important;
+
             }
+
             
+
             h3, h4, p {
-                font-family: 'Outfit', sans-serif !important;    
+
+                font-family: 'Outfit', sans-serif !important;
+
+            }
+
+            
+
+            button {
+
+                font-family: 'Outfit', sans-serif !important;
+
+                background: linear-gradient(90deg, #7c3aed, #4f46e5) !important;
+
+                border-radius: 1.5rem !important;
+
+                border: none !important;
+
+                color: white !important;
+
             }
 
             /* --- BACKGROUND & CARDS --- */
