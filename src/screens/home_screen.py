@@ -37,24 +37,25 @@ def home_screen():
             }
             
             h1 {
-                font-family: 'Climate Crisis', sans-serif !important;
+                font-family: 'Climate Crisis', sans-serif;
                 font-size: 3.5rem !important;
                 color: #ffffff !important;
                 text-shadow: 0 4px 15px rgba(0,0,0,0.3);
             }
             
             h2 {
-                font-family: 'Climate Crisis', sans-serif !important;
+                font-family: 'Climate Crisis', sans-serif;
                 font-size: 2rem !important;
                 color: #ffffff !important;
             }
             
-            h3, h4, p, button {
-                font-family: 'Outfit', sans-serif !important;
+            h3, h4, p {
+                font-family: 'Outfit', sans-serif;
             }
             
             /* Premium Button Polish */
             button {
+                font-family: 'Outfit', sans-serif;
                 background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
                 border-radius: 1.5rem !important;
                 padding: 12px 25px !important;
