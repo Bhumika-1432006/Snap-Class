@@ -17,7 +17,7 @@ def home_screen():
                 font-size: 3.5rem !important;
                 line-height:1.1 !important;
                 margin-bottom:0rem !important;
-                color: #1e3a5f !important; /* Dark text for light background */
+                color: #1e3a5f !important;
             }
             
             h2 {
@@ -33,10 +33,15 @@ def home_screen():
                 color: #333 !important;
             }
 
-            /* --- BACKGROUND & CARDS --- */
+            /* --- DRAMATIC STRIATED BACKGROUND --- */
             .stApp {
-                /* Deep Teal/Blue background from your reference */
-                background: #2a7380 !important; 
+                background: linear-gradient(
+                    135deg, 
+                    #1d5863 0%, 
+                    #2a7380 40%, 
+                    #3a8a9a 70%, 
+                    #2a7380 100%
+                ) !important;
                 background-attachment: fixed !important;
             }
             
@@ -66,6 +71,7 @@ def home_screen():
 
     header_home()
 
+    # Spacing for alignment
     st.write("<br><br>", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2, gap="large")
