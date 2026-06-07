@@ -5,16 +5,21 @@ from src.components.footer import footer_home
 def home_screen():
     st.markdown("""
         <style>
-            /* Original Font Definitions preserved */
+            /* --- HIDE TOP BAR --- */
+            [data-testid="stHeader"] {
+                display: none !important;
+            }
+            
+            /* --- FONTS --- */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
             
+            /* --- BACKGROUND & CARDS --- */
             .stApp {
                 background: radial-gradient(circle at 100% 0%, #3d1b66, #210e3d, #140826) !important;
                 background-attachment: fixed !important;
             }
             
-            /* Enhanced Card Depth */
             .stApp div[data-testid="stColumn"] {
                 background: rgba(255, 255, 255, 0.04) !important;
                 backdrop-filter: blur(25px) !important;
@@ -31,11 +36,11 @@ def home_screen():
                 border: 1px solid rgba(255, 255, 255, 0.25) !important;
             }
             
+            /* --- TYPOGRAPHY --- */
             h1 {
                 font-family: 'Climate Crisis', sans-serif !important;
                 font-size: 3.5rem !important;
                 color: #ffffff !important;
-                text-shadow: 0 4px 15px rgba(0,0,0,0.3);
             }
             
             h2 {
@@ -48,7 +53,7 @@ def home_screen():
                 font-family: 'Outfit', sans-serif !important;
             }
             
-            /* Premium Button Polish */
+            /* --- BUTTONS --- */
             button {
                 background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
                 border-radius: 1.5rem !important;
@@ -68,7 +73,6 @@ def home_screen():
 
     header_home()
 
-    # Layout Spacing
     st.write("<br><br>", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2, gap="large")
