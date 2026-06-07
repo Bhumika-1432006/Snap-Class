@@ -12,9 +12,9 @@ from src.components.dialog_enroll import enroll_dialog
 from src.components.subject_card import subject_card
 
 def student_dashboard():
+    # Dashboard logic remains 100% unchanged
     student_data = st.session_state.student_data
     student_id = student_data['student_id']
-    
     c1, c2 = st.columns(2, vertical_alignment='center', gap='xxlarge')
     with c1:
         header_dashboard()
@@ -78,42 +78,49 @@ def student_dashboard():
     footer_dashboard()
 
 def student_screen():
-    # Global styling to match the Home Page "Extravagant" Theme
+    # --- UNIFIED EXTRAVAGANT STYLING ---
     st.markdown("""
         <style>
-            /* Hide top bar & import fonts */
+            /* Hide Streamlit components */
             [data-testid="stHeader"] { display: none !important; }
+            
+            /* Fonts */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-            
-            /* Radial Gradient background shared with Home */
-            .stApp {
-                background: radial-gradient(circle at 100% 0%, #3d1b66, #210e3d, #140826) !important;
-                background-attachment: fixed !important;
+
+            /* Force Original Fonts for Headers */
+            h1, h2, .stHeader, div h1, div h2 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                color: #1e3a5f !important;
             }
-            
-            /* Glassmorphism for containers/cards */
-            div[data-testid="stVerticalBlock"] > div[data-testid="stContainer"],
-            div[data-testid="stHorizontalBlock"] {
-                background: rgba(255, 255, 255, 0.05) !important;
-                backdrop-filter: blur(20px) !important;
-                border: 1px solid rgba(255, 255, 255, 0.1) !important;
-                border-radius: 2rem !important;
-                padding: 1.5rem !important;
-                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+            p, button, .stButton button, div:not(.stApp) {
+                font-family: 'Outfit', sans-serif !important;    
             }
 
-            h1, h2, h3 {
-                font-family: 'Climate Crisis', sans-serif !important;
-                color: #ffffff !important;
+            /* Animated Background */
+            .stApp {
+                background: linear-gradient(-45deg, #1d5863, #2a7380, #3a8a9a, #2a7380) !important;
+                background-size: 400% 400% !important;
+                animation: gradientShift 15s ease infinite !important;
+                background-attachment: fixed !important;
             }
-            p, button, div, span {
-                font-family: 'Outfit', sans-serif !important;
+            @keyframes gradientShift {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
             }
             
-            /* Button styling */
+            /* White Pop-out Cards */
+            .stApp div[data-testid="stColumn"], .stApp div[data-testid="stContainer"] {
+                background: #ffffff !important;
+                border-radius: 2.5rem !important;
+                padding: 3rem !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+            }
+            
+            /* Buttons */
             button {
-                background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
+                background: #2a7380 !important;
                 border-radius: 1.5rem !important;
                 border: none !important;
                 color: white !important;
@@ -127,7 +134,6 @@ def student_screen():
         student_dashboard()
         return
     
-    # Login screen layout
     c1, c2 = st.columns(2, vertical_alignment='center', gap='xxlarge')
     with c1:
         header_dashboard()
@@ -136,7 +142,7 @@ def student_screen():
             st.session_state['login_type'] = None
             st.rerun()
 
-    st.header('Login using FaceID')
+    st.header('Login using FaceID', text_alignment='center')
     photo_source = st.camera_input("Position your face in the center")
 
     if photo_source:
