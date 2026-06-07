@@ -14,6 +14,21 @@ import time
 from src.components.dialog_enroll import enroll_dialog
 from src.components.subject_card import subject_card
 
+def apply_custom_styles():
+    st.markdown("""
+        <style>
+            /* This targets all primary text and headers */
+            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div {
+                color: #E0E0E0 !important; 
+            }
+            
+            /* If you have specific containers that need adjustments */
+            .st-emotion-cache-1jicn92 { /* Streamlit container class */
+                color: #E0E0E0 !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+    
 def student_dashboard():
     student_data = st.session_state.student_data
     student_id = student_data['student_id']
