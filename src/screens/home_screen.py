@@ -10,64 +10,17 @@ def home_screen():
                 display: none !important;
             }
 
-            /* --- YOUR ORIGINAL FONT SETUP --- */
+            /* Restoring your original font imports */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-
-             /* Restoring your original font family settings */
-
-            h1 {
-
-                font-family: 'Climate Crisis', sans-serif !important;
-
-                font-size: 3.5rem !important;
-
-                color: white !important;
-
-            }
-
             
-
-            h2 {
-
-                font-family: 'Climate Crisis', sans-serif !important;
-
-                font-size: 2rem !important;
-
-                color: white !important;
-
-            }
-
-            
-
-            h3, h4, p {
-
-                font-family: 'Outfit', sans-serif !important;
-
-            }
-
-            
-
-            button {
-
-                font-family: 'Outfit', sans-serif !important;
-
-                background: linear-gradient(90deg, #7c3aed, #4f46e5) !important;
-
-                border-radius: 1.5rem !important;
-
-                border: none !important;
-
-                color: white !important;
-
-            }
-
-            /* --- BACKGROUND & CARDS --- */
+            /* Extravagant Radial Background */
             .stApp {
                 background: radial-gradient(circle at top right, #4c1d95, #2e1065, #1e1b4b) !important;
                 background-attachment: fixed !important;
             }
             
+            /* Professional Glassmorphism Cards */
             .stApp div[data-testid="stColumn"] {
                 background: rgba(255, 255, 255, 0.03) !important;
                 backdrop-filter: blur(20px) !important;
@@ -83,7 +36,23 @@ def home_screen():
                 box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5) !important;
             }
             
-            /* --- BUTTONS --- */
+            /* Restoring your original font family settings */
+            h1 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                font-size: 3.5rem !important;
+                color: white !important;
+            }
+            
+            h2 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                font-size: 2rem !important;
+                color: white !important;
+            }
+            
+            h3, h4, p {
+                font-family: 'Outfit', sans-serif !important;
+            }
+            
             button {
                 font-family: 'Outfit', sans-serif !important;
                 background: linear-gradient(90deg, #7c3aed, #4f46e5) !important;
@@ -103,7 +72,7 @@ def home_screen():
 
     with col1:
         st.header("I'm Student")
-        # Larger image size
+        # Increased mascot width
         st.image("https://i.ibb.co/844D9Lrt/mascot-student.png", width=180)
         if st.button('Student Portal', type='primary', icon=':material/arrow_outward:'):
             st.session_state['login_type'] = 'student'
@@ -111,8 +80,7 @@ def home_screen():
 
     with col2:
         st.header("I'm Teacher")
-        st.write("<br>", unsafe_allow_html=True) 
-        # Larger image size
+        # Increased mascot width
         st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=200)
         if st.button('Teacher Portal', type='primary', icon=':material/arrow_outward:'):
             st.session_state['login_type'] = 'teacher'
