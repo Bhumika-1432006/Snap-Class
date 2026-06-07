@@ -5,33 +5,39 @@ from src.components.footer import footer_home
 def home_screen():
     st.markdown("""
         <style>
-            /* Restoring your original font imports */
+            /* --- HIDE TOP BAR --- */
+            [data-testid="stHeader"] { display: none !important; }
+            
+            /* --- FONTS --- */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
             
-            /* Extravagant Radial Background */
+            /* --- BACKGROUND --- */
             .stApp {
-                background: radial-gradient(circle at top right, #4c1d95, #2e1065, #1e1b4b) !important;
+                /* A deeper, clean violet base */
+                background: #1e0a3c !important; 
                 background-attachment: fixed !important;
             }
             
-            /* Professional Glassmorphism Cards */
+            /* --- POPPING CARDS (Lighter than background) --- */
             .stApp div[data-testid="stColumn"] {
-                background: rgba(255, 255, 255, 0.03) !important;
-                backdrop-filter: blur(20px) !important;
-                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                /* Lighter semi-transparent card for contrast */
+                background: rgba(255, 255, 255, 0.08) !important;
+                backdrop-filter: blur(15px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.15) !important;
                 padding: 3rem !important;
                 border-radius: 2.5rem !important;
-                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+                /* Stronger shadow to lift the card */
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4) !important;
                 transition: transform 0.4s ease, box-shadow 0.4s ease !important;
             }
 
             .stApp div[data-testid="stColumn"]:hover {
                 transform: translateY(-10px);
-                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5) !important;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
             }
             
-            /* Restoring your original font family settings */
+            /* --- FONT SETTINGS (Unchanged) --- */
             h1 {
                 font-family: 'Climate Crisis', sans-serif !important;
                 font-size: 3.5rem !important;
