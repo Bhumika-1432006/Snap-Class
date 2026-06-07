@@ -1,14 +1,10 @@
-import streamlit as st
-from src.components.header import header_home
-from src.components.footer import footer_home
-from src.ui.base_layout import style_base_layout, style_background_home
 def home_screen():
-
-
-    header_home()
+    # 1. Always call style functions first so the CSS is injected immediately
     style_background_home()
     style_base_layout()
-
+    
+    # 2. Then render your components
+    header_home()
 
     col1, col2 = st.columns(2, gap="large")
 
@@ -21,6 +17,7 @@ def home_screen():
 
     with col2:
         st.header("I'm Teacher")
+        st.subheader(" ") # Optional: Add a spacer if mascots have different heights
         st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=145)
         if st.button('Teacher Portal', type='primary', icon=':material/arrow_outward:', icon_position='right'):
             st.session_state['login_type']='teacher'

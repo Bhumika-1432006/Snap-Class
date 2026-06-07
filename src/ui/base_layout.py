@@ -3,24 +3,27 @@ import streamlit as st
 
 
 def style_background_home():
-
     st.markdown("""
         <style>
-
-                .stApp {
-                    background: #5865F2 !important;
-                }
+            /* The updated gradient background to match your reference image */
+            .stApp {
+                background: linear-gradient(
+                    to bottom, 
+                    #152d4e 0%, 
+                    #1e3a5f 60%, 
+                    #4a4a4a 100%
+                ) !important;
+                background-attachment: fixed !important;
+            }
  
-                # storing the id
-                .stApp div[data-testid="stColumn"]{
-                    background-color:#E0E3FF !important;
-                    padding:2.5rem !important;
-                    border-radius: 5rem !important;
-                    }
-        </style>  
-
-                """
-            ,unsafe_allow_html=True)
+            /* Your existing column styling */
+            .stApp div[data-testid="stColumn"]{
+                background-color:#E0E3FF !important;
+                padding:2.5rem !important;
+                border-radius: 5rem !important;
+            }
+        </style> 
+    """, unsafe_allow_html=True)
     
 
 def style_background_dashboard():
