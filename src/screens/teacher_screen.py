@@ -23,41 +23,57 @@ from src.database.config import supabase
 
 from src.components.dialog_voice_attendance import voice_attendance_dialog
 
-def apply_light_theme():
-    """Applies a light theme exclusively to the dashboard interface."""
+def apply_dashboard_styling():
     st.markdown("""
         <style>
-            /* Light background for containers in the dashboard */
-            .stApp, [data-testid="stVerticalBlock"] {
-                background-color: #F8F9FA !important;
-            }
-            /* Style input elements to be light */
-            .stTextInput input, .stSelectbox select {
+            /* Make containers look like elegant white cards with soft shadows */
+            [data-testid="stVerticalBlock"] > div {
                 background-color: #FFFFFF !important;
+                padding: 20px !important;
+                border-radius: 15px !important;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+                border: 1px solid #F0F0F0 !important;
+                margin-bottom: 10px !important;
+            }
+            /* Specific styling for the dialog windows */
+            [data-testid="stDialog"] {
+                background-color: #FFFFFF !important;
+                border-radius: 20px !important;
+            }
+            /* Clean up input fields to match the light theme */
+            .stTextInput input, .stSelectbox select {
+                background-color: #F9F9F9 !important;
+                border: 1px solid #E0E0E0 !important;
                 color: #2E1A47 !important;
-                border: 1px solid #D3D3D3 !important;
                 border-radius: 8px !important;
             }
-            /* Text elements */
-            h1, h2, h3, div, p, span, label {
+            /* Text alignment and color */
+            h1, h2, h3, label {
                 color: #2E1A47 !important;
             }
         </style>
     """, unsafe_allow_html=True)
 
 def teacher_screen():
+
     style_background_dashboard()
     style_base_layout()
 
     if "teacher_data" in st.session_state:
-        apply_light_theme() # Applies light theme only when logged in
         teacher_dashboard()
     elif 'teacher_login_type' not in st.session_state or st.session_state.teacher_login_type=="login":
         teacher_screen_login()
     elif st.session_state.teacher_login_type == "register":
         teacher_screen_register()
 
+
+
+
+
 def teacher_dashboard():
+    # Apply styling here so it hits the dashboard and dialogs
+    apply_dashboard_styling()
+    
     teacher_data = st.session_state.teacher_data
     c1, c2 = st.columns(2, vertical_alignment='center', gap='xxlarge')
     with c1:
