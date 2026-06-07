@@ -33,16 +33,18 @@ def home_screen():
                 color: #333 !important;
             }
 
-            /* --- DRAMATIC STRIATED BACKGROUND --- */
+            /* --- DRAMATIC ANIMATED STRIATIONS --- */
             .stApp {
-                background: linear-gradient(
-                    135deg, 
-                    #1d5863 0%, 
-                    #2a7380 40%, 
-                    #3a8a9a 70%, 
-                    #2a7380 100%
-                ) !important;
+                background: linear-gradient(-45deg, #1d5863, #2a7380, #3a8a9a, #2a7380) !important;
+                background-size: 400% 400% !important;
+                animation: gradientShift 15s ease infinite !important;
                 background-attachment: fixed !important;
+            }
+            
+            @keyframes gradientShift {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
             }
             
             /* White Pop-out Cards */
