@@ -23,39 +23,29 @@ from src.database.config import supabase
 
 from src.components.dialog_voice_attendance import voice_attendance_dialog
 
-def apply_dashboard_styling():
+def set_global_styles():
     st.markdown("""
         <style>
-            /* Make containers look like elegant white cards with soft shadows */
-            [data-testid="stVerticalBlock"] > div {
-                background-color: #FFFFFF !important;
-                padding: 20px !important;
-                border-radius: 15px !important;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
-                border: 1px solid #F0F0F0 !important;
-                margin-bottom: 10px !important;
+            /* General text color */
+            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
+                color: #2E1A47 !important; 
             }
-            /* Specific styling for the dialog windows */
-            [data-testid="stDialog"] {
-                background-color: #FFFFFF !important;
-                border-radius: 20px !important;
+            /* Buttons */
+            .stButton button {
+                color: #FFFFFF !important;
             }
-            /* Clean up input fields to match the light theme */
-            .stTextInput input, .stSelectbox select {
-                background-color: #F9F9F9 !important;
-                border: 1px solid #E0E0E0 !important;
+            /* Input box styling - making them light as requested */
+            .stTextInput input {
+                background-color: #F0F2F6 !important;
                 color: #2E1A47 !important;
+                border: 1px solid #D3D3D3 !important;
                 border-radius: 8px !important;
-            }
-            /* Text alignment and color */
-            h1, h2, h3, label {
-                color: #2E1A47 !important;
             }
         </style>
     """, unsafe_allow_html=True)
 
 def teacher_screen():
-
+    set_global_styles()
     style_background_dashboard()
     style_base_layout()
 
@@ -71,9 +61,6 @@ def teacher_screen():
 
 
 def teacher_dashboard():
-    # Apply styling here so it hits the dashboard and dialogs
-    apply_dashboard_styling()
-    
     teacher_data = st.session_state.teacher_data
     c1, c2 = st.columns(2, vertical_alignment='center', gap='xxlarge')
     with c1:
