@@ -22,8 +22,21 @@ from src.database.config import supabase
 
 
 from src.components.dialog_voice_attendance import voice_attendance_dialog
-def teacher_screen():
 
+def set_global_styles():
+    st.markdown("""
+        <style>
+            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
+                color: #2E1A47 !important; 
+            }
+            .stButton button {
+                color: #FFFFFF !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+def teacher_screen():
+    set_global_styles()
     style_background_dashboard()
     style_base_layout()
 
