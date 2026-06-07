@@ -23,29 +23,50 @@ from src.database.config import supabase
 
 from src.components.dialog_voice_attendance import voice_attendance_dialog
 
-def set_global_styles():
+def apply_dashboard_styling():
     st.markdown("""
         <style>
-            /* General text color */
-            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
-                color: #2E1A47 !important; 
+            /* TARGETING THE DIALOG BOX IN Screenshot 2026-06-07 103646.png */
+            [data-testid="stDialog"] {
+                background-color: #F8F9FA !important; /* Light background */
+                border: 1px solid #E0E0E0 !important;
+                border-radius: 15px !important;
             }
-            /* Buttons */
-            .stButton button {
-                color: #FFFFFF !important;
-            }
-            /* Input box styling - making them light as requested */
-            .stTextInput input {
-                background-color: #F0F2F6 !important;
+            
+            /* Ensure text inside the dialog is dark */
+            [data-testid="stDialog"] h2, 
+            [data-testid="stDialog"] div, 
+            [data-testid="stDialog"] label {
                 color: #2E1A47 !important;
-                border: 1px solid #D3D3D3 !important;
+            }
+
+            /* Standard containers light theme */
+            [data-testid="stVerticalBlock"] > div {
+                background-color: #FFFFFF !important;
+                padding: 20px !important;
+                border-radius: 15px !important;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+                border: 1px solid #F0F0F0 !important;
+                margin-bottom: 10px !important;
+            }
+
+            /* Inputs light theme */
+            .stTextInput input, .stSelectbox select {
+                background-color: #F9F9F9 !important;
+                border: 1px solid #E0E0E0 !important;
+                color: #2E1A47 !important;
                 border-radius: 8px !important;
+            }
+            
+            /* General text */
+            h1, h2, h3, label {
+                color: #2E1A47 !important;
             }
         </style>
     """, unsafe_allow_html=True)
 
 def teacher_screen():
-    set_global_styles()
+
     style_background_dashboard()
     style_base_layout()
 
@@ -61,6 +82,7 @@ def teacher_screen():
 
 
 def teacher_dashboard():
+    apply_dashboard_styling()
     teacher_data = st.session_state.teacher_data
     c1, c2 = st.columns(2, vertical_alignment='center', gap='xxlarge')
     with c1:
