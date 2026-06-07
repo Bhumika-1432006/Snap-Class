@@ -12,13 +12,13 @@ def home_screen():
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-            /* Force Original Fonts Everywhere */
-            h1, h2, .stHeader, [data-testid="stHeader"] h1, .css-10tr301 {
+            /* Force Original Fonts Everywhere, including headers inside custom divs */
+            h1, h2, .stHeader, div h1, div h2 {
                 font-family: 'Climate Crisis', sans-serif !important;
                 color: #1e3a5f !important;
             }
             
-            h3, h4, p, button {
+            p, button, .stButton button, div:not(.stApp) {
                 font-family: 'Outfit', sans-serif !important;    
             }
 
@@ -68,7 +68,8 @@ def home_screen():
 
     with col1:
         st.header("I'm Student")
-        st.image("https://i.ibb.co/844D9Lrt/mascot-student.png", width=180)
+        # Images made larger
+        st.image("https://i.ibb.co/844D9Lrt/mascot-student.png", width=250)
         if st.button('Student Portal', type='primary', icon=':material/arrow_outward:'):
             st.session_state['login_type'] = 'student'
             st.rerun()
@@ -76,7 +77,8 @@ def home_screen():
     with col2:
         st.header("I'm Teacher")
         st.write("<br>", unsafe_allow_html=True) 
-        st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=200)
+        # Images made larger
+        st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=250)
         if st.button('Teacher Portal', type='primary', icon=':material/arrow_outward:'):
             st.session_state['login_type'] = 'teacher'
             st.rerun()
