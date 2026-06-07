@@ -10,16 +10,34 @@ def home_screen():
                 display: none !important;
             }
             
-            /* Original Font Definitions preserved */
+            /* --- YOUR ORIGINAL FONT SETUP --- */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+            h1 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                font-size: 3.5rem !important;
+                line-height:1.1 !important;
+                margin-bottom:0rem !important;
+            }
             
+            h2 {
+                font-family: 'Climate Crisis', sans-serif !important;
+                font-size: 2rem !important;
+                line-height:0.9 !important;
+                margin-bottom:0rem !important;
+            }
+            
+            h3, h4, p {
+                font-family: 'Outfit', sans-serif;    
+            }
+
+            /* --- BACKGROUND & CARDS --- */
             .stApp {
                 background: radial-gradient(circle at 100% 0%, #3d1b66, #210e3d, #140826) !important;
                 background-attachment: fixed !important;
             }
             
-            /* Enhanced Card Depth */
             .stApp div[data-testid="stColumn"] {
                 background: rgba(255, 255, 255, 0.04) !important;
                 backdrop-filter: blur(25px) !important;
@@ -36,38 +54,18 @@ def home_screen():
                 border: 1px solid rgba(255, 255, 255, 0.25) !important;
             }
             
-            h1 {
-                font-family: 'Climate Crisis', sans-serif;
-                font-size: 3.5rem !important;
-                color: #ffffff !important;
-                text-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            }
-            
-            h2 {
-                font-family: 'Climate Crisis', sans-serif;
-                font-size: 2rem !important;
-                color: #ffffff !important;
-            }
-            
-            h3, h4, p {
-                font-family: 'Outfit', sans-serif;
-            }
-            
-            /* Premium Button Polish */
+            /* --- BUTTONS --- */
             button {
-                font-family: 'Outfit', sans-serif;
-                background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
                 border-radius: 1.5rem !important;
-                padding: 12px 25px !important;
-                border: none !important;
+                background-color: #5865F2 !important;
                 color: white !important;
-                font-weight: 600 !important;
-                transition: transform 0.3s ease !important;
+                padding: 10px 20px !important;
+                border: none !important;
+                transition: transform 0.25s ease-in-out !important;
             }
             
             button:hover {
-                transform: scale(1.08) !important;
-                filter: brightness(1.2) !important;
+                transform: scale(1.05);
             }
         </style>
     """, unsafe_allow_html=True)
