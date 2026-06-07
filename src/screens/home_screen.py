@@ -5,11 +5,6 @@ from src.components.footer import footer_home
 def home_screen():
     st.markdown("""
         <style>
-            /* --- REMOVE TOP BAR --- */
-            [data-testid="stHeader"] {
-                display: none !important;
-            }
-
             /* Original Font Definitions preserved */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
