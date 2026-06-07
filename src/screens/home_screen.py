@@ -12,25 +12,14 @@ def home_screen():
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-            h1 {
+            /* Force Original Fonts Everywhere */
+            h1, h2, .stHeader, [data-testid="stHeader"] h1, .css-10tr301 {
                 font-family: 'Climate Crisis', sans-serif !important;
-                font-size: 3.5rem !important;
-                line-height:1.1 !important;
-                margin-bottom:0rem !important;
                 color: #1e3a5f !important;
             }
             
-            h2 {
-                font-family: 'Climate Crisis', sans-serif !important;
-                font-size: 2rem !important;
-                line-height:0.9 !important;
-                margin-bottom:0rem !important;
-                color: #1e3a5f !important;
-            }
-            
-            h3, h4, p {
+            h3, h4, p, button {
                 font-family: 'Outfit', sans-serif !important;    
-                color: #333 !important;
             }
 
             /* --- DRAMATIC ANIMATED STRIATIONS --- */
@@ -62,7 +51,6 @@ def home_screen():
             
             /* --- BUTTONS --- */
             button {
-                font-family: 'Outfit', sans-serif !important;
                 background: #2a7380 !important;
                 border-radius: 1.5rem !important;
                 border: none !important;
