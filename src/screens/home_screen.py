@@ -8,21 +8,24 @@ def home_screen():
             /* --- HIDE TOP BAR --- */
             [data-testid="stHeader"] { display: none !important; }
             
-            /* --- ORIGINAL FONT SETUP --- */
+            /* --- FONT IMPORTS --- */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-            /* Force Original Fonts Everywhere */
-            h1, h2, .stHeader, [data-testid="stHeader"] h1, .css-10tr301 {
+            /* --- THE FIX: Force font on all possible header elements --- */
+            h1, h2, h3, 
+            .st-emotion-cache-1wivze, 
+            div[data-testid="stHeader"] h1, 
+            [data-testid="stHeading"] {
                 font-family: 'Climate Crisis', sans-serif !important;
                 color: #1e3a5f !important;
             }
             
-            h3, h4, p, button {
-                font-family: 'Outfit', sans-serif !important;    
+            p, button, .stButton button {
+                font-family: 'Outfit', sans-serif !important;
             }
 
-            /* --- DRAMATIC ANIMATED STRIATIONS --- */
+            /* --- DRAMATIC BACKGROUND --- */
             .stApp {
                 background: linear-gradient(-45deg, #1d5863, #2a7380, #3a8a9a, #2a7380) !important;
                 background-size: 400% 400% !important;
@@ -36,32 +39,18 @@ def home_screen():
                 100% { background-position: 0% 50%; }
             }
             
-            /* White Pop-out Cards */
+            /* White Cards */
             .stApp div[data-testid="stColumn"] {
                 background: #ffffff !important;
                 border-radius: 2.5rem !important;
                 padding: 3rem !important;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
-                transition: transform 0.3s ease !important;
-            }
-
-            .stApp div[data-testid="stColumn"]:hover {
-                transform: translateY(-5px);
-            }
-            
-            /* --- BUTTONS --- */
-            button {
-                background: #2a7380 !important;
-                border-radius: 1.5rem !important;
-                border: none !important;
-                color: white !important;
             }
         </style>
     """, unsafe_allow_html=True)
 
     header_home()
 
-    # Spacing for alignment
     st.write("<br><br>", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2, gap="large")
