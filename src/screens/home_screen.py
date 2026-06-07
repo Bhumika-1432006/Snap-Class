@@ -5,11 +5,6 @@ from src.components.footer import footer_home
 def home_screen():
     st.markdown("""
         <style>
-            /* --- HIDE TOP BAR --- */
-            [data-testid="stHeader"] {
-                display: none !important;
-            }
-
             /* Restoring your original font imports */
             @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
@@ -72,16 +67,15 @@ def home_screen():
 
     with col1:
         st.header("I'm Student")
-        # Increased mascot width
-        st.image("https://i.ibb.co/844D9Lrt/mascot-student.png", width=180)
+        st.image("https://i.ibb.co/844D9Lrt/mascot-student.png", width=120)
         if st.button('Student Portal', type='primary', icon=':material/arrow_outward:'):
             st.session_state['login_type'] = 'student'
             st.rerun()
 
     with col2:
         st.header("I'm Teacher")
-        # Increased mascot width
-        st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=200)
+        st.write("<br>", unsafe_allow_html=True) 
+        st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png", width=145)
         if st.button('Teacher Portal', type='primary', icon=':material/arrow_outward:'):
             st.session_state['login_type'] = 'teacher'
             st.rerun()
