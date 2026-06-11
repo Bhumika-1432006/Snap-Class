@@ -12,34 +12,40 @@ from src.components.dialog_enroll import enroll_dialog
 from src.components.subject_card import subject_card
 
 def set_global_styles():
-    """Injects CSS to keep your existing UI while styling the Unenroll button white."""
+    """Injects CSS to override white/unreadable text with a high-contrast dark color."""
     st.markdown("""
         <style>
-            /* 1. Global text color */
+            /* Force most text to a dark, readable color */
             .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
-                color: #FFFFFF !important; 
+                color: #2E1A47 !important; 
             }
-            
-            /* 2. Style ONLY the Unenroll button (targets the delete icon wrapper) */
-            div[data-testid="stButton"] button:has(span[aria-label*="delete"]) {
-                background-color: #FFFFFF !important;
-                color: #000000 !important;
-                border: 1px solid #000000 !important;
+            /* Keep buttons white text for contrast against colored backgrounds */
+            .stButton button {
+                color: #FFFFFF !important;
             }
-
-            /* 3. Input box styling (White background, Black text) */
+            /* Updated Input and Selectbox styling */
             .stTextInput input, 
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
-            
-            /* Ensure text inside inputs is black */
+            /* Ensures text inside inputs/selectboxes is black */
             .stTextInput input, 
             div[data-baseweb="select"] span {
                 color: #000000 !important;
             }
+            div[data-testid="stButton"] button:has(span[aria-label*="delete"]) {
+                background-color: #FFFFFF !important;
+                border: 1px solid #000000 !important;
+            }
+            
+            /* Ensures text color inside that specific button stays black */
+            div[data-testid="stButton"] button:has(span[aria-label*="delete"]) p {
+                color: #000000 !important;
+            }
+
+
         </style>
     """, unsafe_allow_html=True)
 
