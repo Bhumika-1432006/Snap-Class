@@ -26,12 +26,12 @@ from src.components.dialog_voice_attendance import voice_attendance_dialog
 def set_global_styles():
     st.markdown("""
         <style>
-            /* 1. Restore your specific heading and text colors */
+            /* 1. Restore heading and general text color */
             .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
                 color: #2E1A47 !important; 
             }
 
-            /* 2. Your requested Input and Selectbox styling */
+            /* 2. Main Input/Selectbox Box */
             .stTextInput input, 
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
@@ -39,10 +39,22 @@ def set_global_styles():
                 border: 1px solid #000000 !important;
             }
             
-            /* Ensures the text inside inputs/selectboxes is black */
+            /* 3. Text inside the inputs */
             .stTextInput input, 
             div[data-baseweb="select"] span {
                 color: #000000 !important;
+            }
+
+            /* 4. Dropdown menu background and text color */
+            div[role="listbox"] {
+                background-color: #FFFFFF !important; /* White dropdown background */
+            }
+            div[role="listbox"] div[role="option"] {
+                color: #2E1A47 !important;           /* Lighter purple text */
+                background-color: #FFFFFF !important;
+            }
+            div[role="listbox"] div[role="option"]:hover {
+                background-color: #F0F2F6 !important; /* Slight gray on hover */
             }
         </style>
     """, unsafe_allow_html=True)
