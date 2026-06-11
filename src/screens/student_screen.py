@@ -12,43 +12,43 @@ from src.components.dialog_enroll import enroll_dialog
 from src.components.subject_card import subject_card
 
 def set_global_styles():
-    """Injects CSS to override white/unreadable text with a high-contrast dark color."""
+    """Injects high-specificity CSS to force dialog background to white."""
     st.markdown("""
         <style>
-            /* Force most text to a dark, readable color */
+            /* 1. Global text color */
             .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
                 color: #2E1A47 !important; 
             }
-            /* Keep buttons white text for contrast against colored backgrounds */
-            .stButton button {
-                color: #FFFFFF !important;
+            
+            /* 2. Style Unenroll buttons */
+            div[data-testid="stButton"] button:has(span[aria-label*="delete"]) {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+                border: 1px solid #000000 !important;
             }
-            /* Updated Input and Selectbox styling */
+
+            /* 3. Input box styling */
             .stTextInput input, 
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
-            /* Ensures text inside inputs/selectboxes is black */
-            .stTextInput input, 
-            div[data-baseweb="select"] span {
-                color: #000000 !important;
-            }
-
-            div[data-modal-container="true"] > div {
+            
+            /* 4. Force Dialog background (Multiple selectors for high specificity) */
+            div[role="dialog"], 
+            [data-testid="stDialog"], 
+            [data-testid="stDialog"] > div {
                 background-color: #FFFFFF !important;
             }
 
-            /* Ensure text inside the white dialog is dark so it's readable */
-            div[data-modal-container="true"] h1, 
-            div[data-modal-container="true"] label, 
-            div[data-modal-container="true"] p {
+            /* 5. Force text inside dialog to black */
+            div[role="dialog"] *, 
+            [data-testid="stDialog"] * {
                 color: #000000 !important;
             }
         </style>
     """, unsafe_allow_html=True)
-
 def student_dashboard():
     student_data = st.session_state.student_data
     student_id = student_data['student_id']
