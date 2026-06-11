@@ -44,7 +44,7 @@ def set_global_styles():
 
             /* 4. Input and Selectbox styling */
             .stApp .stTextInput input, .stApp div[data-baseweb="select"] > div {
-                background-color: #FFFFFF !important;
+                background-color: #000000 !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
@@ -56,7 +56,7 @@ def set_global_styles():
                 /* Force background image/gradient to none in case it's a theme gradient */
                 background-image: none !important;
             }
-            
+
         </style>
     """, unsafe_allow_html=True)
 def student_dashboard():
