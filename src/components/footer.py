@@ -2,7 +2,7 @@ import streamlit as st
 
 
 def footer_home():
-    logo_url = "https://static.vecteezy.com/system/resources/previews/036/131/166/non_2x/orange-comic-stripped-alphabet-letter-b-free-png.png"
+    logo_url = "https://www.pngarts.com/files/3/Letter-B-PNG-High-Quality-Image.png"
     
     st.markdown(f"""
         <div style="margin-top:2rem; display:flex; gap:6px; justify-content:center; items-align:center">
@@ -14,7 +14,7 @@ def footer_home():
 
 
 def footer_dashboard():
-    logo_url = "https://static.vecteezy.com/system/resources/previews/036/131/166/non_2x/orange-comic-stripped-alphabet-letter-b-free-png.png"
+    logo_url = "https://www.pngarts.com/files/3/Letter-B-PNG-High-Quality-Image.png"
     
     st.markdown(f"""
         <div style="margin-top:2rem; display:flex; gap:6px; justify-content:center; items-align:center">
