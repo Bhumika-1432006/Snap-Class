@@ -15,22 +15,27 @@ def set_global_styles():
     """Injects CSS to override white/unreadable text with a high-contrast dark color."""
     st.markdown("""
         <style>
-            /* Force most text to a dark, readable color */
+            /* Force most text to WHITE for high contrast */
             .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
-                color: #2E1A47 !important; 
+                color: #FFFFFF !important; 
             }
-            /* Keep buttons white text for contrast against colored backgrounds */
+            
+            /* Change all default/secondary buttons to light grey */
             .stButton button {
-                color: #FFFFFF !important;
+                background-color: #E0E0E0 !important; /* Light Grey */
+                color: #000000 !important;            /* Black text for readability */
+                border: 1px solid #BDBDBD !important;
             }
-            /* Updated Input and Selectbox styling */
+            
+            /* Input box styling (White background, Black text) */
             .stTextInput input, 
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
-            /* Ensures text inside inputs/selectboxes is black */
+            
+            /* Ensure text inside inputs is black */
             .stTextInput input, 
             div[data-baseweb="select"] span {
                 color: #000000 !important;
