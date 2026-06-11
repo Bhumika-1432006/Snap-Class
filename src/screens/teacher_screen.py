@@ -26,26 +26,18 @@ from src.components.dialog_voice_attendance import voice_attendance_dialog
 def set_global_styles():
     st.markdown("""
         <style>
-            /* General text color */
-            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
-                color: #2E1A47 !important; 
-            }
-            /* Buttons */
-            .stButton button {
-                color: #FFFFFF !important;
-            }
-            /* Input box styling */
-            .stTextInput input, .stSelectbox [data-baseweb="select"] {
-                background-color: #FFFFFF !important; /* White background */
-                color: #000000 !important;            /* Black text */
-                border: 1px solid #000000 !important; /* Black border */
-                border-radius: 8px !important;
-            }
-            /* Specifically for the selectbox dropdown arrow and text */
-            .stSelectbox div[role="combobox"] {
+            /* Targets only Text Inputs and Selectbox backgrounds and text */
+            .stTextInput input, 
+            div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
+            }
+            
+            /* Ensures the text inside is black */
+            .stTextInput input, 
+            div[data-baseweb="select"] span {
+                color: #000000 !important;
             }
         </style>
     """, unsafe_allow_html=True)
