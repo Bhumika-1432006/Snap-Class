@@ -34,12 +34,18 @@ def set_global_styles():
             .stButton button {
                 color: #FFFFFF !important;
             }
-            /* Updated Input box styling */
-            .stTextInput input {
+            /* Input box styling */
+            .stTextInput input, .stSelectbox [data-baseweb="select"] {
                 background-color: #FFFFFF !important; /* White background */
                 color: #000000 !important;            /* Black text */
                 border: 1px solid #000000 !important; /* Black border */
                 border-radius: 8px !important;
+            }
+            /* Specifically for the selectbox dropdown arrow and text */
+            .stSelectbox div[role="combobox"] {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+                border: 1px solid #000000 !important;
             }
         </style>
     """, unsafe_allow_html=True)
