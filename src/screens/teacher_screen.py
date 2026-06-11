@@ -34,11 +34,11 @@ def set_global_styles():
             .stButton button {
                 color: #FFFFFF !important;
             }
-            /* Input box styling - making them light as requested */
+            /* Updated Input box styling */
             .stTextInput input {
-                background-color: #F0F2F6 !important;
-                color: #2E1A47 !important;
-                border: 1px solid #D3D3D3 !important;
+                background-color: #FFFFFF !important; /* White background */
+                color: #000000 !important;            /* Black text */
+                border: 1px solid #000000 !important; /* Black border */
                 border-radius: 8px !important;
             }
         </style>
