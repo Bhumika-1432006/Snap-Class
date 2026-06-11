@@ -48,6 +48,15 @@ def set_global_styles():
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
+            /* Definitive override for the Unenroll button background */
+            div[data-testid="stButton"] > button[kind="tertiary"] {
+                background-color: #FFFFFF !important;
+                border: 1px solid #000000 !important;
+                color: #2E1A47 !important;
+                /* Force background image/gradient to none in case it's a theme gradient */
+                background-image: none !important;
+            }
+            
         </style>
     """, unsafe_allow_html=True)
 def student_dashboard():
