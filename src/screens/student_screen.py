@@ -14,20 +14,25 @@ from src.components.subject_card import subject_card
 def set_global_styles():
     st.markdown("""
         <style>
-            /* 1. Target ONLY the inner content box of the dialog */
+            /* 1. Global text remains your preferred purple */
+            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
+                color: #2E1A47 !important; 
+            }
+
+            /* 2. Dialog Box Background and Text Color */
+            /* Targets the modal inner container */
             div[data-testid="stDialog"] > div:first-child > div:first-child {
-                background-color: #FFFFFF !important;
+                background-color: #F8F9FA !important; /* Set your preferred Box Background Color here */
                 border-radius: 15px !important;
                 padding: 30px !important;
                 border: 1px solid #E0E0E0 !important;
-                /* This ensures it stays centered and sized correctly */
                 max-width: 600px !important; 
                 margin: 0 auto !important;
             }
 
-            /* 2. Force text inside the dialog to black */
+            /* Force text inside the dialog to be a specific color (e.g., Dark Gray) */
             div[data-testid="stDialog"] * {
-                color: #000000 !important;
+                color: #333333 !important; /* Set your preferred Dialog Text Color here */
             }
 
             /* 3. Keep your input and unenroll button overrides */
