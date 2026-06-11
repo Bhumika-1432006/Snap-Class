@@ -35,17 +35,6 @@ def set_global_styles():
             div[data-baseweb="select"] span {
                 color: #000000 !important;
             }
-            div[data-testid="stButton"] button:has(span[aria-label*="delete"]) {
-                background-color: #FFFFFF !important;
-                border: 1px solid #000000 !important;
-            }
-            
-            /* Ensures text color inside that specific button stays black */
-            div[data-testid="stButton"] button:has(span[aria-label*="delete"]) p {
-                color: #000000 !important;
-            }
-
-
         </style>
     """, unsafe_allow_html=True)
 
