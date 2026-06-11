@@ -14,12 +14,12 @@ from src.components.subject_card import subject_card
 def set_global_styles():
     st.markdown("""
         <style>
-            /* 1. Global text remains your preferred purple */
+            /* 1. Global text (Purple) */
             .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
                 color: #2E1A47 !important; 
             }
 
-            /* 2. Dialog Box Background and Text Color */
+            /* 2. Dialog Box: White background, centered box */
             div[data-testid="stDialog"] > div:first-child > div:first-child {
                 background-color: #F8F9FA !important; 
                 border-radius: 15px !important;
@@ -29,20 +29,21 @@ def set_global_styles():
                 margin: 0 auto !important;
             }
 
-            /* Force text inside the dialog to be a specific color */
+            /* Force text inside dialog to be specific dark gray */
             div[data-testid="stDialog"] * {
                 color: #333333 !important; 
             }
 
-            /* 3. Unenroll Button: Background White, Border Black, Text Left Unchanged */
-            /* Removed 'color: #000000 !important' so it respects your theme/icon colors */
-            div[data-testid="stButton"] button:has(span[aria-label*="delete"]) {
+            /* 3. Unenroll Button: White background, Black border, Purple text */
+            /* Using :has() and targeting the specific button structure */
+            .stApp div[data-testid="stButton"] button:has(span[aria-label*="delete"], span[data-emoji="🗑️"]) {
                 background-color: #FFFFFF !important;
                 border: 1px solid #000000 !important;
+                color: #2E1A47 !important; /* Forces text to your global theme purple */
             }
 
             /* 4. Input and Selectbox styling */
-            .stTextInput input, div[data-baseweb="select"] > div {
+            .stApp .stTextInput input, .stApp div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
