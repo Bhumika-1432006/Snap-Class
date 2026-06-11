@@ -20,9 +20,8 @@ def set_global_styles():
             }
 
             /* 2. Dialog Box Background and Text Color */
-            /* Targets the modal inner container */
             div[data-testid="stDialog"] > div:first-child > div:first-child {
-                background-color: #F8F9FA !important; /* Set your preferred Box Background Color here */
+                background-color: #F8F9FA !important; 
                 border-radius: 15px !important;
                 padding: 30px !important;
                 border: 1px solid #E0E0E0 !important;
@@ -30,17 +29,19 @@ def set_global_styles():
                 margin: 0 auto !important;
             }
 
-            /* Force text inside the dialog to be a specific color (e.g., Dark Gray) */
+            /* Force text inside the dialog to be a specific color */
             div[data-testid="stDialog"] * {
-                color: #333333 !important; /* Set your preferred Dialog Text Color here */
+                color: #333333 !important; 
             }
 
-            /* 3. Keep your input and unenroll button overrides */
+            /* 3. Unenroll Button: Background White, Border Black, Text Left Unchanged */
+            /* Removed 'color: #000000 !important' so it respects your theme/icon colors */
             div[data-testid="stButton"] button:has(span[aria-label*="delete"]) {
                 background-color: #FFFFFF !important;
-                color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
+
+            /* 4. Input and Selectbox styling */
             .stTextInput input, div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
