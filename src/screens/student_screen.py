@@ -15,6 +15,16 @@ def set_global_styles():
     """Injects CSS to force dialog background to white."""
     st.markdown("""
         <style>
+             /* Force the modal container to be white */
+            div[data-testid="stDialog"] > div {
+                background-color: #FFFFFF !important;
+            }
+            
+            /* Target text inside the white modal to be black */
+            div[data-testid="stDialog"] * {
+                color: #000000 !important;
+            }
+            
             /* 1. Force the dialog container background to white */
             [data-modal-container="true"] {
                 background-color: #FFFFFF !important;
@@ -48,15 +58,7 @@ def set_global_styles():
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
-            .stTextInput input, 
-            div[data-baseweb="select"] span {
-                color: #000000 !important;
-            }
-            div[data-testid="stButton"] button:has(span[aria-label*="delete"]) {
-                background-color: #FFFFFF !important;
-                color: #000000 !important;
-                border: 1px solid #000000 !important;
-            }
+            
         </style>
     """, unsafe_allow_html=True)
 
