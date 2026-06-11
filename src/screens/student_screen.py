@@ -12,28 +12,25 @@ from src.components.dialog_enroll import enroll_dialog
 from src.components.subject_card import subject_card
 
 def set_global_styles():
-    """Injects CSS to override text color to white for better readability."""
+    """Injects CSS to override white/unreadable text with a high-contrast dark color."""
     st.markdown("""
         <style>
-            /* Force most text to WHITE for high contrast */
+            /* Force most text to a dark, readable color */
             .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
-                color: #FFFFFF !important; 
+                color: #2E1A47 !important; 
             }
-            
-            /* Keep buttons dark text for contrast against the blue background */
+            /* Keep buttons white text for contrast against colored backgrounds */
             .stButton button {
-                color: #000000 !important;
+                color: #FFFFFF !important;
             }
-            
-            /* Input box styling (White background, Black text) */
+            /* Updated Input and Selectbox styling */
             .stTextInput input, 
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
-            
-            /* Ensure text inside inputs is black */
+            /* Ensures text inside inputs/selectboxes is black */
             .stTextInput input, 
             div[data-baseweb="select"] span {
                 color: #000000 !important;
