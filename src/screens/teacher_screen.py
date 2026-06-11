@@ -26,35 +26,41 @@ from src.components.dialog_voice_attendance import voice_attendance_dialog
 def set_global_styles():
     st.markdown("""
         <style>
-            /* 1. Restore heading and general text color */
+            /* 1. Global text (Purple) */
             .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
                 color: #2E1A47 !important; 
             }
 
-            /* 2. Main Input/Selectbox Box */
+            /* 2. Dialog Box: White background */
+            div[data-testid="stDialog"] > div:first-child > div:first-child {
+                background-color: #FFFFFF !important; 
+                border-radius: 15px !important;
+                padding: 30px !important;
+                border: 1px solid #E0E0E0 !important;
+                max-width: 600px !important; 
+                margin: 0 auto !important;
+            }
+
+            /* 3. Ensure all text inside the dialog box is dark/readable */
+            div[data-testid="stDialog"] * {
+                color: #2E1A47 !important; 
+            }
+
+            /* 4. Input and Selectbox: White background, Black text */
             .stTextInput input, 
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
-            
-            /* 3. Text inside the inputs */
-            .stTextInput input, 
-            div[data-baseweb="select"] span {
-                color: #000000 !important;
-            }
 
-            /* 4. Dropdown menu background and text color */
+            /* 5. Dropdown menu background */
             div[role="listbox"] {
-                background-color: #FFFFFF !important; /* White dropdown background */
-            }
-            div[role="listbox"] div[role="option"] {
-                color: #2E1A47 !important;           /* Lighter purple text */
                 background-color: #FFFFFF !important;
             }
-            div[role="listbox"] div[role="option"]:hover {
-                background-color: #F0F2F6 !important; /* Slight gray on hover */
+            div[role="listbox"] div[role="option"] {
+                color: #2E1A47 !important;
+                background-color: #FFFFFF !important;
             }
         </style>
     """, unsafe_allow_html=True)
