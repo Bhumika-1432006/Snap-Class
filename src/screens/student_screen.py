@@ -17,7 +17,7 @@ def set_global_styles():
         <style>
             /* Force most text to a dark, readable color */
             .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
-                color: #2E1A47 !important; 
+                color: #d1ceab !important; 
             }
             /* Keep buttons white text for contrast against colored backgrounds */
             .stButton button {
@@ -27,7 +27,7 @@ def set_global_styles():
             .stTextInput input, 
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
-                color: #000000 !important;
+                color: #A69F9F !important;
                 border: 1px solid #000000 !important;
             }
             /* Ensures text inside inputs/selectboxes is black */
