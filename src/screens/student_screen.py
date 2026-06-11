@@ -12,39 +12,50 @@ from src.components.dialog_enroll import enroll_dialog
 from src.components.subject_card import subject_card
 
 def set_global_styles():
-    """Injects CSS to override white/unreadable text with a high-contrast dark color."""
+    """Injects CSS to force dialog background to white."""
     st.markdown("""
         <style>
-            /* Force most text to a dark, readable color */
-            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
+            /* 1. Force the dialog container background to white */
+            [data-modal-container="true"] {
+                background-color: #FFFFFF !important;
+            }
+
+            /* 2. Force the inner wrapper of the dialog to white */
+            [data-modal-container="true"] > div {
+                background-color: #FFFFFF !important;
+            }
+
+            /* 3. Ensure all text inside the white dialog is black */
+            [data-modal-container="true"] h1, 
+            [data-modal-container="true"] h2, 
+            [data-modal-container="true"] h3, 
+            [data-modal-container="true"] label, 
+            [data-modal-container="true"] p, 
+            [data-modal-container="true"] div {
+                color: #000000 !important;
+            }
+
+            /* 4. Keep your previous global overrides */
+            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, p, span, label {
                 color: #2E1A47 !important; 
             }
-            /* Keep buttons white text for contrast against colored backgrounds */
             .stButton button {
                 color: #FFFFFF !important;
             }
-            /* Updated Input and Selectbox styling */
             .stTextInput input, 
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
-            /* Ensures text inside inputs/selectboxes is black */
             .stTextInput input, 
             div[data-baseweb="select"] span {
                 color: #000000 !important;
             }
-
-            div[data-modal-container="true"] > div {
+            div[data-testid="stButton"] button:has(span[aria-label*="delete"]) {
                 background-color: #FFFFFF !important;
-            }
-
-            /* Ensure text inside the white dialog is dark so it's readable */
-            div[data-modal-container="true"] h1, 
-            div[data-modal-container="true"] label, 
-            div[data-modal-container="true"] p {
                 color: #000000 !important;
+                border: 1px solid #000000 !important;
             }
         </style>
     """, unsafe_allow_html=True)
