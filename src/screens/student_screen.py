@@ -16,16 +16,24 @@ def set_global_styles():
     st.markdown("""
         <style>
             /* Force most text to a dark, readable color */
-            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span {
+            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
                 color: #2E1A47 !important; 
             }
             /* Keep buttons white text for contrast against colored backgrounds */
             .stButton button {
                 color: #FFFFFF !important;
             }
-            /* Ensure text inside text inputs remains readable */
-            .stTextInput input {
-                color: #2E1A47 !important;
+            /* Updated Input and Selectbox styling */
+            .stTextInput input, 
+            div[data-baseweb="select"] > div {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+                border: 1px solid #000000 !important;
+            }
+            /* Ensures text inside inputs/selectboxes is black */
+            .stTextInput input, 
+            div[data-baseweb="select"] span {
+                color: #000000 !important;
             }
         </style>
     """, unsafe_allow_html=True)
