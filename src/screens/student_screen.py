@@ -35,6 +35,17 @@ def set_global_styles():
             div[data-baseweb="select"] span {
                 color: #000000 !important;
             }
+
+            div[data-modal-container="true"] > div {
+                background-color: #FFFFFF !important;
+            }
+
+            /* Ensure text inside the white dialog is dark so it's readable */
+            div[data-modal-container="true"] h1, 
+            div[data-modal-container="true"] label, 
+            div[data-modal-container="true"] p {
+                color: #000000 !important;
+            }
         </style>
     """, unsafe_allow_html=True)
 
