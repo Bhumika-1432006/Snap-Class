@@ -12,40 +12,34 @@ from src.components.dialog_enroll import enroll_dialog
 from src.components.subject_card import subject_card
 
 def set_global_styles():
-    """Injects high-specificity CSS to force dialog background to white."""
     st.markdown("""
         <style>
-            /* 1. Global text color */
-            .stApp, .stMarkdown, .stText, h1, h2, h3, h4, h5, h6, div, p, span, label {
-                color: #2E1A47 !important; 
+            /* 1. Target ONLY the inner content box of the dialog */
+            div[data-testid="stDialog"] > div:first-child > div:first-child {
+                background-color: #FFFFFF !important;
+                border-radius: 15px !important;
+                padding: 30px !important;
+                border: 1px solid #E0E0E0 !important;
+                /* This ensures it stays centered and sized correctly */
+                max-width: 600px !important; 
+                margin: 0 auto !important;
             }
-            
-            /* 2. Style Unenroll buttons */
+
+            /* 2. Force text inside the dialog to black */
+            div[data-testid="stDialog"] * {
+                color: #000000 !important;
+            }
+
+            /* 3. Keep your input and unenroll button overrides */
             div[data-testid="stButton"] button:has(span[aria-label*="delete"]) {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
             }
-
-            /* 3. Input box styling */
-            .stTextInput input, 
-            div[data-baseweb="select"] > div {
+            .stTextInput input, div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
                 color: #000000 !important;
                 border: 1px solid #000000 !important;
-            }
-            
-            /* 4. Force Dialog background (Multiple selectors for high specificity) */
-            div[role="dialog"], 
-            [data-testid="stDialog"], 
-            [data-testid="stDialog"] > div {
-                background-color: #FFFFFF !important;
-            }
-
-            /* 5. Force text inside dialog to black */
-            div[role="dialog"] *, 
-            [data-testid="stDialog"] * {
-                color: #000000 !important;
             }
         </style>
     """, unsafe_allow_html=True)
