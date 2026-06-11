@@ -34,29 +34,27 @@ def set_global_styles():
                 color: #333333 !important; 
             }
 
-            /* 3. Unenroll Button: White background, Black border, Purple text */
-            /* Using :has() and targeting the specific button structure */
-            .stApp div[data-testid="stButton"] button:has(span[aria-label*="delete"], span[data-emoji="🗑️"]) {
-                background-color: #FFFFFF !important;
-                border: 1px solid #000000 !important;
-                color: #2E1A47 !important; /* Forces text to your global theme purple */
-            }
-
-            /* 4. Input and Selectbox styling */
-            .stApp .stTextInput input, .stApp div[data-baseweb="select"] > div {
-                background-color: #000000 !important;
-                color: #000000 !important;
-                border: 1px solid #000000 !important;
-            }
-            /* Definitive override for the Unenroll button background */
+            /* 3. Unenroll Button: White background, Black border */
             div[data-testid="stButton"] > button[kind="tertiary"] {
                 background-color: #FFFFFF !important;
                 border: 1px solid #000000 !important;
                 color: #2E1A47 !important;
-                /* Force background image/gradient to none in case it's a theme gradient */
                 background-image: none !important;
+                box-shadow: none !important;
             }
-
+            
+            /* 4. Input and Selectbox: White Background, Black Text */
+            .stTextInput input, 
+            div[data-baseweb="select"] > div {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+                border: 1px solid #000000 !important;
+            }
+            
+            /* Ensure the text inside the input box is explicitly black */
+            .stTextInput input::placeholder {
+                color: #666666 !important;
+            }
         </style>
     """, unsafe_allow_html=True)
 def student_dashboard():
