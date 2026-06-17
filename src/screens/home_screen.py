@@ -4,7 +4,7 @@ from src.components.footer import footer_home
 from src.ui.base_layout import style_base_layout, style_background_home
 
 def home_screen():
-    # Injecting optimized contrast styling
+    # Injecting optimized styling for maximum visibility
     st.markdown("""
         <style>
             /* Hide Streamlit components */
@@ -15,14 +15,13 @@ def home_screen():
                 background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%) !important; 
             }
             
-            /* High-Contrast Glassmorphism Card Style */
+            /* High-Visibility Card Style */
             div[data-testid="stColumn"] {
-                background: rgba(255, 255, 255, 0.85) !important; /* Increased opacity for readability */
-                backdrop-filter: blur(15px) !important;
-                border: 1px solid rgba(255, 255, 255, 0.8) !important;
+                background: #FFFFFF !important; /* Solid white background for max contrast */
+                border: 2px solid #6A329F !important; /* Adding a colored border for definition */
                 border-radius: 2rem !important;
                 padding: 3rem !important;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
                 transition: transform 0.3s ease !important;
                 text-align: center;
             }
@@ -31,12 +30,17 @@ def home_screen():
                 transform: translateY(-10px);
             }
             
-            /* Headers with high-contrast violet color */
+            /* Ultra-readable Headers */
             h2 { 
                 color: #6A329F !important; 
                 font-weight: 900 !important; 
-                font-size: 2.2rem !important; 
-                text-shadow: 0px 1px 1px rgba(255,255,255,0.5); /* Adds crispness */
+                font-size: 2.5rem !important; 
+                margin-bottom: 20px !important;
+            }
+            
+            /* Ensure button text remains legible */
+            div.stButton > button {
+                font-weight: 900 !important;
             }
         </style>
     """, unsafe_allow_html=True)
