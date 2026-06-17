@@ -2,18 +2,19 @@ import streamlit as st
 import base64
 import os
 
+# --- PAGE CONFIG ---
+st.set_page_config(layout="wide", page_title="SnapClass AI")
+
 def convert_local_file_to_base64(file_path):
-    try:
-        with open(file_path, "rb") as f:
-            return base64.b64encode(f.read()).decode()
-    except Exception:
-        return "" # Returns empty if image not found
+    if not os.path.exists(file_path):
+        return ""
+    with open(file_path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- STYLISH LANDING HERO HEADER ---
+    # --- CSS INJECTION ---
     st.markdown("""
         <style>
-        /* Container and Animation Styles */
         .interactive-pic-container {
             width: 100%; border-radius: 24px; overflow: hidden; background-color: #0b3846; 
             padding: 10px; margin-top: 15px; border: 1px solid rgba(24, 164, 169, 0.1);
@@ -29,11 +30,12 @@ def landing_screen():
             filter: contrast(1.02); transition: transform 0.35s ease;
         }
         .interactive-pic-container:hover img { transform: scale(1.015); }
-        
-        /* Text Spacing to match alignment */
         .text-block { margin-top: 85px; padding: 0 20px; text-align: left; }
         </style>
+    """, unsafe_allow_html=True)
 
+    # --- HERO HEADER ---
+    st.markdown("""
         <div style="text-align: center; padding: 45px 0 25px 0; margin-bottom: 20px;">
             <h1 style="font-size: 3.8rem; font-weight: 900; margin: 0; letter-spacing: -1.5px;
                        background: linear-gradient(135deg, #ffffff 30%, #18a4a9 100%);
@@ -54,24 +56,21 @@ def landing_screen():
             st.session_state['login_type'] = 'home'
             st.rerun()
 
-    st.write("")
-
-    # --- CONTENT DATA ---
+    # --- CONTENT ROWS ---
     steps = [
-        ("Face & Voice Verification", "Leverage advanced biometric neural nets to verify student presence with sub-second latency.", "D:/Snap-class/images/step1.png"),
-        ("Smart Classroom Intake", "Ingest student rosters and schedule metadata through our centralized management portal.", "D:/Snap-class/images/step2.png"),
-        ("Real-time Attendance Audits", "Verify classroom integrity with automated spoof-detection and environment analysis.", "D:/Snap-class/images/step3.png"),
-        ("Predictive Classroom Insights", "Analyze engagement patterns and attendance trends through clean, secure telemetry metrics.", "D:/Snap-class/images/step4.png")
+        ("Face & Voice Verification", "Leverage advanced biometric neural nets to verify student presence with sub-second latency.", "images/step1.png"),
+        ("Smart Classroom Intake", "Ingest student rosters and schedule metadata through our centralized management portal.", "images/step2.png"),
+        ("Real-time Attendance Audits", "Verify classroom integrity with automated spoof-detection and environment analysis.", "images/step3.png"),
+        ("Predictive Classroom Insights", "Analyze engagement patterns and attendance trends through clean, secure telemetry metrics.", "images/step4.png")
     ]
 
-    # --- RENDER ROWS ---
     for i, (title, desc, img_path) in enumerate(steps):
         st.write("---")
-        img_html = f'<div class="interactive-pic-container"><img src="data:image/png;base64,{convert_local_file_to_base64(img_path)}"></div>'
+        img_b64 = convert_local_file_to_base64(img_path)
+        img_html = f'<div class="interactive-pic-container"><img src="data:image/png;base64,{img_b64}"></div>'
         text_html = f'<div class="text-block"><h2 style="font-size: 1.8rem; font-weight: 800; color: #ffffff;">{title}</h2><p style="font-size: 1.05rem; line-height: 1.7; color: #ffffff;">{desc}</p></div>'
         
         c1, c2 = st.columns([1.1, 0.9])
-        
         if i % 2 == 0:
             with c1: st.markdown(img_html, unsafe_allow_html=True)
             with c2: st.markdown(text_html, unsafe_allow_html=True)
@@ -79,7 +78,7 @@ def landing_screen():
             with c1: st.markdown(text_html, unsafe_allow_html=True)
             with c2: st.markdown(img_html, unsafe_allow_html=True)
 
-    # --- MISSION BOX ---
+    # --- FOOTER ---
     st.markdown("""
         <div style="margin-top: 45px; background: rgba(255, 255, 255, 0.08); padding: 25px; border-radius: 18px; border-left: 5px solid #18a4a9; backdrop-filter: blur(10px);">
             <p style="margin: 0; color: #ffffff; line-height: 1.7; font-size: 1rem;">
@@ -88,3 +87,8 @@ def landing_screen():
             </p>
         </div>
     """, unsafe_allow_html=True)
+
+# Run the function
+if 'logged_in' not in st.session_state: st.session_state['logged_in'] = False
+if not st.session_state['logged_in']:
+    landing_screen()
