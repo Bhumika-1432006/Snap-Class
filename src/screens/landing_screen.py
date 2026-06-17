@@ -6,13 +6,12 @@ import os
 st.set_page_config(layout="wide", page_title="SnapClass AI")
 
 def convert_local_file_to_base64(file_path):
-    if not os.path.exists(file_path):
-        return ""
+    if not os.path.exists(file_path): return ""
     with open(file_path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- CSS THEME: SOFT BLUE STRIATION & YELLOW BUTTON ---
+    # --- STYLING: SOFT BLUE STRIATION THEME ---
     st.markdown("""
         <style>
         .stApp { 
@@ -22,45 +21,35 @@ def landing_screen():
         
         /* Vibrant Yellow Button Styling */
         div.stButton > button:first-child {
-            background-color: #facc15 !important;
-            color: #000000 !important;
+            background-color: #facc15 !important; 
+            color: #000000 !important; 
             font-weight: 800 !important;
-            border: none !important;
-            border-radius: 50px !important;
+            border: none !important; 
+            border-radius: 50px !important; 
             padding: 15px 50px !important;
-            font-size: 1.4rem !important;
-            width: 100% !important;
+            font-size: 1.4rem !important; 
             box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4);
             transition: transform 0.2s ease !important;
         }
-        div.stButton > button:first-child:hover {
-            transform: scale(1.05) !important;
-        }
+        div.stButton > button:first-child:hover { transform: scale(1.05) !important; }
 
-        .uniform-image-container {
-            width: 100%; height: 400px;
-            border-radius: 25px; overflow: hidden;
-            background-color: #ffffff;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-            margin: 40px 0;
+        .uniform-image-container { 
+            width: 100%; height: 400px; border-radius: 25px; overflow: hidden; 
+            background: #ffffff; box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
+            margin: 40px 0; display: flex; align-items: center; justify-content: center;
         }
-        .uniform-image-container img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        .uniform-image-container img { width: 100%; height: 100%; object-fit: cover; }
         
         .text-block { 
-            padding: 50px; 
-            border-radius: 25px; 
-            background: rgba(255, 255, 255, 0.5);
-            margin: 40px 0;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 50px; border-radius: 25px; background: rgba(255, 255, 255, 0.5); 
+            margin: 40px 0; border: 1px solid rgba(255, 255, 255, 0.8);
         }
         h2 { color: #0f172a !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
         p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
         </style>
     """, unsafe_allow_html=True)
 
-    # --- HERO ---
+    # --- HERO SECTION ---
     st.markdown("""
         <div style="text-align: center; padding: 60px 0 40px 0;">
             <h1 style="font-size: 4.5rem; font-weight: 900; color: #0f172a;">SNAPCLASS <span style="color:#18a4a9">AI</span></h1>
@@ -68,10 +57,11 @@ def landing_screen():
         </div>
     """, unsafe_allow_html=True)
 
-    # --- CENTERED HORIZONTAL BUTTON ---
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        if st.button("Get Started"):
+    # --- PERFECTLY CENTERED BUTTON ---
+    # Using an empty space column on each side is the cleanest way to center in Streamlit
+    col_left, col_center, col_right = st.columns([1, 1, 1])
+    with col_center:
+        if st.button("Get Started", use_container_width=True):
             st.session_state['login_type'] = 'home'
             st.rerun()
 
@@ -105,6 +95,7 @@ def landing_screen():
         </div>
     """, unsafe_allow_html=True)
 
-if 'logged_in' not in st.session_state: st.session_state['logged_in'] = False
-if not st.session_state['logged_in']:
-    landing_screen()
+if __name__ == "__main__":
+    if 'logged_in' not in st.session_state: st.session_state['logged_in'] = False
+    if not st.session_state['logged_in']:
+        landing_screen()
