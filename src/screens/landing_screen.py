@@ -11,12 +11,20 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- CSS THEME: SOFT BLUE STRIATION & EXACT VIOLET HEADINGS ---
+    # --- CSS THEME: SOFT BLUE STRIATION & VIOLET HEADINGS (MOBILE FRIENDLY) ---
     st.markdown("""
         <style>
         .stApp { 
             background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%); 
             color: #1e293b; 
+        }
+        
+        /* Mobile Responsive Fixes */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem !important; }
+            .uniform-image-container { height: 250px !important; margin: 20px 0 !important; }
+            .text-block { padding: 30px !important; margin: 10px 0 !important; }
+            h2 { font-size: 1.6rem !important; }
         }
         
         /* Vibrant Teal Button Styling */
@@ -48,7 +56,7 @@ def landing_screen():
             margin: 40px 0; border: 1px solid rgba(255, 255, 255, 0.8);
         }
         
-        /* Violet Headings to match "Screenshot 2026-06-18 033950_2.png" */
+        /* Violet Headings */
         h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
         p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
         </style>
