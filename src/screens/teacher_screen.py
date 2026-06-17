@@ -2,6 +2,7 @@ import streamlit as st
 
 from src.ui.base_layout import style_background_dashboard, style_base_layout
 
+from src.components.dialog_attendance_results import show_attendance_result, attendance_result_dialog
 from src.components.header import header_dashboard
 from src.components.footer import footer_dashboard
 from src.components.subject_card import subject_card
@@ -180,45 +181,38 @@ def teacher_tab_take_attendance():
 
 
     with c2:
-        
         if st.button('Run Face Analysis', width='stretch', type='secondary', icon=':material/analytics:', disabled=not has_photos):
             with st.spinner('Deep scanning classroom photos...'):
                 all_detected_ids = {}
 
-                for idx, img in enumerate(st.session_state.attendance_images): # TAKING EACH IMAGE 
-
+                for idx, img in enumerate(st.session_state.attendance_images):
                     img_np = np.array(img.convert('RGB'))
                     detected, _, _ = predict_attendance(img_np)
-
 
                     if detected:
                         for sid in detected.keys():
                             student_id = int(sid)
-
                             all_detected_ids.setdefault(student_id, []).append(f"Photo {idx+1}")
 
-                enrolled_res = supabase.table('subject_students').select("*, students(*)").eq('subject_id',selected_subject_id ).execute() # AL THE students that are present in the photo -> present else absent 
+                enrolled_res = supabase.table('subject_students').select("*, students(*)").eq('subject_id', selected_subject_id).execute()
                 enrolled_students = enrolled_res.data
 
                 if not enrolled_students:
                     st.warning('No students enrolled in this course')
                 else:
-
-                    results, attendance_to_log  = [], []
-
-                    current_timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S") # when the attendence was taken 
-
+                    results, attendance_to_log = [], []
+                    current_timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
                     for node in enrolled_students:
                         student = node['students']
-                        sources = all_detected_ids.get(int(student['student_id']), []) # which photo was it where a certain person was detected 
-                        is_present= len(sources) > 0
+                        sources = all_detected_ids.get(int(student['student_id']), [])
+                        is_present = len(sources) > 0
 
-                        results.append({   # well append all the details 
+                        results.append({
                             "Name": student['name'],
                             "ID": student['student_id'],
                             "Source": ", ".join(sources) if is_present else "-",
-                            "Status": "✅ Present" if is_present else "❌ Absent" # if in less than 0 pics then put absent -> if is_present else "❌ Absent"
+                            "Status": "✅ Present" if is_present else "❌ Absent"
                         })
 
                         attendance_to_log.append({
@@ -228,12 +222,25 @@ def teacher_tab_take_attendance():
                             'is_present': bool(is_present)
                         })
 
-                attendance_result_dialog(pd.DataFrame(results), attendance_to_log)
+                    # --- UPDATED: Save to session state and rerun ---
+                    # We removed the attendance_result_dialog call completely
+                    st.session_state.face_attendance_results = (pd.DataFrame(results), attendance_to_log)
+                    st.rerun()
 
     with c3:
         if st.button('Use Voice Attendance', type='primary', width='stretch', icon=':material/mic:'):
             voice_attendance_dialog(selected_subject_id)
-
+     
+     # 1. Persistent Face Attendance Display
+    if 'face_attendance_results' in st.session_state and st.session_state.face_attendance_results is not None:
+        st.divider()
+        st.subheader("Face Attendance Results")
+        df_face, logs_face = st.session_state.face_attendance_results
+        show_attendance_result(df_face, logs_face)
+        if st.button("Clear Face Results"):
+            st.session_state.face_attendance_results = None
+            st.rerun()
+            
     # --- ADD THIS BLOCK HERE (Outside the button logic) ---
     if 'voice_attendance_results' in st.session_state and st.session_state.voice_attendance_results is not None:
         st.divider()
