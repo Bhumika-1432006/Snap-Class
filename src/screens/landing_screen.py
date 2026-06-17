@@ -12,31 +12,46 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- LIGHT THEME CSS ---
+    # --- SOFT BLUE THEME WITH STRIATION ---
     st.markdown("""
         <style>
-        /* Light Theme Palette */
-        .stApp { background-color: #ffffff; color: #1e293b; }
+        /* Soft Blue Background with subtle stripe (striation) effect */
+        .stApp { 
+            background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%); 
+            color: #1e293b; 
+        }
         
+        /* Vibrant Yellow Button */
+        div.stButton > button:first-child {
+            background-color: #facc15 !important;
+            color: #000000 !important;
+            font-weight: 800 !important;
+            border: none !important;
+            border-radius: 50px !important;
+            padding: 15px 40px !important;
+            font-size: 1.2rem !important;
+        }
+
         .uniform-image-container {
-            width: 100%; height: 400px; /* Fixed height for uniformity */
-            border-radius: 20px; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
-            background-color: #f1f5f9; /* Light gray background */
-            margin: 40px 0; /* Extra space around images */
+            width: 100%; height: 400px;
+            border-radius: 25px; overflow: hidden;
+            background-color: #ffffff;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            margin: 40px 0;
         }
         .uniform-image-container img {
-            max-width: 100%; height: 100%; object-fit: cover;
+            width: 100%; height: 100%; object-fit: cover;
         }
         
         .text-block { 
-            padding: 40px; 
-            border-radius: 20px; 
-            background: #ffffff;
+            padding: 50px; 
+            border-radius: 25px; 
+            background: rgba(255, 255, 255, 0.6);
             margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
         h2 { color: #0f172a !important; font-size: 2.2rem !important; }
-        p { color: #64748b !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
+        p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
         </style>
     """, unsafe_allow_html=True)
 
@@ -44,23 +59,23 @@ def landing_screen():
     st.markdown("""
         <div style="text-align: center; padding: 80px 0 60px 0;">
             <h1 style="font-size: 4.5rem; font-weight: 900; color: #0f172a;">SNAPCLASS <span style="color:#18a4a9">AI</span></h1>
-            <p style="font-size: 1.5rem; color: #64748b; margin-top: 20px;">Intelligent Attendance Automation for Modern Classrooms.</p>
+            <p style="font-size: 1.5rem; color: #334155; margin-top: 20px;">Intelligent Attendance Automation for Modern Classrooms.</p>
         </div>
     """, unsafe_allow_html=True)
 
-    # --- ACTION BUTTON ---
+    # --- BUTTON ---
     col1, col2, col3 = st.columns([3, 1, 3])
     with col2:
-        if st.button("Get Started", type="primary", use_container_width=True):
+        if st.button("Get Started"):
             st.session_state['login_type'] = 'home'
             st.rerun()
 
-    # --- CONTENT ROWS ---
+    # --- CONTENT ---
     steps = [
-        ("Face & Voice Verification", "Leverage advanced biometric neural nets to verify student presence with sub-second latency.", "images/step1.png"),
-        ("Smart Classroom Intake", "Ingest student rosters and schedule metadata through our centralized management portal.", "images/step2.png"),
-        ("Real-time Attendance Audits", "Verify classroom integrity with automated spoof-detection and environment analysis.", "images/step3.png"),
-        ("Predictive Classroom Insights", "Analyze engagement patterns and attendance trends through clean, secure telemetry metrics.", "images/step4.png")
+        ("Face & Voice Verification", "Advanced biometric neural nets verify student presence with sub-second speed.", "images/step1.png"),
+        ("Smart Classroom Intake", "Ingest rosters and schedule metadata via our secure portal.", "images/step2.png"),
+        ("Real-time Attendance Audits", "Automated spoof-detection ensures high-integrity check-ins.", "images/step3.png"),
+        ("Predictive Classroom Insights", "Unlock actionable engagement trends with our analytics engine.", "images/step4.png")
     ]
 
     for i, (title, desc, img_path) in enumerate(steps):
@@ -68,9 +83,7 @@ def landing_screen():
         img_html = f'<div class="uniform-image-container"><img src="data:image/png;base64,{img_b64}"></div>'
         text_html = f'<div class="text-block"><h2>{title}</h2><p>{desc}</p></div>'
         
-        # Increased gap between rows
-        st.write("<br><br>", unsafe_allow_html=True) 
-        
+        st.write("<br>", unsafe_allow_html=True) 
         c1, c2 = st.columns([1.2, 1])
         if i % 2 == 0:
             with c1: st.markdown(img_html, unsafe_allow_html=True)
@@ -81,9 +94,9 @@ def landing_screen():
 
     # --- MISSION ---
     st.markdown("""
-        <div style="margin: 80px 0; padding: 60px; background: #f8fafc; border-radius: 30px; text-align: center;">
+        <div style="margin: 80px 0; padding: 60px; background: rgba(255,255,255,0.4); border-radius: 30px; text-align: center;">
             <h3 style="color: #18a4a9;">Our Mission</h3>
-            <p style="max-width: 800px; margin: 20px auto;">Bridging the gap between classroom efficiency and identity security. We don't just track attendance—we ensure verified, stress-free learning environments.</p>
+            <p style="max-width: 800px; margin: 20px auto; color: #1e293b;">Bridging the gap between classroom efficiency and identity security.</p>
         </div>
     """, unsafe_allow_html=True)
 
