@@ -234,6 +234,13 @@ def teacher_tab_take_attendance():
         if st.button('Use Voice Attendance', type='primary', width='stretch', icon=':material/mic:'):
             voice_attendance_dialog(selected_subject_id)
 
+    # --- ADD THIS BLOCK HERE (Outside the button logic) ---
+    if 'voice_attendance_results' in st.session_state and st.session_state.voice_attendance_results:
+        st.divider()
+        st.subheader("Attendance Results")
+        df_results, logs = st.session_state.voice_attendance_results
+        show_attendance_result(df_results, logs)
+
 
 
 def teacher_tab_manage_subjects():

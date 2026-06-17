@@ -65,7 +65,3 @@ def voice_attendance_dialog(selected_subject_id):
             st.rerun() # Rerun to trigger the display logic below
 
     # Display results if they exist in session state
-    if st.session_state.get('voice_attendance_results'):
-        st.divider()
-        df_results, logs = st.session_state.voice_attendance_results
-        show_attendance_result(df_results, logs)
