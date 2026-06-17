@@ -180,7 +180,8 @@ def teacher_tab_take_attendance():
             st.rerun()
 
 
-   if st.button('Run Face Analysis', width='stretch', type='secondary', icon=':material/analytics:', disabled=not has_photos):
+    with c2:
+        if st.button('Run Face Analysis', width='stretch', type='secondary', icon=':material/analytics:', disabled=not has_photos):
             with st.spinner('Deep scanning classroom photos...'):
                 all_detected_ids = {}
 
@@ -201,9 +202,6 @@ def teacher_tab_take_attendance():
                 else:
                     results, attendance_to_log = [], []
                     current_timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-                    # Added human-readable fields
-                    readable_time = datetime.now().strftime("%Y-%m-%d %I:%M %p")
-                    subject_name = selected_subject_label
 
                     for node in enrolled_students:
                         student = node['students']
@@ -213,8 +211,6 @@ def teacher_tab_take_attendance():
                         results.append({
                             "Name": student['name'],
                             "ID": student['student_id'],
-                            "Subject": subject_name,
-                            "Time": readable_time,
                             "Source": ", ".join(sources) if is_present else "-",
                             "Status": "✅ Present" if is_present else "❌ Absent"
                         })
@@ -226,7 +222,8 @@ def teacher_tab_take_attendance():
                             'is_present': bool(is_present)
                         })
 
-                    # Save to state and refresh to trigger persistent display
+                    # --- UPDATED: Save to session state and rerun ---
+                    # We removed the attendance_result_dialog call completely
                     st.session_state.face_attendance_results = (pd.DataFrame(results), attendance_to_log)
                     st.rerun()
 
