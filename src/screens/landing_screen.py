@@ -61,7 +61,7 @@ def landing_screen():
     """, unsafe_allow_html=True)
 
     # --- CENTERED TEAL BUTTON ---
-    col_left, col_center, col_right = st.columns([1, 1, 1])
+    col_left, col_center, col_right = st.columns([2, 1, 2])
     with col_center:
         if st.button("Get Started", use_container_width=True):
             st.session_state['login_type'] = 'home'
