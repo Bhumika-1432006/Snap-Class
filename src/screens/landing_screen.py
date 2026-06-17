@@ -12,55 +12,46 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- ENHANCED CSS INJECTION ---
+    # --- LIGHT THEME CSS ---
     st.markdown("""
         <style>
-        .interactive-pic-container {
-            width: 100%; border-radius: 30px; overflow: hidden; 
-            background: linear-gradient(145deg, #0d4354, #0b3846);
-            padding: 12px; margin-top: 15px; 
-            border: 1px solid rgba(24, 164, 169, 0.2);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            cursor: pointer;
+        /* Light Theme Palette */
+        .stApp { background-color: #ffffff; color: #1e293b; }
+        
+        .uniform-image-container {
+            width: 100%; height: 400px; /* Fixed height for uniformity */
+            border-radius: 20px; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            background-color: #f1f5f9; /* Light gray background */
+            margin: 40px 0; /* Extra space around images */
         }
-        .interactive-pic-container:hover {
-            transform: translateY(-12px) scale(1.02); 
-            box-shadow: 0 25px 50px -12px rgba(24, 164, 169, 0.3);
-            border-color: rgba(24, 164, 169, 0.6);
+        .uniform-image-container img {
+            max-width: 100%; height: 100%; object-fit: cover;
         }
-        .interactive-pic-container img {
-            width: 100%; height: auto; border-radius: 20px;
-            filter: brightness(1.05) contrast(1.1);
-        }
+        
         .text-block { 
-            margin-top: 60px; padding: 40px; 
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            padding: 40px; 
+            border-radius: 20px; 
+            background: #ffffff;
+            margin: 40px 0;
         }
-        .text-block:hover { background: rgba(255, 255, 255, 0.06); }
-        h2 { margin-bottom: 20px !important; }
+        h2 { color: #0f172a !important; font-size: 2.2rem !important; }
+        p { color: #64748b !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
         </style>
     """, unsafe_allow_html=True)
 
-    # --- HERO HEADER ---
+    # --- HERO ---
     st.markdown("""
-        <div style="text-align: center; padding: 60px 0 40px 0;">
-            <h1 style="font-size: 4.5rem; font-weight: 900; margin: 0; letter-spacing: -2px;
-                       background: linear-gradient(to right, #ffffff, #18a4a9);
-                       -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                SNAPCLASS AI
-            </h1>
-            <p style="font-size: 1.4rem; color: #94a3b8; margin-top: 15px; font-weight: 400;">
-                Advanced Attendance Automation & Biometric Verification
-            </p>
+        <div style="text-align: center; padding: 80px 0 60px 0;">
+            <h1 style="font-size: 4.5rem; font-weight: 900; color: #0f172a;">SNAPCLASS <span style="color:#18a4a9">AI</span></h1>
+            <p style="font-size: 1.5rem; color: #64748b; margin-top: 20px;">Intelligent Attendance Automation for Modern Classrooms.</p>
         </div>
     """, unsafe_allow_html=True)
 
     # --- ACTION BUTTON ---
     col1, col2, col3 = st.columns([3, 1, 3])
     with col2:
-        if st.button("Get Started Now", use_container_width=True):
+        if st.button("Get Started", type="primary", use_container_width=True):
             st.session_state['login_type'] = 'home'
             st.rerun()
 
@@ -73,12 +64,14 @@ def landing_screen():
     ]
 
     for i, (title, desc, img_path) in enumerate(steps):
-        st.write("<br>", unsafe_allow_html=True)
         img_b64 = convert_local_file_to_base64(img_path)
-        img_html = f'<div class="interactive-pic-container"><img src="data:image/png;base64,{img_b64}"></div>'
-        text_html = f'<div class="text-block"><h2>{title}</h2><p style="color: #cbd5e1; font-size: 1.1rem; line-height: 1.8;">{desc}</p></div>'
+        img_html = f'<div class="uniform-image-container"><img src="data:image/png;base64,{img_b64}"></div>'
+        text_html = f'<div class="text-block"><h2>{title}</h2><p>{desc}</p></div>'
         
-        c1, c2 = st.columns([1.1, 0.9])
+        # Increased gap between rows
+        st.write("<br><br>", unsafe_allow_html=True) 
+        
+        c1, c2 = st.columns([1.2, 1])
         if i % 2 == 0:
             with c1: st.markdown(img_html, unsafe_allow_html=True)
             with c2: st.markdown(text_html, unsafe_allow_html=True)
@@ -86,13 +79,11 @@ def landing_screen():
             with c1: st.markdown(text_html, unsafe_allow_html=True)
             with c2: st.markdown(img_html, unsafe_allow_html=True)
 
-    # --- FOOTER ---
+    # --- MISSION ---
     st.markdown("""
-        <div style="margin-top: 80px; padding: 40px; background: linear-gradient(135deg, rgba(24, 164, 169, 0.1), rgba(0,0,0,0)); 
-                    border-radius: 24px; border: 1px solid rgba(24, 164, 169, 0.2);">
-            <p style="margin: 0; color: #ffffff; line-height: 1.7; font-size: 1.1rem; text-align: center;">
-                <b style="color: #18a4a9;">MISSION:</b> Bridging the gap between classroom efficiency and identity security.
-            </p>
+        <div style="margin: 80px 0; padding: 60px; background: #f8fafc; border-radius: 30px; text-align: center;">
+            <h3 style="color: #18a4a9;">Our Mission</h3>
+            <p style="max-width: 800px; margin: 20px auto;">Bridging the gap between classroom efficiency and identity security. We don't just track attendance—we ensure verified, stress-free learning environments.</p>
         </div>
     """, unsafe_allow_html=True)
 
