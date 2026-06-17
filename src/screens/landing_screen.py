@@ -11,7 +11,7 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- STYLING: SOFT BLUE STRIATION THEME ---
+    # --- CSS THEME: SOFT BLUE STRIATION & TEAL BUTTON ---
     st.markdown("""
         <style>
         .stApp { 
@@ -19,19 +19,22 @@ def landing_screen():
             color: #1e293b; 
         }
         
-        /* Vibrant Yellow Button Styling */
+        /* Teal Button Styling (Matches AI Heading) */
         div.stButton > button:first-child {
-            background-color: #facc15 !important; 
-            color: #000000 !important; 
-            font-weight: 800 !important;
+            background-color: #18a4a9 !important; 
+            color: #ffffff !important; 
+            font-weight: 700 !important;
             border: none !important; 
             border-radius: 50px !important; 
             padding: 15px 50px !important;
             font-size: 1.4rem !important; 
-            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4);
+            box-shadow: 0 4px 15px rgba(24, 164, 169, 0.3);
             transition: transform 0.2s ease !important;
         }
-        div.stButton > button:first-child:hover { transform: scale(1.05) !important; }
+        div.stButton > button:first-child:hover { 
+            transform: scale(1.05) !important; 
+            background-color: #148a8e !important; 
+        }
 
         .uniform-image-container { 
             width: 100%; height: 400px; border-radius: 25px; overflow: hidden; 
@@ -57,8 +60,7 @@ def landing_screen():
         </div>
     """, unsafe_allow_html=True)
 
-    # --- PERFECTLY CENTERED BUTTON ---
-    # Using an empty space column on each side is the cleanest way to center in Streamlit
+    # --- CENTERED TEAL BUTTON ---
     col_left, col_center, col_right = st.columns([1, 1, 1])
     with col_center:
         if st.button("Get Started", use_container_width=True):
