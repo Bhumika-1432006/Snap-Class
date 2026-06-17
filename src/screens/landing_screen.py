@@ -11,7 +11,7 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- CSS THEME: SOFT BLUE STRIATION & TEAL BUTTON ---
+    # --- CSS THEME: SOFT BLUE STRIATION & EXACT VIOLET HEADINGS ---
     st.markdown("""
         <style>
         .stApp { 
@@ -19,7 +19,7 @@ def landing_screen():
             color: #1e293b; 
         }
         
-        /* Teal Button Styling (Matches AI Heading) */
+        /* Vibrant Teal Button Styling */
         div.stButton > button:first-child {
             background-color: #18a4a9 !important; 
             color: #ffffff !important; 
@@ -47,7 +47,9 @@ def landing_screen():
             padding: 50px; border-radius: 25px; background: rgba(255, 255, 255, 0.5); 
             margin: 40px 0; border: 1px solid rgba(255, 255, 255, 0.8);
         }
-        h2 { color: #0f172a !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
+        
+        /* Violet Headings to match "Screenshot 2026-06-18 033950_2.png" */
+        h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
         p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
         </style>
     """, unsafe_allow_html=True)
@@ -69,10 +71,10 @@ def landing_screen():
 
     # --- CONTENT ROWS ---
     steps = [
-        ("Face & Voice Verification", "Advanced biometric neural nets verify student presence with sub-second speed.", "images/step1.png"),
-        ("Smart Classroom Intake", "Ingest rosters and schedule metadata via our secure portal.", "images/step2.png"),
-        ("Real-time Attendance Audits", "Automated spoof-detection ensures high-integrity check-ins.", "images/step3.png"),
-        ("Predictive Classroom Insights", "Unlock actionable engagement trends with our analytics engine.", "images/step4.png")
+        ("Step 1: Student Registration", "Students register profiles using unique face embeddings and voice signatures for secure, AI-ready identity mapping.", "images/step1.png"),
+        ("Step 2: Class Enrollment", "Students join any class instantly by using the teacher-provided subject code or scanning the class QR link.", "images/step2.png"),
+        ("Step 3: Teacher Management", "Teachers register, create subjects, and generate unique codes to manage their classroom environment.", "images/step3.png"),
+        ("Step 4: AI Attendance Marking", "Capture classroom photos and voice recordings for AI scanning to automatically mark attendance and download CSV files.", "images/step4.png")
     ]
 
     for i, (title, desc, img_path) in enumerate(steps):
@@ -92,7 +94,7 @@ def landing_screen():
     # --- MISSION ---
     st.markdown("""
         <div style="margin: 80px 0; padding: 60px; background: rgba(255,255,255,0.4); border-radius: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.6);">
-            <h3 style="color: #18a4a9; font-size: 1.8rem;">Our Mission</h3>
+            <h3 style="color: #6A329F; font-size: 1.8rem;">Our Mission</h3>
             <p style="max-width: 800px; margin: 20px auto; color: #1e293b; font-size: 1.2rem;">Bridging the gap between classroom efficiency and identity security.</p>
         </div>
     """, unsafe_allow_html=True)
