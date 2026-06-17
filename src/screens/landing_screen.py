@@ -103,7 +103,7 @@ def landing_screen():
     st.markdown("""
         <div style="margin: 80px 0; padding: 60px; background: rgba(255,255,255,0.4); border-radius: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.6);">
             <h3 style="color: #6A329F; font-size: 1.8rem;">Our Mission</h3>
-            <p style="max-width: 800px; margin: 20px auto; color: #1e293b; font-size: 1.2rem;">Bridging the gap between classroom efficiency and identity security.</p>
+            <p style="max-width: 800px; margin: 20px auto; color: #1e293b; font-size: 1.2rem;">Making modern attendance easier and more efficient.</p>
         </div>
     """, unsafe_allow_html=True)
 
