@@ -11,7 +11,7 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- CSS THEME: SOFT BLUE STRIATION & VIOLET HEADINGS ---
+    # --- CSS THEME: SOFT BLUE STRIATION & TEAL BUTTON ---
     st.markdown("""
         <style>
         .stApp { 
@@ -19,19 +19,22 @@ def landing_screen():
             color: #1e293b; 
         }
         
-        /* Vibrant Teal Button Styling */
+        /* Teal Button Styling (Matches AI Heading) */
         div.stButton > button:first-child {
             background-color: #18a4a9 !important; 
             color: #ffffff !important; 
             font-weight: 700 !important;
             border: none !important; 
             border-radius: 50px !important; 
-            padding: 12px 30px !important;
-            font-size: 1.2rem !important; 
-            box-shadow: 0 4px 10px rgba(24, 164, 169, 0.2);
+            padding: 15px 50px !important;
+            font-size: 1.4rem !important; 
+            box-shadow: 0 4px 15px rgba(24, 164, 169, 0.3);
             transition: transform 0.2s ease !important;
         }
-        div.stButton > button:first-child:hover { transform: scale(1.03) !important; background-color: #148a8e !important; }
+        div.stButton > button:first-child:hover { 
+            transform: scale(1.05) !important; 
+            background-color: #148a8e !important; 
+        }
 
         .uniform-image-container { 
             width: 100%; height: 400px; border-radius: 25px; overflow: hidden; 
@@ -44,9 +47,7 @@ def landing_screen():
             padding: 50px; border-radius: 25px; background: rgba(255, 255, 255, 0.5); 
             margin: 40px 0; border: 1px solid rgba(255, 255, 255, 0.8);
         }
-        
-        /* Violet Headings to match Step Two branding */
-        h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
+        h2 { color: #0f172a !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
         p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
         </style>
     """, unsafe_allow_html=True)
@@ -91,7 +92,7 @@ def landing_screen():
     # --- MISSION ---
     st.markdown("""
         <div style="margin: 80px 0; padding: 60px; background: rgba(255,255,255,0.4); border-radius: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.6);">
-            <h3 style="color: #6A329F; font-size: 1.8rem;">Our Mission</h3>
+            <h3 style="color: #18a4a9; font-size: 1.8rem;">Our Mission</h3>
             <p style="max-width: 800px; margin: 20px auto; color: #1e293b; font-size: 1.2rem;">Bridging the gap between classroom efficiency and identity security.</p>
         </div>
     """, unsafe_allow_html=True)
