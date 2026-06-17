@@ -7,92 +7,95 @@ st.set_page_config(layout="wide", page_title="SnapClass AI")
 
 def convert_local_file_to_base64(file_path):
     if not os.path.exists(file_path):
-        return None
+        return ""
     with open(file_path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- UNIFIED DARK THEME CSS ---
+    # --- ENHANCED CSS INJECTION ---
     st.markdown("""
         <style>
-        /* Main background */
-        .stApp { background-color: #020b0f; color: #e2e8f0; }
-        
-        /* Custom Cards */
-        .glass-card {
-            background: rgba(11, 56, 70, 0.3);
-            backdrop-filter: blur(10px);
+        .interactive-pic-container {
+            width: 100%; border-radius: 30px; overflow: hidden; 
+            background: linear-gradient(145deg, #0d4354, #0b3846);
+            padding: 12px; margin-top: 15px; 
             border: 1px solid rgba(24, 164, 169, 0.2);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer;
         }
-        .glass-card:hover { transform: translateY(-5px); border-color: #18a4a9; }
-        
-        /* Interactive Image Container */
-        .interactive-pic {
-            width: 100%; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        .interactive-pic-container:hover {
+            transform: translateY(-12px) scale(1.02); 
+            box-shadow: 0 25px 50px -12px rgba(24, 164, 169, 0.3);
+            border-color: rgba(24, 164, 169, 0.6);
         }
-        
-        /* Headings & Text */
-        h1 { color: #ffffff !important; }
-        h2 { color: #18a4a9 !important; font-weight: 700 !important; }
+        .interactive-pic-container img {
+            width: 100%; height: auto; border-radius: 20px;
+            filter: brightness(1.05) contrast(1.1);
+        }
+        .text-block { 
+            margin-top: 60px; padding: 40px; 
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .text-block:hover { background: rgba(255, 255, 255, 0.06); }
+        h2 { margin-bottom: 20px !important; }
         </style>
     """, unsafe_allow_html=True)
 
-    # --- HERO SECTION ---
+    # --- HERO HEADER ---
     st.markdown("""
-        <div style="text-align: center; padding: 60px 0;">
-            <h1 style="font-size: 4rem; letter-spacing: -2px;">SNAPCLASS <span style="color:#18a4a9">AI</span></h1>
-            <p style="font-size: 1.4rem; opacity: 0.8;">Revolutionizing attendance with biometric precision.</p>
+        <div style="text-align: center; padding: 60px 0 40px 0;">
+            <h1 style="font-size: 4.5rem; font-weight: 900; margin: 0; letter-spacing: -2px;
+                       background: linear-gradient(to right, #ffffff, #18a4a9);
+                       -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                SNAPCLASS AI
+            </h1>
+            <p style="font-size: 1.4rem; color: #94a3b8; margin-top: 15px; font-weight: 400;">
+                Advanced Attendance Automation & Biometric Verification
+            </p>
         </div>
     """, unsafe_allow_html=True)
 
-    # --- CENTERED GET STARTED ---
-    col_a, col_b, col_c = st.columns([3, 1, 3])
-    with col_b:
-        if st.button("Get Started", use_container_width=True):
+    # --- ACTION BUTTON ---
+    col1, col2, col3 = st.columns([3, 1, 3])
+    with col2:
+        if st.button("Get Started Now", use_container_width=True):
             st.session_state['login_type'] = 'home'
             st.rerun()
 
-    st.write("---")
-
-    # --- CONTENT GRID ---
+    # --- CONTENT ROWS ---
     steps = [
-        ("Biometric Verification", "Advanced neural networks map facial features for near-instant, secure identification.", "images/step1.png"),
-        ("Smart Data Intake", "Seamlessly integrate class rosters with automated scheduling and encrypted storage.", "images/step2.png"),
-        ("Audit Integrity", "Built-in spoof detection ensures every attendance entry is verified and immutable.", "images/step3.png"),
-        ("Insight Analytics", "Transform attendance raw data into actionable classroom engagement reports.", "images/step4.png")
+        ("Face & Voice Verification", "Leverage advanced biometric neural nets to verify student presence with sub-second latency.", "images/step1.png"),
+        ("Smart Classroom Intake", "Ingest student rosters and schedule metadata through our centralized management portal.", "images/step2.png"),
+        ("Real-time Attendance Audits", "Verify classroom integrity with automated spoof-detection and environment analysis.", "images/step3.png"),
+        ("Predictive Classroom Insights", "Analyze engagement patterns and attendance trends through clean, secure telemetry metrics.", "images/step4.png")
     ]
 
     for i, (title, desc, img_path) in enumerate(steps):
-        cols = st.columns([1, 1.2])
+        st.write("<br>", unsafe_allow_html=True)
         img_b64 = convert_local_file_to_base64(img_path)
+        img_html = f'<div class="interactive-pic-container"><img src="data:image/png;base64,{img_b64}"></div>'
+        text_html = f'<div class="text-block"><h2>{title}</h2><p style="color: #cbd5e1; font-size: 1.1rem; line-height: 1.8;">{desc}</p></div>'
         
-        # Build image component
-        img_component = f'<div class="interactive-pic"><img src="data:image/png;base64,{img_b64}" style="width:100%"></div>' if img_b64 else "<div>Image Missing</div>"
-        
-        # Alternating Layout
+        c1, c2 = st.columns([1.1, 0.9])
         if i % 2 == 0:
-            with cols[0]: st.markdown(img_component, unsafe_allow_html=True)
-            with cols[1]: 
-                st.markdown(f'<div class="glass-card"><h2>{title}</h2><p>{desc}</p></div>', unsafe_allow_html=True)
+            with c1: st.markdown(img_html, unsafe_allow_html=True)
+            with c2: st.markdown(text_html, unsafe_allow_html=True)
         else:
-            with cols[0]: 
-                st.markdown(f'<div class="glass-card"><h2>{title}</h2><p>{desc}</p></div>', unsafe_allow_html=True)
-            with cols[1]: st.markdown(img_component, unsafe_allow_html=True)
+            with c1: st.markdown(text_html, unsafe_allow_html=True)
+            with c2: st.markdown(img_html, unsafe_allow_html=True)
 
-    # --- MISSION STATEMENT ---
+    # --- FOOTER ---
     st.markdown("""
-        <div class="glass-card" style="border-left: 6px solid #18a4a9;">
-            <h3>Our Mission</h3>
-            <p>At SnapClass, we eliminate administrative friction. By replacing manual check-ins with AI-driven authentication, we restore valuable time back to the classroom environment.</p>
+        <div style="margin-top: 80px; padding: 40px; background: linear-gradient(135deg, rgba(24, 164, 169, 0.1), rgba(0,0,0,0)); 
+                    border-radius: 24px; border: 1px solid rgba(24, 164, 169, 0.2);">
+            <p style="margin: 0; color: #ffffff; line-height: 1.7; font-size: 1.1rem; text-align: center;">
+                <b style="color: #18a4a9;">MISSION:</b> Bridging the gap between classroom efficiency and identity security.
+            </p>
         </div>
     """, unsafe_allow_html=True)
 
-# Run logic
 if 'logged_in' not in st.session_state: st.session_state['logged_in'] = False
 if not st.session_state['logged_in']:
     landing_screen()
