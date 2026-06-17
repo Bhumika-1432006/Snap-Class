@@ -1,22 +1,27 @@
 import streamlit as st
 import base64
+import os
 
-# Ensure this function is available in your scope
 def convert_local_file_to_base64(file_path):
-    with open(file_path, "rb") as f:
-        return base64.b64encode(f.read()).decode()
+    try:
+        with open(file_path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    except Exception:
+        return "" # Returns empty if image not found
 
 def landing_screen():
-    # --- 1. GLOBAL STYLES & HERO HEADER ---
+    # --- STYLISH LANDING HERO HEADER ---
     st.markdown("""
         <style>
+        /* Container and Animation Styles */
         .interactive-pic-container {
             width: 100%; border-radius: 24px; overflow: hidden; background-color: #0b3846; 
             padding: 10px; margin-top: 15px; border: 1px solid rgba(24, 164, 169, 0.1);
             transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer;
         }
         .interactive-pic-container:hover {
-            transform: translateY(-8px) scale(1.01); background-color: #0d4354; border-color: rgba(24, 164, 169, 0.4);
+            transform: translateY(-8px) scale(1.01); background-color: #0d4354; 
+            border-color: rgba(24, 164, 169, 0.4);
             box-shadow: 0 20px 38px rgba(2, 11, 15, 0.6), 0 15px 12px rgba(24, 164, 169, 0.15) !important;
         }
         .interactive-pic-container img {
@@ -24,6 +29,9 @@ def landing_screen():
             filter: contrast(1.02); transition: transform 0.35s ease;
         }
         .interactive-pic-container:hover img { transform: scale(1.015); }
+        
+        /* Text Spacing to match alignment */
+        .text-block { margin-top: 85px; padding: 0 20px; text-align: left; }
         </style>
 
         <div style="text-align: center; padding: 45px 0 25px 0; margin-bottom: 20px;">
@@ -39,46 +47,44 @@ def landing_screen():
         </div>
     """, unsafe_allow_html=True)
 
-    # --- 2. GET STARTED BUTTON ---
-    col1, col2, col3 = st.columns([2, 1, 2])
-    with col2:
+    # --- ACTION BUTTON ---
+    _, col_btn, _ = st.columns([2, 1, 2])
+    with col_btn:
         if st.button("Get Started", use_container_width=True):
             st.session_state['login_type'] = 'home'
             st.rerun()
 
     st.write("")
 
-    # --- 3. DYNAMIC CONTENT ROWS ---
-    # Define your content structure
-    rows = [
-        ("Face & Voice Verification", "Leverage advanced biometric neural nets to verify student presence with sub-second latency. Our system maps facial vectors and voice signatures with absolute precision.", "D:/Snap-class/images/step1.png"),
-        ("Smart Classroom Intake", "Ingest student rosters and schedule metadata through our centralized management portal. The system handles automated check-ins while ensuring strict data privacy.", "D:/Snap-class/images/step2.png"),
-        ("Real-time Attendance Audits", "Verify classroom integrity with automated spoof-detection and environment analysis. Ensure every check-in is cryptographically verified to the specific device.", "D:/Snap-class/images/step3.png"),
-        ("Predictive Classroom Insights", "Analyze engagement patterns and attendance trends through clean, secure telemetry metrics. Unlock strategic educational insights without compromising student identities.", "D:/Snap-class/images/step4.png")
+    # --- CONTENT DATA ---
+    steps = [
+        ("Face & Voice Verification", "Leverage advanced biometric neural nets to verify student presence with sub-second latency.", "D:/Snap-class/images/step1.png"),
+        ("Smart Classroom Intake", "Ingest student rosters and schedule metadata through our centralized management portal.", "D:/Snap-class/images/step2.png"),
+        ("Real-time Attendance Audits", "Verify classroom integrity with automated spoof-detection and environment analysis.", "D:/Snap-class/images/step3.png"),
+        ("Predictive Classroom Insights", "Analyze engagement patterns and attendance trends through clean, secure telemetry metrics.", "D:/Snap-class/images/step4.png")
     ]
 
-    for i, (title, desc, img_path) in enumerate(rows):
+    # --- RENDER ROWS ---
+    for i, (title, desc, img_path) in enumerate(steps):
         st.write("---")
-        c1, c2 = st.columns([1.1, 0.9]) if i % 2 == 0 else st.columns([0.9, 1.1])
+        img_html = f'<div class="interactive-pic-container"><img src="data:image/png;base64,{convert_local_file_to_base64(img_path)}"></div>'
+        text_html = f'<div class="text-block"><h2 style="font-size: 1.8rem; font-weight: 800; color: #ffffff;">{title}</h2><p style="font-size: 1.05rem; line-height: 1.7; color: #ffffff;">{desc}</p></div>'
         
-        # Logic for alternating image/text position
+        c1, c2 = st.columns([1.1, 0.9])
+        
         if i % 2 == 0:
-            with c1:
-                st.markdown(f'<div class="interactive-pic-container"><img src="data:image/png;base64,{convert_local_file_to_base64(img_path)}"></div>', unsafe_allow_html=True)
-            with c2:
-                st.markdown(f'<div style="margin-top: 85px; padding-left: 20px;"><h2 style="font-weight: 800; color: #ffffff;">{title}</h2><p style="color: #ffffff; line-height: 1.7;">{desc}</p></div>', unsafe_allow_html=True)
+            with c1: st.markdown(img_html, unsafe_allow_html=True)
+            with c2: st.markdown(text_html, unsafe_allow_html=True)
         else:
-            with c1:
-                st.markdown(f'<div style="margin-top: 85px; padding-right: 20px;"><h2 style="font-weight: 800; color: #ffffff;">{title}</h2><p style="color: #ffffff; line-height: 1.7;">{desc}</p></div>', unsafe_allow_html=True)
-            with c2:
-                st.markdown(f'<div class="interactive-pic-container"><img src="data:image/png;base64,{convert_local_file_to_base64(img_path)}"></div>', unsafe_allow_html=True)
+            with c1: st.markdown(text_html, unsafe_allow_html=True)
+            with c2: st.markdown(img_html, unsafe_allow_html=True)
 
-    # --- 4. FOOTER MISSION BOX ---
+    # --- MISSION BOX ---
     st.markdown("""
         <div style="margin-top: 45px; background: rgba(255, 255, 255, 0.08); padding: 25px; border-radius: 18px; border-left: 5px solid #18a4a9; backdrop-filter: blur(10px);">
             <p style="margin: 0; color: #ffffff; line-height: 1.7; font-size: 1rem;">
                 <b style="color: #18a4a9; text-transform: uppercase; letter-spacing: 0.5px;">SnapClass Mission:</b> 
-                We bridge the gap between classroom efficiency and identity security. We don't just track attendance—we ensure verified, stress-free learning environments.
+                We bridge the gap between classroom efficiency and identity security. We don't just track attendance—we ensure verified, stress-free learning.
             </p>
         </div>
     """, unsafe_allow_html=True)
