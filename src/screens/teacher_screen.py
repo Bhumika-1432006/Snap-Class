@@ -231,29 +231,31 @@ def teacher_tab_take_attendance():
         if st.button('Use Voice Attendance', type='primary', width='stretch', icon=':material/mic:'):
             voice_attendance_dialog(selected_subject_id)
      
-     # 1. Persistent Face Attendance Display
+     # --- PERSISTENT FACE ATTENDANCE DISPLAY ---
     if 'face_attendance_results' in st.session_state and st.session_state.face_attendance_results is not None:
         st.divider()
         st.subheader("Face Attendance Results")
         df_face, logs_face = st.session_state.face_attendance_results
-        show_attendance_result(df_face, logs_face)
-        if st.button("Clear Face Results"):
+        
+        # Pass a unique key here to avoid conflict
+        show_attendance_result(df_face, logs_face, key_prefix="face")
+        
+        # Add a unique key here
+        if st.button("Clear Face Results", key="clear_face_btn"):
             st.session_state.face_attendance_results = None
             st.rerun()
             
-    # --- ADD THIS BLOCK HERE (Outside the button logic) ---
+    # --- PERSISTENT VOICE ATTENDANCE DISPLAY ---
     if 'voice_attendance_results' in st.session_state and st.session_state.voice_attendance_results is not None:
         st.divider()
         st.subheader("Voice Attendance Results")
         
-        # Unpack the stored data
+        # Pass a unique key here to avoid conflict
         df_results, logs = st.session_state.voice_attendance_results
+        show_attendance_result(df_results, logs, key_prefix="voice")
         
-        # Display the result persistently on the main screen
-        show_attendance_result(df_results, logs)
-        
-        # Optional: Add a clear button to remove the list after viewing
-        if st.button("Clear Results"):
+        # Add a unique key here
+        if st.button("Clear Voice Results", key="clear_voice_btn"):
             st.session_state.voice_attendance_results = None
             st.rerun()
 
