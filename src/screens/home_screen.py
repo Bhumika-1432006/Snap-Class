@@ -4,7 +4,7 @@ from src.components.footer import footer_home
 from src.ui.base_layout import style_base_layout, style_background_home
 
 def home_screen():
-    # Injecting optimized styling for maximum visibility
+    # Injecting optimized styling for maximum visibility and brand color consistency
     st.markdown("""
         <style>
             /* Hide Streamlit components */
@@ -17,8 +17,8 @@ def home_screen():
             
             /* High-Visibility Card Style */
             div[data-testid="stColumn"] {
-                background: #FFFFFF !important; /* Solid white background for max contrast */
-                border: 2px solid #6A329F !important; /* Adding a colored border for definition */
+                background: #FFFFFF !important; 
+                border: 2px solid #6A329F !important; 
                 border-radius: 2rem !important;
                 padding: 3rem !important;
                 box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
@@ -30,23 +30,28 @@ def home_screen():
                 transform: translateY(-10px);
             }
             
+            /* Update SNAPCLASS AI color to Violet */
+            .snapclass-title {
+                color: #6A329F !important;
+                font-weight: 900 !important;
+            }
+            
             /* Ultra-readable Headers */
+            h1 { color: #6A329F !important; font-weight: 900 !important; }
             h2 { 
                 color: #6A329F !important; 
                 font-weight: 900 !important; 
                 font-size: 2.5rem !important; 
                 margin-bottom: 20px !important;
             }
-            
-            /* Ensure button text remains legible */
-            div.stButton > button {
-                font-weight: 900 !important;
-            }
         </style>
     """, unsafe_allow_html=True)
 
     style_base_layout()
     header_home()
+
+    # Apply the brand color to the top title
+    st.markdown("<h1 style='text-align: center;'>SNAPCLASS AI</h1>", unsafe_allow_html=True)
 
     st.write("<br><br>", unsafe_allow_html=True)
 
