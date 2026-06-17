@@ -4,20 +4,25 @@ from src.components.footer import footer_home
 from src.ui.base_layout import style_base_layout, style_background_home
 
 def home_screen():
-    # Injecting glassmorphism card styling
+    # Injecting unified styling
     st.markdown("""
         <style>
             /* Hide Streamlit components */
             [data-testid="stHeader"] { display: none !important; }
             
+            /* Apply exact Landing Page background */
+            .stApp { 
+                background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%) !important; 
+            }
+            
             /* Glassmorphism Card Style */
             div[data-testid="stColumn"] {
-                background: rgba(255, 255, 255, 0.08) !important;
+                background: rgba(255, 255, 255, 0.5) !important;
                 backdrop-filter: blur(15px) !important;
-                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                border: 1px solid rgba(255, 255, 255, 0.8) !important;
                 border-radius: 2rem !important;
                 padding: 3rem !important;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
                 transition: transform 0.3s ease !important;
                 text-align: center;
             }
@@ -25,10 +30,13 @@ def home_screen():
             div[data-testid="stColumn"]:hover {
                 transform: translateY(-10px);
             }
+            
+            /* Headers matching the violet brand color */
+            h2 { color: #6A329F !important; font-weight: 800 !important; font-size: 2.2rem !important; }
         </style>
     """, unsafe_allow_html=True)
 
-    style_background_home()
+    # Note: Ensure style_background_home() does not override the .stApp background
     style_base_layout()
     header_home()
 
