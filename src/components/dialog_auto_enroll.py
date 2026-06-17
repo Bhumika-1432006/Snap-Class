@@ -3,10 +3,20 @@ from src.database.db import enroll_student_to_subject
 from src.database.config import supabase
 
 import time
+import cv2
+import numpy as np
+from pyzbar.pyzbar import decode
 
-
+from streamlit_qr_reader import qr_reader
 @st.dialog("Quick Enrollment")
 def auto_enroll_dialog(subject_code):
+
+    if st.button("Scan QR Code to Enroll", icon=":material/qr_code_scanner:", width='stretch'):
+        scanned_code = qr_reader(canvas_width=300, canvas_height=300)
+        if scanned_code:
+            subject_code = scanned_code # Update code from scanner
+            st.rerun()
+
     student_id = st.session_state.student_data['student_id']
 
 
