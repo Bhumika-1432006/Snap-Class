@@ -90,8 +90,8 @@ def landing_screen():
         img_html = f'<div class="uniform-image-container"><img src="data:image/png;base64,{img_b64}"></div>'
         text_html = f'<div class="text-block"><h2>{title}</h2><p>{desc}</p></div>'
         
-        st.write("<br>", unsafe_allow_html=True) 
-        c1, c2 = st.columns([1.2, 1])
+        st.write("<br><br>", unsafe_allow_html=True) 
+        c1, c2 = st.columns([1, 1], gap="large")
         if i % 2 == 0:
             with c1: st.markdown(img_html, unsafe_allow_html=True)
             with c2: st.markdown(text_html, unsafe_allow_html=True)
