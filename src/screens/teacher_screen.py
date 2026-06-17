@@ -235,12 +235,20 @@ def teacher_tab_take_attendance():
             voice_attendance_dialog(selected_subject_id)
 
     # --- ADD THIS BLOCK HERE (Outside the button logic) ---
-    if 'voice_attendance_results' in st.session_state and st.session_state.voice_attendance_results:
+    if 'voice_attendance_results' in st.session_state and st.session_state.voice_attendance_results is not None:
         st.divider()
-        st.subheader("Attendance Results")
+        st.subheader("Voice Attendance Results")
+        
+        # Unpack the stored data
         df_results, logs = st.session_state.voice_attendance_results
+        
+        # Display the result persistently on the main screen
         show_attendance_result(df_results, logs)
-
+        
+        # Optional: Add a clear button to remove the list after viewing
+        if st.button("Clear Results"):
+            st.session_state.voice_attendance_results = None
+            st.rerun()
 
 
 def teacher_tab_manage_subjects():
