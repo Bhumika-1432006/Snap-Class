@@ -12,10 +12,9 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- SOFT BLUE THEME WITH STRIATION & YELLOW BUTTON ---
+    # --- CSS THEME: SOFT BLUE STRIATION & YELLOW BUTTON ---
     st.markdown("""
         <style>
-        /* Soft Blue Background with subtle striation effect */
         .stApp { 
             background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%); 
             color: #1e293b; 
@@ -28,7 +27,7 @@ def landing_screen():
             font-weight: 800 !important;
             border: none !important;
             border-radius: 50px !important;
-            padding: 15px 40px !important;
+            padding: 15px 50px !important;
             font-size: 1.4rem !important;
             width: 100% !important;
             box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4);
@@ -69,7 +68,7 @@ def landing_screen():
         </div>
     """, unsafe_allow_html=True)
 
-    # --- HORIZONTAL BUTTON (Wide Center Column) ---
+    # --- CENTERED HORIZONTAL BUTTON ---
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         if st.button("Get Started"):
@@ -106,7 +105,6 @@ def landing_screen():
         </div>
     """, unsafe_allow_html=True)
 
-# Run logic
 if 'logged_in' not in st.session_state: st.session_state['logged_in'] = False
 if not st.session_state['logged_in']:
     landing_screen()
