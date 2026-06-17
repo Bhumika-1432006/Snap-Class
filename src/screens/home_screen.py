@@ -50,8 +50,8 @@ def home_screen():
     style_base_layout()
     header_home()
 
-    # Apply the brand color to the top title
-    st.markdown("<h1 style='text-align: center;'>SNAPCLASS AI</h1>", unsafe_allow_html=True)
+    # # Apply the brand color to the top title
+    # st.markdown("<h1 style='text-align: center;'>SNAPCLASS AI</h1>", unsafe_allow_html=True)
 
     st.write("<br><br>", unsafe_allow_html=True)
 
