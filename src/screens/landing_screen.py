@@ -12,16 +12,16 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- SOFT BLUE THEME WITH STRIATION ---
+    # --- SOFT BLUE THEME WITH STRIATION & YELLOW BUTTON ---
     st.markdown("""
         <style>
-        /* Soft Blue Background with subtle stripe (striation) effect */
+        /* Soft Blue Background with subtle striation effect */
         .stApp { 
             background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%); 
             color: #1e293b; 
         }
         
-        /* Vibrant Yellow Button */
+        /* Vibrant Yellow Button Styling */
         div.stButton > button:first-child {
             background-color: #facc15 !important;
             color: #000000 !important;
@@ -29,14 +29,20 @@ def landing_screen():
             border: none !important;
             border-radius: 50px !important;
             padding: 15px 40px !important;
-            font-size: 1.2rem !important;
+            font-size: 1.4rem !important;
+            width: 100% !important;
+            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4);
+            transition: transform 0.2s ease !important;
+        }
+        div.stButton > button:first-child:hover {
+            transform: scale(1.05) !important;
         }
 
         .uniform-image-container {
             width: 100%; height: 400px;
             border-radius: 25px; overflow: hidden;
             background-color: #ffffff;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
             margin: 40px 0;
         }
         .uniform-image-container img {
@@ -46,31 +52,31 @@ def landing_screen():
         .text-block { 
             padding: 50px; 
             border-radius: 25px; 
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.5);
             margin: 40px 0;
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
-        h2 { color: #0f172a !important; font-size: 2.2rem !important; }
+        h2 { color: #0f172a !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
         p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
         </style>
     """, unsafe_allow_html=True)
 
     # --- HERO ---
     st.markdown("""
-        <div style="text-align: center; padding: 80px 0 60px 0;">
+        <div style="text-align: center; padding: 60px 0 40px 0;">
             <h1 style="font-size: 4.5rem; font-weight: 900; color: #0f172a;">SNAPCLASS <span style="color:#18a4a9">AI</span></h1>
-            <p style="font-size: 1.5rem; color: #334155; margin-top: 20px;">Intelligent Attendance Automation for Modern Classrooms.</p>
+            <p style="font-size: 1.5rem; color: #334155; margin-top: 15px;">Intelligent Attendance Automation for Modern Classrooms.</p>
         </div>
     """, unsafe_allow_html=True)
 
-    # --- BUTTON ---
-    col1, col2, col3 = st.columns([3, 1, 3])
+    # --- HORIZONTAL BUTTON (Wide Center Column) ---
+    col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         if st.button("Get Started"):
             st.session_state['login_type'] = 'home'
             st.rerun()
 
-    # --- CONTENT ---
+    # --- CONTENT ROWS ---
     steps = [
         ("Face & Voice Verification", "Advanced biometric neural nets verify student presence with sub-second speed.", "images/step1.png"),
         ("Smart Classroom Intake", "Ingest rosters and schedule metadata via our secure portal.", "images/step2.png"),
@@ -94,12 +100,13 @@ def landing_screen():
 
     # --- MISSION ---
     st.markdown("""
-        <div style="margin: 80px 0; padding: 60px; background: rgba(255,255,255,0.4); border-radius: 30px; text-align: center;">
-            <h3 style="color: #18a4a9;">Our Mission</h3>
-            <p style="max-width: 800px; margin: 20px auto; color: #1e293b;">Bridging the gap between classroom efficiency and identity security.</p>
+        <div style="margin: 80px 0; padding: 60px; background: rgba(255,255,255,0.4); border-radius: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.6);">
+            <h3 style="color: #18a4a9; font-size: 1.8rem;">Our Mission</h3>
+            <p style="max-width: 800px; margin: 20px auto; color: #1e293b; font-size: 1.2rem;">Bridging the gap between classroom efficiency and identity security.</p>
         </div>
     """, unsafe_allow_html=True)
 
+# Run logic
 if 'logged_in' not in st.session_state: st.session_state['logged_in'] = False
 if not st.session_state['logged_in']:
     landing_screen()
