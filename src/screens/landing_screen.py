@@ -81,11 +81,14 @@ def landing_screen():
         </style>
     """, unsafe_allow_html=True)
 
-    # --- HEADING ---
-     st.markdown("""
+    st.markdown("""
         <div style="text-align: center; padding: 60px 0 40px 0;">
-            <h1 style="font-size: 4.5rem; font-weight: 900; color: #0f172a;">SNAPCLASS <span style="color:#18a4a9">AI</span></h1>
-            <p style="font-size: 1.5rem; color: #334155; margin-top: 15px;">Intelligent Attendance Automation for Modern Classrooms.</p>
+            <h1 style="font-size: 4.5rem; font-weight: 900; color: #000000;">
+                SNAPCLASS <span style="color:#18a4a9">AI</span>
+            </h1>
+            <p style="font-size: 1.5rem; color: #334155; margin-top: 15px;">
+                Intelligent Attendance Automation for Modern Classrooms.
+            </p>
         </div>
     """, unsafe_allow_html=True)
     
