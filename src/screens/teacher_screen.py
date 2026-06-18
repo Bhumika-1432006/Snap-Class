@@ -367,9 +367,10 @@ def teacher_screen_login():
     with c1:
         header_dashboard()
     with c2:
-    if st.button("Go back to Home", type='secondary', key='loginbackbtn', shortcut="control+backspace"):
-        st.session_state['login_type'] = 'home'  # Change this from None to 'home'
-        st.rerun()
+        # The line below was missing the correct indentation/logic flow
+        if st.button("Go back to Home", type='secondary', key='loginbackbtn', shortcut="control+backspace"):
+            st.session_state['login_type'] = 'home'
+            st.rerun()
 
     st.header('Login using password', text_alignment='center')
     st.space()
