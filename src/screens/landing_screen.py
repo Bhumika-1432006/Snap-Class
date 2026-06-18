@@ -13,7 +13,6 @@ def convert_local_file_to_base64(file_path):
 def landing_screen():
     st.markdown("""
         <style>
-        /* Force full width and remove default shifting margins */
         .stApp { background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%) !important; }
         
         [data-testid="stMainBlockContainer"] {
@@ -21,7 +20,7 @@ def landing_screen():
             margin: 0 auto !important;
         }
 
-        /* Locked Grid - Immune to Refresh Glitches */
+        /* LOCKED GRID - Restored Spacing */
         .grid-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
@@ -33,7 +32,11 @@ def landing_screen():
         
         .grid-item { width: 100% !important; }
         
-        /* Button & UI elements */
+        /* Centered Button Styling */
+        div.stButton {
+            display: flex !important;
+            justify-content: center !important;
+        }
         div.stButton > button:first-child {
             background-color: #18a4a9 !important; color: #ffffff !important; font-weight: 700 !important;
             border: none !important; border-radius: 50px !important; padding: 15px 50px !important;
@@ -53,19 +56,18 @@ def landing_screen():
         }
         
         h1 { font-size: 4.5rem; font-weight: 900; color: #0f172a; text-align: center; }
-        h2 { color: #6A329F !important; font-size: 2.2rem !important; }
+        h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
+        p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
         </style>
     """, unsafe_allow_html=True)
 
     st.markdown("<h1>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; font-size: 1.5rem; color: #334155;'>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
-    # Use an empty container to keep the button centered without columns that might shift
-    st.markdown("<div style='text-align: center; margin: 20px 0;'>", unsafe_allow_html=True)
+    # Button centered using flexbox CSS via div.stButton in style
     if st.button("Get Started"):
         st.session_state['login_type'] = 'home'
         st.rerun()
-    st.markdown("</div>", unsafe_allow_html=True)
 
     steps = [
         ("Step 1: Student Registration", "Students register profiles using unique face embeddings and voice signatures for secure, AI-ready identity mapping.", "images/step1.png"),
