@@ -77,7 +77,7 @@ def landing_screen():
     """, unsafe_allow_html=True)
 
     # --- HEADING ---
-    st.markdown("<h1 class='brand-title' style='color: #000000 !important;'>SNAPCLASS <span style='color: #0000FF !important;'>AI</span></h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='brand-title' style='color: #000000 !important;'>SNAPCLASS <span style='color: #18a4a9 !important;'>AI</span></h1>", unsafe_allow_html=True)
     st.markdown("<p>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
     # --- CENTERED BUTTON ---
