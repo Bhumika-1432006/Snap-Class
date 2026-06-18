@@ -11,7 +11,7 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- CSS THEME: SOFT BLUE STRIATION & VIOLET HEADINGS (MOBILE FRIENDLY) ---
+    # --- CSS THEME: SOFT BLUE STRIATION & VIOLET HEADINGS (STABLE LAYOUT) ---
     st.markdown("""
         <style>
         .stApp { 
@@ -19,6 +19,12 @@ def landing_screen():
             color: #1e293b; 
         }
         
+        /* Force side-by-side layout on Desktop - Prevents smushing */
+        [data-testid="column"] {
+            flex: 1 1 400px !important;
+            min-width: 400px !important;
+        }
+
         /* Mobile Responsive Fixes */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem !important; }
