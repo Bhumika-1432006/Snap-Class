@@ -67,7 +67,7 @@ def landing_screen():
     st.markdown("<p style='text-align: center; font-size: 1.5rem; color: #334155;'>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
     # FIXED CENTER ALIGNMENT: Using a 3-column split where the middle is narrow
-    _, col_middle, _ = st.columns([2, 1, 2])
+    col_left, col_middle, col_right = st.columns([4, 1, 4])
     with col_middle:
         if st.button("Get Started"):
             st.session_state['login_type'] = 'home'
