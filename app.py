@@ -23,9 +23,11 @@ def main():
             home_screen()
         case 'teacher':
             teacher_screen()
-
         case 'student':
             student_screen()
+        case _: # This handles None or any other unexpected state
+            st.session_state['login_type'] = 'landing' # Reset to landing
+            st.rerun()
         
 
 

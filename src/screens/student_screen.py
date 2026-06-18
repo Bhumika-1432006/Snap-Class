@@ -134,7 +134,7 @@ def student_screen():
         header_dashboard()
     with c2:
         if st.button("Go back to Home", type='secondary', key='back_btn'):
-            st.session_state['login_type'] = None
+            st.session_state['login_type'] = 'home' # Change None to 'home'
             st.rerun()
 
     st.header('Login using FaceID')
