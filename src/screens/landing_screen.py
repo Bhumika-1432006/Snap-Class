@@ -13,26 +13,27 @@ def convert_local_file_to_base64(file_path):
 def landing_screen():
     st.markdown("""
         <style>
-        .stApp { background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%); color: #1e293b; }
+        /* Force full width and remove default shifting margins */
+        .stApp { background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%) !important; }
         
-        /* HARD-LOCKED GRID: Designed exclusively for PC/Desktop */
-        [data-testid="stMarkdownContainer"] .grid-row {
+        [data-testid="stMainBlockContainer"] {
+            max-width: 1400px !important;
+            margin: 0 auto !important;
+        }
+
+        /* Locked Grid - Immune to Refresh Glitches */
+        .grid-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
             gap: 40px !important;
-            margin-bottom: 60px !important;
+            margin: 0 auto 60px auto !important;
             align-items: center !important;
             width: 100% !important;
-            min-width: 1200px !important; /* Forces PC width */
         }
         
-        .grid-item {
-            width: 100% !important;
-        }
+        .grid-item { width: 100% !important; }
         
-        /* Removed all @media queries to prevent any layout shifts */
-        
-        /* Button styling */
+        /* Button & UI elements */
         div.stButton > button:first-child {
             background-color: #18a4a9 !important; color: #ffffff !important; font-weight: 700 !important;
             border: none !important; border-radius: 50px !important; padding: 15px 50px !important;
@@ -51,27 +52,21 @@ def landing_screen():
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
         
-        h1 { font-size: 4.5rem; font-weight: 900; color: #0f172a; }
+        h1 { font-size: 4.5rem; font-weight: 900; color: #0f172a; text-align: center; }
         h2 { color: #6A329F !important; font-size: 2.2rem !important; }
         </style>
     """, unsafe_allow_html=True)
 
-    # --- HERO SECTION ---
-    st.markdown("""
-        <div style="text-align: center; padding: 60px 0 40px 0;">
-            <h1>SNAPCLASS <span style="color:#18a4a9">AI</span></h1>
-            <p style="font-size: 1.5rem; color: #334155; margin-top: 15px;">Intelligent Attendance Automation for Modern Classrooms.</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<h1>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; font-size: 1.5rem; color: #334155;'>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
-    # --- CENTERED TEAL BUTTON ---
-    col_left, col_center, col_right = st.columns([2, 1, 2])
-    with col_center:
-        if st.button("Get Started", use_container_width=True):
-            st.session_state['login_type'] = 'home'
-            st.rerun()
+    # Use an empty container to keep the button centered without columns that might shift
+    st.markdown("<div style='text-align: center; margin: 20px 0;'>", unsafe_allow_html=True)
+    if st.button("Get Started"):
+        st.session_state['login_type'] = 'home'
+        st.rerun()
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    # --- CONTENT ROWS ---
     steps = [
         ("Step 1: Student Registration", "Students register profiles using unique face embeddings and voice signatures for secure, AI-ready identity mapping.", "images/step1.png"),
         ("Step 2: Class Enrollment", "Students join any class instantly by using the teacher-provided subject code or scanning the class QR link.", "images/step2.png"),
@@ -88,14 +83,6 @@ def landing_screen():
             st.markdown(f'<div class="grid-row">{img_html}{text_html}</div>', unsafe_allow_html=True)
         else:
             st.markdown(f'<div class="grid-row">{text_html}{img_html}</div>', unsafe_allow_html=True)
-
-    # --- MISSION ---
-    st.markdown("""
-        <div style="margin: 80px 0; padding: 60px; background: rgba(255,255,255,0.4); border-radius: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.6);">
-            <h3 style="color: #6A329F; font-size: 1.8rem;">Our Mission</h3>
-            <p style="max-width: 800px; margin: 20px auto; color: #1e293b; font-size: 1.2rem;">Making modern attendance easier and more efficient.</p>
-        </div>
-    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     if 'logged_in' not in st.session_state: st.session_state['logged_in'] = False
