@@ -71,7 +71,7 @@ def landing_screen():
     st.markdown("<p>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
     # Use a column layout to force centering
-    col1, col2, col3 = st.columns([1.5, 1, 1])
+    col1, col2, col3 = st.columns([1.7, 1, 1])
     with col2:
         if st.button("Get Started"):
             st.session_state['login_type'] = 'home'
