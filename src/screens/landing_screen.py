@@ -61,7 +61,7 @@ def landing_screen():
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
         
-        .brand-title { font-size: 4.5rem; font-weight: 900; color: #6A329F; text-align: center; }
+        .brand-title { font-size: 4.5rem; font-weight: 900; color: #000000; text-align: center; }
         h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
         p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; text-align: center; }
         </style>
