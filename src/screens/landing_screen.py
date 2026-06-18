@@ -32,14 +32,7 @@ def landing_screen():
         
         .grid-item { width: 100% !important; }
         
-        /* FULL WIDTH FLEX CONTAINER FOR BUTTON */
-        .button-wrapper {
-            display: flex !important;
-            justify-content: center !important;
-            width: 100% !important;
-            margin: 40px 0 80px 0 !important;
-        }
-        
+        /* Compact Button Styling */
         div.stButton > button {
             background-color: #18a4a9 !important; 
             color: #ffffff !important; 
@@ -49,7 +42,7 @@ def landing_screen():
             padding: 10px 30px !important; 
             font-size: 1.1rem !important; 
             box-shadow: 0 4px 10px rgba(24, 164, 169, 0.2);
-            width: auto !important;
+            width: 100% !important;
         }
 
         .uniform-image-container { 
@@ -73,12 +66,12 @@ def landing_screen():
     st.markdown("<h1 class='brand-title'>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; font-size: 1.5rem; color: #334155;'>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
-    # Force the button into a div that we control
-    st.markdown('<div class="button-wrapper">', unsafe_allow_html=True)
-    if st.button("Get Started"):
-        st.session_state['login_type'] = 'home'
-        st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
+    # FIXED CENTER ALIGNMENT: Using a 3-column split where the middle is narrow
+    _, col_middle, _ = st.columns([2, 1, 2])
+    with col_middle:
+        if st.button("Get Started"):
+            st.session_state['login_type'] = 'home'
+            st.rerun()
 
     steps = [
         ("Step 1: Student Registration", "Students register profiles using unique face embeddings and voice signatures for secure, AI-ready identity mapping.", "images/step1.png"),
