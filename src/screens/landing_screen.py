@@ -20,6 +20,14 @@ def landing_screen():
             margin: 0 auto !important;
         }
 
+        /* BUTTON CONTAINER: Forced full-width center */
+        .btn-center-wrapper {
+            display: flex !important;
+            justify-content: center !important;
+            width: 100% !important;
+            margin: 20px 0 !important;
+        }
+
         /* LOCKED GRID */
         .grid-row {
             display: grid !important;
@@ -42,7 +50,7 @@ def landing_screen():
             padding: 10px 30px !important; 
             font-size: 1.1rem !important; 
             box-shadow: 0 4px 10px rgba(24, 164, 169, 0.2);
-            width: 100% !important;
+            width: auto !important;
         }
 
         .uniform-image-container { 
@@ -66,12 +74,12 @@ def landing_screen():
     st.markdown("<h1 class='brand-title'>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; font-size: 1.5rem; color: #334155;'>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
-    # FIXED CENTER ALIGNMENT: Using a 3-column split where the middle is narrow
-    col_left, col_middle, col_right = st.columns([4, 1, 4])
-    with col_middle:
-        if st.button("Get Started"):
-            st.session_state['login_type'] = 'home'
-            st.rerun()
+    # Use HTML wrapper instead of st.columns to prevent left-alignment glitch
+    st.markdown('<div class="btn-center-wrapper">', unsafe_allow_html=True)
+    if st.button("Get Started"):
+        st.session_state['login_type'] = 'home'
+        st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
 
     steps = [
         ("Step 1: Student Registration", "Students register profiles using unique face embeddings and voice signatures for secure, AI-ready identity mapping.", "images/step1.png"),
