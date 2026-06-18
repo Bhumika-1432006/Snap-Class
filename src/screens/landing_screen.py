@@ -67,7 +67,7 @@ def landing_screen():
         </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<h1 class='brand-title'>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='brand-title' style='color: #000000 !important;'>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
     st.markdown("<p>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
     # Use a column layout to force centering
