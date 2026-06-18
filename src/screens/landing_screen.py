@@ -61,13 +61,18 @@ def landing_screen():
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
         
-        .brand-title { font-size: 4.5rem; font-weight: 900; color: #000000; text-align: center; }
+        .brand-title { 
+            font-size: 4.5rem !important; 
+            font-weight: 900 !important; 
+            color: #000000 !important; 
+            text-align: center !important; 
+        }
         h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
         p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; text-align: center; }
         </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<h1 class='brand-title' style='color: #000000 !important;'>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
+   st.markdown("<h1 class='brand-title'>SNAPCLASS <span style='color:#18a4a9 !important;'>AI</span></h1>", unsafe_allow_html=True)
     st.markdown("<p>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
     # Use a column layout to force centering
