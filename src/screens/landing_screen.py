@@ -11,26 +11,24 @@ def convert_local_file_to_base64(file_path):
         return base64.b64encode(f.read()).decode()
 
 def landing_screen():
-    # --- CSS THEME: SOFT BLUE STRIATION & VIOLET HEADINGS (STABLE LAYOUT) ---
     st.markdown("""
         <style>
-        .stApp { 
-            background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%); 
-            color: #1e293b; 
+        .stApp { background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%); color: #1e293b; }
+        
+        /* THE STABLE GRID LAYOUT FIX */
+        .grid-row {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 40px !important;
+            margin-bottom: 60px !important;
+            align-items: center !important;
+            width: 100% !important;
         }
         
-        /* Force side-by-side layout on Desktop - Prevents smushing */
-        [data-testid="column"] {
-            flex: 1 1 400px !important;
-            min-width: 400px !important;
-        }
-
-        /* Mobile Responsive Fixes */
-        @media (max-width: 768px) {
+        /* Mobile Breakpoint - stack when screen is small */
+        @media (max-width: 900px) {
+            .grid-row { grid-template-columns: 1fr !important; }
             h1 { font-size: 2.5rem !important; }
-            .uniform-image-container { height: 250px !important; margin: 20px 0 !important; }
-            .text-block { padding: 30px !important; margin: 10px 0 !important; }
-            h2 { font-size: 1.6rem !important; }
         }
         
         /* Vibrant Teal Button Styling */
@@ -53,13 +51,13 @@ def landing_screen():
         .uniform-image-container { 
             width: 100%; height: 400px; border-radius: 25px; overflow: hidden; 
             background: #ffffff; box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
-            margin: 40px 0; display: flex; align-items: center; justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
         .uniform-image-container img { width: 100%; height: 100%; object-fit: cover; }
         
         .text-block { 
             padding: 50px; border-radius: 25px; background: rgba(255, 255, 255, 0.5); 
-            margin: 40px 0; border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
         
         /* Violet Headings */
@@ -96,14 +94,11 @@ def landing_screen():
         img_html = f'<div class="uniform-image-container"><img src="data:image/png;base64,{img_b64}"></div>'
         text_html = f'<div class="text-block"><h2>{title}</h2><p>{desc}</p></div>'
         
-        st.write("<br><br>", unsafe_allow_html=True) 
-        c1, c2 = st.columns([1, 1], gap="large")
+        # Use CSS Grid directly to prevent smushing
         if i % 2 == 0:
-            with c1: st.markdown(img_html, unsafe_allow_html=True)
-            with c2: st.markdown(text_html, unsafe_allow_html=True)
+            st.markdown(f'<div class="grid-row">{img_html}{text_html}</div>', unsafe_allow_html=True)
         else:
-            with c1: st.markdown(text_html, unsafe_allow_html=True)
-            with c2: st.markdown(img_html, unsafe_allow_html=True)
+            st.markdown(f'<div class="grid-row">{text_html}{img_html}</div>', unsafe_allow_html=True)
 
     # --- MISSION ---
     st.markdown("""
