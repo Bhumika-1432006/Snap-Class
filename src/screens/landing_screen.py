@@ -20,7 +20,7 @@ def landing_screen():
             margin: 0 auto !important;
         }
 
-        /* LOCKED GRID - Restored Spacing */
+        /* LOCKED GRID - Immune to Refresh Glitches */
         .grid-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
@@ -32,15 +32,24 @@ def landing_screen():
         
         .grid-item { width: 100% !important; }
         
-        /* Centered Button Styling */
-        div.stButton {
+        /* Centered Button Styling - Hardened */
+        div[data-testid="stVerticalBlock"] > div:has(button) {
             display: flex !important;
             justify-content: center !important;
+            width: 100% !important;
+            margin: 20px 0 !important;
         }
+        
         div.stButton > button:first-child {
-            background-color: #18a4a9 !important; color: #ffffff !important; font-weight: 700 !important;
-            border: none !important; border-radius: 50px !important; padding: 15px 50px !important;
-            font-size: 1.4rem !important; box-shadow: 0 4px 15px rgba(24, 164, 169, 0.3);
+            background-color: #18a4a9 !important; 
+            color: #ffffff !important; 
+            font-weight: 700 !important;
+            border: none !important; 
+            border-radius: 50px !important; 
+            padding: 15px 50px !important;
+            font-size: 1.4rem !important; 
+            box-shadow: 0 4px 15px rgba(24, 164, 169, 0.3);
+            margin: 0 auto !important;
         }
 
         .uniform-image-container { 
@@ -64,7 +73,6 @@ def landing_screen():
     st.markdown("<h1>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; font-size: 1.5rem; color: #334155;'>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
-    # Button centered using flexbox CSS via div.stButton in style
     if st.button("Get Started"):
         st.session_state['login_type'] = 'home'
         st.rerun()
