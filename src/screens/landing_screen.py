@@ -15,7 +15,7 @@ def landing_screen():
         <style>
         .stApp { background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%); color: #1e293b; }
         
-        /* HARDENED GRID LAYOUT: Prevents Streamlit from overriding row alignment */
+        /* HARD-LOCKED GRID: Designed exclusively for PC/Desktop */
         [data-testid="stMarkdownContainer"] .grid-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
@@ -23,22 +23,14 @@ def landing_screen():
             margin-bottom: 60px !important;
             align-items: center !important;
             width: 100% !important;
-            min-width: 100% !important;
+            min-width: 1200px !important; /* Forces PC width */
         }
         
-        /* Force grid cells to maintain structure */
         .grid-item {
             width: 100% !important;
-            min-width: 0 !important;
         }
         
-        /* Mobile Breakpoint - Stack only when screen is narrow */
-        @media (max-width: 900px) {
-            [data-testid="stMarkdownContainer"] .grid-row { 
-                grid-template-columns: 1fr !important; 
-            }
-            h1 { font-size: 2.5rem !important; }
-        }
+        /* Removed all @media queries to prevent any layout shifts */
         
         /* Button styling */
         div.stButton > button:first-child {
