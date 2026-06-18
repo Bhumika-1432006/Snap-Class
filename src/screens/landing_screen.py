@@ -54,11 +54,23 @@ def landing_screen():
         }
 
         .uniform-image-container { 
-            width: 100% !important; height: 400px !important; border-radius: 25px; overflow: hidden; 
-            background: #ffffff; box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
-            display: flex; align-items: center; justify-content: center;
+            width: 100% !important; 
+            height: 400px !important; 
+            border-radius: 25px; 
+            overflow: hidden; 
+            background: #ffffff; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
         }
-        .uniform-image-container img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+
+        /* CHANGED object-fit FROM cover TO contain */
+        .uniform-image-container img { 
+            width: 100% !important; 
+            height: 100% !important; 
+            object-fit: contain !important; /* This prevents cropping */
+        }
         
         .text-block { 
             padding: 50px !important; border-radius: 25px; background: rgba(255, 255, 255, 0.5); 
