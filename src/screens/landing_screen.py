@@ -71,6 +71,11 @@ def landing_screen():
             color: #000000 !important; 
             text-align: center !important; 
         }
+
+        /* This specifically targets the span to override the black */
+        h1.brand-title span { 
+            color: #18a4a9 !important; 
+        }
         h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
         p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; text-align: center; }
         </style>
