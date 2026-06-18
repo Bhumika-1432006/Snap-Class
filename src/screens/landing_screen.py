@@ -20,27 +20,27 @@ def landing_screen():
             margin: 0 auto !important;
         }
 
-        /* LOCKED GRID with top spacing */
+        /* LOCKED GRID */
         .grid-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
             gap: 40px !important;
-            margin: 60px auto 60px auto !important; /* Added 60px top margin for space */
+            margin: 60px auto 60px auto !important;
             align-items: center !important;
             width: 100% !important;
         }
         
         .grid-item { width: 100% !important; }
         
-        /* Button Container: Forced absolute center and generous vertical spacing */
-        div[data-testid="stVerticalBlock"] > div:has(button) {
+        /* FULL WIDTH FLEX CONTAINER FOR BUTTON */
+        .button-wrapper {
             display: flex !important;
             justify-content: center !important;
             width: 100% !important;
-            margin: 40px 0 80px 0 !important; /* 40px top, 80px bottom to push content down */
+            margin: 40px 0 80px 0 !important;
         }
         
-        div.stButton > button:first-child {
+        div.stButton > button {
             background-color: #18a4a9 !important; 
             color: #ffffff !important; 
             font-weight: 700 !important;
@@ -49,7 +49,6 @@ def landing_screen():
             padding: 10px 30px !important; 
             font-size: 1.1rem !important; 
             box-shadow: 0 4px 10px rgba(24, 164, 169, 0.2);
-            margin: 0 auto !important;
             width: auto !important;
         }
 
@@ -74,9 +73,12 @@ def landing_screen():
     st.markdown("<h1 class='brand-title'>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; font-size: 1.5rem; color: #334155;'>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
+    # Force the button into a div that we control
+    st.markdown('<div class="button-wrapper">', unsafe_allow_html=True)
     if st.button("Get Started"):
         st.session_state['login_type'] = 'home'
         st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
 
     steps = [
         ("Step 1: Student Registration", "Students register profiles using unique face embeddings and voice signatures for secure, AI-ready identity mapping.", "images/step1.png"),
