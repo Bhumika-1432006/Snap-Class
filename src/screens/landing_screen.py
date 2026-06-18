@@ -15,61 +15,59 @@ def landing_screen():
         <style>
         .stApp { background: linear-gradient(135deg, #e0f2f7 0%, #d1eaf0 100%); color: #1e293b; }
         
-        /* THE STABLE GRID LAYOUT FIX */
-        .grid-row {
+        /* HARDENED GRID LAYOUT: Prevents Streamlit from overriding row alignment */
+        [data-testid="stMarkdownContainer"] .grid-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
             gap: 40px !important;
             margin-bottom: 60px !important;
             align-items: center !important;
             width: 100% !important;
+            min-width: 100% !important;
         }
         
-        /* Mobile Breakpoint - stack when screen is small */
+        /* Force grid cells to maintain structure */
+        .grid-item {
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+        
+        /* Mobile Breakpoint - Stack only when screen is narrow */
         @media (max-width: 900px) {
-            .grid-row { grid-template-columns: 1fr !important; }
+            [data-testid="stMarkdownContainer"] .grid-row { 
+                grid-template-columns: 1fr !important; 
+            }
             h1 { font-size: 2.5rem !important; }
         }
         
-        /* Vibrant Teal Button Styling */
+        /* Button styling */
         div.stButton > button:first-child {
-            background-color: #18a4a9 !important; 
-            color: #ffffff !important; 
-            font-weight: 700 !important;
-            border: none !important; 
-            border-radius: 50px !important; 
-            padding: 15px 50px !important;
-            font-size: 1.4rem !important; 
-            box-shadow: 0 4px 15px rgba(24, 164, 169, 0.3);
-            transition: transform 0.2s ease !important;
-        }
-        div.stButton > button:first-child:hover { 
-            transform: scale(1.05) !important; 
-            background-color: #148a8e !important; 
+            background-color: #18a4a9 !important; color: #ffffff !important; font-weight: 700 !important;
+            border: none !important; border-radius: 50px !important; padding: 15px 50px !important;
+            font-size: 1.4rem !important; box-shadow: 0 4px 15px rgba(24, 164, 169, 0.3);
         }
 
         .uniform-image-container { 
-            width: 100%; height: 400px; border-radius: 25px; overflow: hidden; 
+            width: 100% !important; height: 400px !important; border-radius: 25px; overflow: hidden; 
             background: #ffffff; box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
             display: flex; align-items: center; justify-content: center;
         }
-        .uniform-image-container img { width: 100%; height: 100%; object-fit: cover; }
+        .uniform-image-container img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
         
         .text-block { 
-            padding: 50px; border-radius: 25px; background: rgba(255, 255, 255, 0.5); 
+            padding: 50px !important; border-radius: 25px; background: rgba(255, 255, 255, 0.5); 
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
         
-        /* Violet Headings */
-        h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
-        p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
+        h1 { font-size: 4.5rem; font-weight: 900; color: #0f172a; }
+        h2 { color: #6A329F !important; font-size: 2.2rem !important; }
         </style>
     """, unsafe_allow_html=True)
 
     # --- HERO SECTION ---
     st.markdown("""
         <div style="text-align: center; padding: 60px 0 40px 0;">
-            <h1 style="font-size: 4.5rem; font-weight: 900; color: #0f172a;">SNAPCLASS <span style="color:#18a4a9">AI</span></h1>
+            <h1>SNAPCLASS <span style="color:#18a4a9">AI</span></h1>
             <p style="font-size: 1.5rem; color: #334155; margin-top: 15px;">Intelligent Attendance Automation for Modern Classrooms.</p>
         </div>
     """, unsafe_allow_html=True)
@@ -91,10 +89,9 @@ def landing_screen():
 
     for i, (title, desc, img_path) in enumerate(steps):
         img_b64 = convert_local_file_to_base64(img_path)
-        img_html = f'<div class="uniform-image-container"><img src="data:image/png;base64,{img_b64}"></div>'
-        text_html = f'<div class="text-block"><h2>{title}</h2><p>{desc}</p></div>'
+        img_html = f'<div class="grid-item"><div class="uniform-image-container"><img src="data:image/png;base64,{img_b64}"></div></div>'
+        text_html = f'<div class="grid-item"><div class="text-block"><h2>{title}</h2><p>{desc}</p></div></div>'
         
-        # Use CSS Grid directly to prevent smushing
         if i % 2 == 0:
             st.markdown(f'<div class="grid-row">{img_html}{text_html}</div>', unsafe_allow_html=True)
         else:
