@@ -40,8 +40,16 @@ def landing_screen():
         
         .grid-item { width: 100% !important; }
         
-        /* Compact Button Styling */
+        //* Force the button container and the button itself to the absolute center */
+        div.stButton {
+            display: flex !important;
+            justify-content: center !important;
+            width: 100% !important;
+        }
+        
         div.stButton > button {
+            display: block !important;
+            margin: 0 auto !important;
             background-color: #18a4a9 !important; 
             color: #ffffff !important; 
             font-weight: 700 !important;
