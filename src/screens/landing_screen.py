@@ -20,24 +20,24 @@ def landing_screen():
             margin: 0 auto !important;
         }
 
-        /* LOCKED GRID */
+        /* LOCKED GRID with top spacing */
         .grid-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
             gap: 40px !important;
-            margin: 0 auto 60px auto !important;
+            margin: 60px auto 60px auto !important; /* Added 60px top margin for space */
             align-items: center !important;
             width: 100% !important;
         }
         
         .grid-item { width: 100% !important; }
         
-        /* Centered Compact Button Styling - Even Smaller */
+        /* Button Container: Forced absolute center and generous vertical spacing */
         div[data-testid="stVerticalBlock"] > div:has(button) {
             display: flex !important;
             justify-content: center !important;
             width: 100% !important;
-            margin: 10px 0 !important;
+            margin: 40px 0 80px 0 !important; /* 40px top, 80px bottom to push content down */
         }
         
         div.stButton > button:first-child {
@@ -46,11 +46,11 @@ def landing_screen():
             font-weight: 700 !important;
             border: none !important; 
             border-radius: 50px !important; 
-            padding: 8px 24px !important; /* Smaller padding */
-            font-size: 0.95rem !important; /* Smaller font */
+            padding: 10px 30px !important; 
+            font-size: 1.1rem !important; 
             box-shadow: 0 4px 10px rgba(24, 164, 169, 0.2);
             margin: 0 auto !important;
-            width: auto !important; /* Lock width to content */
+            width: auto !important;
         }
 
         .uniform-image-container { 
