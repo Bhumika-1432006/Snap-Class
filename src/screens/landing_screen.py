@@ -20,14 +20,6 @@ def landing_screen():
             margin: 0 auto !important;
         }
 
-        /* BUTTON CONTAINER: Forced full-width center */
-        .btn-center-wrapper {
-            display: flex !important;
-            justify-content: center !important;
-            width: 100% !important;
-            margin: 20px 0 !important;
-        }
-
         /* LOCKED GRID */
         .grid-row {
             display: grid !important;
@@ -40,16 +32,13 @@ def landing_screen():
         
         .grid-item { width: 100% !important; }
         
-        //* Force the button container and the button itself to the absolute center */
-        div.stButton {
+        /* CORRECTED CENTERED BUTTON CSS */
+        div[data-testid="column"] {
             display: flex !important;
             justify-content: center !important;
-            width: 100% !important;
         }
         
         div.stButton > button {
-            display: block !important;
-            margin: 0 auto !important;
             background-color: #18a4a9 !important; 
             color: #ffffff !important; 
             font-weight: 700 !important;
@@ -58,7 +47,6 @@ def landing_screen():
             padding: 10px 30px !important; 
             font-size: 1.1rem !important; 
             box-shadow: 0 4px 10px rgba(24, 164, 169, 0.2);
-            width: auto !important;
         }
 
         .uniform-image-container { 
@@ -75,19 +63,19 @@ def landing_screen():
         
         .brand-title { font-size: 4.5rem; font-weight: 900; color: #6A329F; text-align: center; }
         h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
-        p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
+        p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; text-align: center; }
         </style>
     """, unsafe_allow_html=True)
 
     st.markdown("<h1 class='brand-title'>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; font-size: 1.5rem; color: #334155;'>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
+    st.markdown("<p>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
-    # Use HTML wrapper instead of st.columns to prevent left-alignment glitch
-    st.markdown('<div class="btn-center-wrapper">', unsafe_allow_html=True)
-    if st.button("Get Started"):
-        st.session_state['login_type'] = 'home'
-        st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Use a column layout to force centering
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col2:
+        if st.button("Get Started"):
+            st.session_state['login_type'] = 'home'
+            st.rerun()
 
     steps = [
         ("Step 1: Student Registration", "Students register profiles using unique face embeddings and voice signatures for secure, AI-ready identity mapping.", "images/step1.png"),
