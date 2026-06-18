@@ -20,7 +20,7 @@ def landing_screen():
             margin: 0 auto !important;
         }
 
-        /* LOCKED GRID - Immune to Refresh Glitches */
+        /* LOCKED GRID */
         .grid-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
@@ -32,7 +32,7 @@ def landing_screen():
         
         .grid-item { width: 100% !important; }
         
-        /* Centered Button Styling - Hardened */
+        /* Centered Compact Button Styling */
         div[data-testid="stVerticalBlock"] > div:has(button) {
             display: flex !important;
             justify-content: center !important;
@@ -46,8 +46,8 @@ def landing_screen():
             font-weight: 700 !important;
             border: none !important; 
             border-radius: 50px !important; 
-            padding: 15px 50px !important;
-            font-size: 1.4rem !important; 
+            padding: 10px 30px !important; /* Made button smaller */
+            font-size: 1.1rem !important; 
             box-shadow: 0 4px 15px rgba(24, 164, 169, 0.3);
             margin: 0 auto !important;
         }
@@ -64,13 +64,15 @@ def landing_screen():
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
         
-        h1 { font-size: 4.5rem; font-weight: 900; color: #0f172a; text-align: center; }
+        /* Headings */
+        .brand-title { font-size: 4.5rem; font-weight: 900; color: #6A329F; text-align: center; }
         h2 { color: #6A329F !important; font-size: 2.2rem !important; margin-bottom: 20px !important; }
         p { color: #475569 !important; font-size: 1.2rem !important; line-height: 1.8 !important; }
         </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<h1>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
+    # Restored Violet color to SNAPCLASS
+    st.markdown("<h1 class='brand-title'>SNAPCLASS <span style='color:#18a4a9'>AI</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; font-size: 1.5rem; color: #334155;'>Intelligent Attendance Automation for Modern Classrooms.</p>", unsafe_allow_html=True)
 
     if st.button("Get Started"):
