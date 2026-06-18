@@ -20,13 +20,14 @@ def main():
         case 'landing':
             landing_screen()
         case 'home':
-            home_screen()
+            home_screen() # Ensure this screen exists and is imported
         case 'teacher':
             teacher_screen()
         case 'student':
             student_screen()
-        case _: # This handles None or any other unexpected state
-            st.session_state['login_type'] = 'landing' # Reset to landing
+        case _:
+            # If state is None or unrecognized, force back to landing
+            st.session_state['login_type'] = 'landing'
             st.rerun()
         
 
