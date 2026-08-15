@@ -1,0 +1,63 @@
+<svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EEEBFB"/>
+      <stop offset="100%" stop-color="#DFD9F5"/>
+    </linearGradient>
+    <linearGradient id="clothGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38399A"/>
+      <stop offset="100%" stop-color="#22235E"/>
+    </linearGradient>
+    <linearGradient id="skinGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE3C2"/>
+      <stop offset="100%" stop-color="#FDD3A3"/>
+    </linearGradient>
+    <linearGradient id="boardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F4F4FA"/>
+    </linearGradient>
+    <radialGradient id="shadowGrad2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#22235E" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#22235E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="300" cy="298" r="240" fill="url(#bgGrad2)"/>
+  <ellipse cx="300" cy="500" rx="150" ry="22" fill="url(#shadowGrad2)"/>
+
+  <path d="M 205 330 Q 300 302 395 330 Q 407 400 388 465 Q 300 495 212 465 Q 193 400 205 330 Z" fill="url(#clothGrad2)"/>
+  <path d="M 268 335 L 300 358 L 332 335" fill="none" stroke="#F5A623" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <circle cx="300" cy="238" r="66" fill="url(#skinGrad2)"/>
+  <path d="M 230 226 Q 226 148 300 145 Q 374 148 370 226 Q 366 200 350 190 L 348 214 Q 340 195 300 192 Q 260 195 252 214 L 250 190 Q 234 200 230 226 Z" fill="#1B1C4A"/>
+  <circle cx="273" cy="242" r="5.5" fill="#28305C"/>
+  <circle cx="327" cy="242" r="5.5" fill="#28305C"/>
+  <path d="M 278 270 Q 300 285 322 270" fill="none" stroke="#28305C" stroke-width="3.5" stroke-linecap="round"/>
+  <rect x="272" y="184" width="56" height="14" rx="7" fill="#F5A623"/>
+  <circle cx="272" cy="191" r="7" fill="#F5A623"/>
+  <circle cx="328" cy="191" r="7" fill="#F5A623"/>
+
+  <ellipse cx="212" cy="400" rx="16" ry="48" fill="url(#skinGrad2)" transform="rotate(24 212 400)"/>
+  <ellipse cx="388" cy="400" rx="16" ry="48" fill="url(#skinGrad2)" transform="rotate(-24 388 400)"/>
+
+  <g transform="translate(130,300) rotate(-6)">
+    <rect x="0" y="0" width="115" height="150" rx="10" fill="url(#boardGrad)"/>
+    <rect x="0" y="0" width="115" height="10" rx="5" fill="#2B2D6E"/>
+    <line x1="16" y1="34" x2="99" y2="34" stroke="#18A4A9" stroke-width="4" stroke-linecap="round"/>
+    <line x1="16" y1="54" x2="80" y2="54" stroke="#D8D5EE" stroke-width="4" stroke-linecap="round"/>
+    <line x1="16" y1="74" x2="90" y2="74" stroke="#D8D5EE" stroke-width="4" stroke-linecap="round"/>
+    <line x1="16" y1="94" x2="70" y2="94" stroke="#D8D5EE" stroke-width="4" stroke-linecap="round"/>
+    <rect x="16" y="114" width="58" height="22" rx="11" fill="#F5A623"/>
+    <text x="45" y="130" font-family="sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">CODE</text>
+  </g>
+
+  <g transform="translate(430,270)">
+    <circle cx="0" cy="0" r="38" fill="url(#boardGrad)"/>
+    <circle cx="0" cy="0" r="38" fill="none" stroke="#2B2D6E" stroke-width="2.5"/>
+    <path d="M -15 0 L -3 13 L 17 -14" fill="none" stroke="#F5A623" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <circle cx="470" cy="180" r="7" fill="#F5A623"/>
+  <circle cx="465" cy="400" r="10" fill="#18A4A9" opacity="0.2"/>
+  <circle cx="130" cy="460" r="12" fill="#2B2D6E" opacity="0.16"/>
+</svg>

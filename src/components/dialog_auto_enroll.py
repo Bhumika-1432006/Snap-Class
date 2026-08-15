@@ -7,6 +7,13 @@ import time
 
 @st.dialog("Quick Enrollment")
 def auto_enroll_dialog(subject_code):
+    st.markdown("""
+        <style>
+        [data-testid="stDialog"] { background: #FFFFFF !important; border-radius: 16px !important; }
+        [data-testid="stDataFrame"] { border-radius: 8px !important; overflow: hidden !important; }
+        </style>
+    """, unsafe_allow_html=True)
+
     if 'student_data' not in st.session_state:
         st.error("Please log in first.")
         return

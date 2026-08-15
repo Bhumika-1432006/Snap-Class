@@ -8,20 +8,20 @@ def style_background_home():
         <style>
 
                 .stApp {
-                    background: #5865F2 !important;
+                    background: #18A4A9 !important;
                 }
- 
+
                 # storing the id
                 .stApp div[data-testid="stColumn"]{
-                    background-color:#E0E3FF !important;
+                    background-color:#E4F4F4 !important;
                     padding:2.5rem !important;
                     border-radius: 5rem !important;
                     }
-        </style>  
+        </style>
 
                 """
             ,unsafe_allow_html=True)
-    
+
 
 def style_background_dashboard():
 
@@ -29,59 +29,70 @@ def style_background_dashboard():
         <style>
 
                 .stApp {
-                    background: #E0E3FF !important;
+                    background: #E4F4F4 !important;
                 }
 
-        </style>  
+        </style>
 
                 """
             ,unsafe_allow_html=True)
-    
 
-    
+
+
 
 def style_base_layout():
 # asdasd
     st.markdown("""
         <style>
-    
-        @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-                
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            --color-primary: #18A4A9;
+            --color-primary-dark: #0E7A7E;
+            --color-secondary: #2B2D6E;
+            --color-accent: #F5A623;
+            --color-text: #1E2430;
+            --color-text-muted: #52606D;
+            --color-surface: rgba(255, 255, 255, 0.65);
+            --color-surface-border: rgba(255, 255, 255, 0.9);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+
           /* Hide Top Bar of streamlit */
-                
+
             #MainMenu, footer, header {
                visibility: hidden;
             }
-                
+
             .block-container {
-                padding-top:1.5rem !important;    
+                padding-top:1.5rem !important;
             }
 
             h1 {
-                font-family: 'Climate Crisis', sans-serif !important;
-                font-size: 3.5rem !important;
-                line-height:1.1 1important;
-                margin-bottom:0rem !important;
+                font-family: var(--font-heading, 'Poppins', sans-serif) !important;
+                font-size: 2rem !important;
+                font-weight: 700 !important;
+                color: var(--color-secondary, #2B2D6E) !important;
             }
-                
 
             h2 {
-                font-family: 'Climate Crisis', sans-serif !important;
-                font-size: 2rem !important;
-                line-height:0.9 !important;
-                margin-bottom:0rem !important;
+                font-family: var(--font-heading, 'Poppins', sans-serif) !important;
+                font-size: 1.5rem !important;
+                font-weight: 700 !important;
+                color: var(--color-secondary, #2B2D6E) !important;
             }
-                
+
             h3, h4, p {
-                font-family: 'Outfit', sans-serif;    
+                font-family: var(--font-body);
             }
-                
+
 
             button{
                 border-radius: 1.5rem !important;
-                background-color: #5865F2 !important;
+                background-color: #18A4A9 !important;
                 color: white !important;
                 padding: 10px 20px !important;
                 border: none !important;
@@ -90,25 +101,25 @@ def style_base_layout():
 
             button[kind="secondary"]{
                 border-radius: 1.5rem !important;
-                background-color: #EB459E !important;
+                background-color: #2B2D6E !important;
                 color: white !important;
                 padding: 10px 20px !important;
                 border: none !important;
                 transition: transform 0.25s ease-in-out !important;
                 }
 
-            button[kind="tertiary"]{
-                border-radius: 1.5rem !important;
-                background-color: black !important;
-                color: white !important;
+            button[kind="tertiary"] {
+                background-color: transparent !important;
+                color: #18A4A9 !important;
+                border: 0.5px solid #18A4A9 !important;
+                border-radius: 50px !important;
                 padding: 10px 20px !important;
-                border: none !important;
                 transition: transform 0.25s ease-in-out !important;
                 }
 
             button:hover{
                 transform :scale(1.05)}
-        </style>  
+        </style>
 
                 """
             ,unsafe_allow_html=True)

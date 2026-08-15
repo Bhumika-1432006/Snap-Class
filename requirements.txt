@@ -6,6 +6,7 @@ streamlit
 
 numpy
 pandas
+plotly
 
 # Face recognition
 
@@ -35,9 +36,9 @@ bcrypt
   # for hasing 
 
 # for QR code
-segno  
+qrcode[pil]
 
-# give URL -> it generates a code for that url 
+# give URL -> it generates a code for that url
 
 pillow 
 

@@ -7,6 +7,13 @@ import time
 from src.database.db import create_attendance
 
 def show_attendance_result(df, logs, key_prefix="default"):
+    st.markdown("""
+        <style>
+        [data-testid="stDialog"] { background: #FFFFFF !important; border-radius: 16px !important; }
+        [data-testid="stDataFrame"] { border-radius: 8px !important; overflow: hidden !important; }
+        </style>
+    """, unsafe_allow_html=True)
+
     st.write('Please review attendance before confirming.')
     st.dataframe(df, hide_index=True, width='stretch')
 

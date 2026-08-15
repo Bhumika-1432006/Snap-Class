@@ -1,32 +1,161 @@
 import streamlit as st
 
-import segno
+import qrcode
 import io
+import base64
+import socket
+from urllib.parse import quote
 
 
-@st.dialog("Share Class Link")
+def get_local_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except:
+        return "localhost"
+
+
+@st.dialog(" ")
 def share_subject_dialog(subject_name, subject_code):
-    app_domain = "snapclass-main.streamlit.app"
-    join_url = f"{app_domain}/?join-code={subject_code}"
+    # LAN IP (not localhost) so phones on the same network can scan the QR
+    # and actually reach the app from their own device. Detected at share
+    # time instead of hardcoded, so it stays correct if the machine's IP
+    # changes (e.g. DHCP lease renewal, different Wi-Fi network).
+    base_url = f"http://{get_local_ip()}:8501"
+    enrollment_url = f"{base_url}/?enroll={subject_code}"
 
-    st.header("Scan to Join")
+    qr_img = qrcode.make(enrollment_url)
+    buf = io.BytesIO()
+    qr_img.save(buf, format="PNG")
+    qr_b64 = base64.b64encode(buf.getvalue()).decode()
 
-    qr = segno.make(join_url)
+    whatsapp_text = quote(f"Join {subject_name} on SnapClass: {enrollment_url}")
+    whatsapp_url = f"https://wa.me/?text={whatsapp_text}"
 
-    out = io.BytesIO()
+    st.markdown("""
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Inter:wght@400;500;600&display=swap');
 
-    qr.save(out, kind='png', scale=10, border=1)
+            /* Scoped to whichever dialog is currently open -- this markdown
+               block only exists in the DOM while share_subject_dialog() is
+               being rendered, so it's effectively self-contained. */
+            div[data-testid="stDialog"] > div:first-child > div:first-child {
+                border-top: 4px solid #18A4A9 !important;
+            }
+            .share-title {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-size: 1.3rem;
+                color: #2B2D6E;
+                margin-bottom: 14px;
+            }
+            .share-col-heading {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+                color: #2B2D6E;
+                margin-bottom: 10px;
+            }
+            .share-url-box {
+                background: #E4F4F4;
+                border: 1px solid rgba(24, 164, 169, 0.35);
+                border-radius: 8px;
+                padding: 12px 14px;
+                font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+                font-size: 0.82rem;
+                color: #1E2430;
+                word-break: break-all;
+                margin-bottom: 14px;
+            }
+            .copy-link-btn, .whatsapp-btn {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-size: 0.92rem;
+                border-radius: 50px;
+                padding: 12px 20px;
+                margin-bottom: 10px;
+                text-decoration: none !important;
+                cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .copy-link-btn {
+                background: linear-gradient(135deg, #18A4A9 0%, #0E7A7E 100%);
+                color: #ffffff !important;
+                border: none;
+                box-shadow: 0 8px 20px rgba(24, 164, 169, 0.3);
+            }
+            .copy-link-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(24, 164, 169, 0.4); }
+            .whatsapp-btn {
+                background: #ffffff;
+                color: #2B2D6E !important;
+                border: 2px solid #2B2D6E;
+                box-shadow: none;
+            }
+            .whatsapp-btn:hover { background: rgba(43, 45, 110, 0.06); transform: translateY(-2px); }
+            .qr-wrap {
+                background: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 8px 20px rgba(24, 164, 169, 0.12);
+                padding: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .qr-wrap img { width: 100%; max-width: 220px; border-radius: 6px; display: block; }
+            .qr-caption {
+                text-align: center;
+                font-family: 'Inter', sans-serif;
+                font-size: 0.8rem;
+                color: #52606D;
+                margin-top: 10px;
+            }
+        </style>
+        <div class="share-title">Share Class Link</div>
+    """, unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown('### Copy Link')
-        st.code(join_url, language="text")
-        st.code(subject_code, language="text")
-        st.info('Copy this link to share on Whatsapp or Email')
+        st.markdown('<div class="share-col-heading">Copy Link</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="share-url-box">{enrollment_url}</div>', unsafe_allow_html=True)
+
+        copy_btn_html = """
+            <button class="copy-link-btn" onclick="
+                var text = '__URL__';
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text);
+                } else {
+                    var ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
+                this.innerText = 'Copied!';
+                setTimeout(() => { this.innerText = 'Copy to Clipboard'; }, 1500);
+            ">Copy to Clipboard</button>
+        """.replace("__URL__", enrollment_url)
+        st.markdown(copy_btn_html, unsafe_allow_html=True)
+
+        st.markdown(
+            f'<a class="whatsapp-btn" href="{whatsapp_url}" target="_blank" rel="noopener noreferrer">📲 WhatsApp</a>',
+            unsafe_allow_html=True,
+        )
 
     with col2:
-        st.markdown('### Scan to Join')
-        st.image(out.getvalue(), caption='QRCODE for class joining')
-
-        
+        st.markdown('<div class="share-col-heading">Scan to Join</div>', unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class="qr-wrap"><img src="data:image/png;base64,{qr_b64}" /></div>
+            <div class="qr-caption">Scan to enroll instantly</div>
+        """, unsafe_allow_html=True)

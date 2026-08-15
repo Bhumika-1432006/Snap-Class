@@ -16,6 +16,12 @@ def main():
     if 'login_type' not in st.session_state:
         st.session_state['login_type'] = 'landing'
 
+    enroll_code = st.query_params.get("enroll", None)
+    if enroll_code:
+        st.session_state['login_type'] = 'student'
+        st.session_state['enroll_code'] = enroll_code
+        st.query_params.clear()
+
     match st.session_state['login_type']:
         case 'landing':
             landing_screen()

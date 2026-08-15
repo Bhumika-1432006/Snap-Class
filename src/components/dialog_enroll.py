@@ -7,8 +7,12 @@ import time
 
 @st.dialog("Enroll in Subject")
 def enroll_dialog():
+    # Consumed once: if a QR/link enrollment code is pending, pre-fill it and
+    # clear it so this dialog doesn't keep popping back open on every rerun.
+    prefill_code = st.session_state.pop('enroll_code', '') if 'enroll_code' in st.session_state else ''
+
     st.write('Enter the subject code provided by your teacher to enroll')
-    join_code = st.text_input('Subject Code', placeholder='Eg. CS101')
+    join_code = st.text_input('Subject Code', placeholder='Eg. CS101', value=prefill_code)
 
     if st.button('Enroll now', type='primary', width='stretch'):
         if join_code:

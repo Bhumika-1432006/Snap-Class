@@ -7,6 +7,38 @@ import time
 
 @st.dialog("Capture or upload photos")
 def add_photos_dialog():
+    st.markdown("""
+        <style>
+            .st-key-camera-snapshot-panel {
+                background: #FFFFFF !important;
+                border-radius: 20px !important;
+                padding: 2rem !important;
+                box-shadow: 0 12px 28px rgba(24, 164, 169, 0.12) !important;
+                border: 1px solid var(--color-surface-border, rgba(255, 255, 255, 0.9)) !important;
+                margin-bottom: 12px !important;
+            }
+
+            [data-testid="stCameraInputButton"] {
+                background: linear-gradient(135deg, var(--color-primary, #18A4A9) 0%, var(--color-primary-dark, #0E7A7E) 100%) !important;
+                color: #ffffff !important;
+                font-family: var(--font-heading, 'Poppins', sans-serif) !important;
+                font-weight: 700 !important;
+                border: none !important;
+                border-radius: 50px !important;
+                padding: 12px 30px !important;
+                box-shadow: 0 8px 22px rgba(24, 164, 169, 0.35) !important;
+                transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+            }
+            [data-testid="stCameraInputButton"]:hover {
+                transform: translateY(-3px) scale(1.03);
+                box-shadow: 0 12px 28px rgba(24, 164, 169, 0.45) !important;
+                color: #ffffff !important;
+            }
+            [data-testid="stCameraInputButton"]:active {
+                transform: translateY(-1px) scale(0.99);
+            }
+        </style>
+    """, unsafe_allow_html=True)
 
     st.write('Add classroom photos to scan for attendance')
 
@@ -28,7 +60,10 @@ def add_photos_dialog():
             st.session_state.photo_tab = 'upload'
 
     if st.session_state.photo_tab == 'camera':
-        cam_photo = st.camera_input('Take Snapshot', key='dialog_cam')
+        with st.container(key="camera-snapshot-panel"):
+            c_left, c_center, c_right = st.columns([1, 6, 1])
+            with c_center:
+                cam_photo = st.camera_input('Take Snapshot', key='dialog_cam')
         if cam_photo:
             st.session_state.attendance_images.append(Image.open(cam_photo))
             st.toast('Photo Captured')

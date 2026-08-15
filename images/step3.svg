@@ -1,0 +1,25 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#F4F9F9"/>
+  <circle cx="400" cy="300" r="200" fill="#E4F4F4"/>
+  <rect x="270" y="170" width="260" height="200" rx="12" fill="#FFFFFF" stroke="#2B2D6E" stroke-width="3"/>
+  <rect x="270" y="170" width="260" height="36" rx="12" fill="#2B2D6E"/>
+  <rect x="270" y="188" width="260" height="18" fill="#2B2D6E"/>
+  <circle cx="292" cy="188" r="5" fill="#F5A623"/>
+  <circle cx="310" cy="188" r="5" fill="#18A4A9"/>
+  <circle cx="328" cy="188" r="5" fill="#E4F4F4"/>
+  <g stroke="#18A4A9" stroke-width="3" stroke-linecap="round">
+    <line x1="300" y1="240" x2="500" y2="240"/>
+    <line x1="300" y1="270" x2="460" y2="270"/>
+    <line x1="300" y1="300" x2="480" y2="300"/>
+  </g>
+  <circle cx="292" cy="240" r="5" fill="#F5A623"/>
+  <circle cx="292" cy="270" r="5" fill="#F5A623"/>
+  <circle cx="292" cy="300" r="5" fill="#F5A623"/>
+  <rect x="300" y="325" width="90" height="26" rx="13" fill="#18A4A9"/>
+  <text x="345" y="342" font-family="sans-serif" font-size="13" fill="#FFFFFF" text-anchor="middle">CODE: X7K2</text>
+  <circle cx="590" cy="420" r="42" fill="#FFFFFF" stroke="#2B2D6E" stroke-width="3"/>
+  <circle cx="590" cy="405" r="12" fill="#2B2D6E"/>
+  <path d="M 570 440 Q 590 420 610 440" fill="none" stroke="#2B2D6E" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="220" cy="160" r="10" fill="#F5A623"/>
+  <circle cx="180" cy="440" r="16" fill="#18A4A9" opacity="0.15"/>
+</svg>
