@@ -119,6 +119,66 @@ def style_base_layout():
 
             button:hover{
                 transform :scale(1.05)}
+
+            /* --- Dark-mode safety net ---
+               config.toml's [theme] base="light" is the primary fix, but
+               native BaseWeb components (dialogs, the date_input calendar,
+               selectbox/multiselect dropdowns) are portaled to <body>
+               outside .stApp and have historically still picked up OS dark
+               mode in some Streamlit versions. These selectors are
+               intentionally unscoped (no .stApp prefix) since that's where
+               BaseWeb actually mounts them, and force a light, on-brand
+               surface with readable text regardless of the OS setting. */
+
+            [data-testid="stDialog"],
+            [data-testid="stDialog"] > div:first-child > div:first-child {
+                background: #FFFFFF !important;
+            }
+            [data-testid="stDialog"] h1,
+            [data-testid="stDialog"] h2,
+            [data-testid="stDialog"] h3,
+            [data-testid="stDialog"] label,
+            [data-testid="stDialog"] p,
+            [data-testid="stDialog"] span,
+            [data-testid="stDialog"] div {
+                color: var(--color-text, #1E2430) !important;
+            }
+
+            /* Selectbox / multiselect / date_input popovers */
+            div[data-baseweb="popover"] {
+                background: #FFFFFF !important;
+            }
+            div[data-baseweb="popover"] * {
+                color: var(--color-text, #1E2430) !important;
+            }
+            div[data-baseweb="menu"],
+            ul[role="listbox"] {
+                background: #FFFFFF !important;
+            }
+            li[role="option"] {
+                background: #FFFFFF !important;
+                color: var(--color-text, #1E2430) !important;
+            }
+            li[role="option"]:hover,
+            li[aria-selected="true"] {
+                background: rgba(24, 164, 169, 0.12) !important;
+            }
+
+            /* Date range calendar popup */
+            div[data-baseweb="calendar"] {
+                background: #FFFFFF !important;
+            }
+            div[data-baseweb="calendar"] * {
+                color: var(--color-text, #1E2430) !important;
+            }
+            div[data-baseweb="calendar"] button[aria-selected="true"],
+            div[data-baseweb="calendar"] div[aria-selected="true"] {
+                background: var(--color-primary, #18A4A9) !important;
+                color: #FFFFFF !important;
+            }
+            div[data-baseweb="calendar"] button:hover {
+                background: rgba(24, 164, 169, 0.15) !important;
+            }
         </style>
 
                 """

@@ -19,7 +19,8 @@ __pycache__/
 *.h5
 
 # Streamlit
-.streamlit/
+.streamlit/*
+!.streamlit/config.toml
 static/
 
 # OS trash
