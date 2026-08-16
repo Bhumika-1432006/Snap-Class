@@ -175,13 +175,13 @@ def set_global_styles():
                needs a 4th look (solid indigo) distinct from the outlined
                indigo secondary style used elsewhere on this screen. */
             .st-key-btn-face-analysis div.stButton > button {
-                background: linear-gradient(135deg, var(--color-secondary) 0%, #1D1F52 100%) !important;
+                background: linear-gradient(135deg, #4C5FD5 0%, #4151B5 100%) !important;
                 color: #ffffff !important;
                 border: none !important;
-                box-shadow: 0 8px 22px rgba(43, 45, 110, 0.30) !important;
+                box-shadow: 0 8px 22px rgba(76, 95, 213, 0.30) !important;
             }
             .st-key-btn-face-analysis div.stButton > button:hover {
-                box-shadow: 0 12px 28px rgba(43, 45, 110, 0.4) !important;
+                box-shadow: 0 12px 28px rgba(76, 95, 213, 0.4) !important;
                 color: #ffffff !important;
             }
 
