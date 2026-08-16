@@ -144,6 +144,21 @@ def style_base_layout():
                 color: var(--color-text, #1E2430) !important;
             }
 
+            /* The text-color rule above catches button label spans/divs too,
+               overriding button[kind="secondary"]'s white text and leaving
+               dark-on-navy/teal buttons unreadable inside dialogs. Restore
+               white text for buttons (primary teal + secondary navy), with
+               a tertiary exception since those stay transparent-with-teal-text. */
+            [data-testid="stDialog"] button,
+            [data-testid="stDialog"] button * {
+                color: #FFFFFF !important;
+            }
+
+            [data-testid="stDialog"] button[kind="tertiary"],
+            [data-testid="stDialog"] button[kind="tertiary"] * {
+                color: var(--color-primary, #18A4A9) !important;
+            }
+
             /* Selectbox / multiselect / date_input popovers */
             div[data-baseweb="popover"] {
                 background: #FFFFFF !important;
