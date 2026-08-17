@@ -26,8 +26,15 @@ def enroll_dialog():
                     st.warning('You are already enrolled in this program')
                 else:
                     enroll_student_to_subject(student_id, subject['subject_id'])
-                    st.success('Succesfully enrolled!')
-                    time.sleep(1)
+                    st.markdown("""
+                        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;">
+                            <video src="https://assets-v2.lottiefiles.com/a/0fec3d74-5606-11ef-8b0e-4ff82aa28e0f/rvny7VRYdr.mp4"
+                                   autoplay muted playsinline
+                                   style="width:220px; height:220px; object-fit:cover;"></video>
+                            <p style="font-weight:700; font-size:1.1rem; margin:0;">Successfully enrolled! 🎉</p>
+                        </div>
+                    """, unsafe_allow_html=True)
+                    time.sleep(2.5)
                     st.rerun()
         else:
             st.warning('Please enter a subject code')

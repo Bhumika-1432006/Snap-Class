@@ -6,7 +6,11 @@ from src.components.dialog_attendance_results import show_attendance_result, att
 from src.components.header import header_dashboard
 from src.components.footer import footer_dashboard
 from src.components.subject_card import subject_card
-from src.database.db import check_teacher_exists, create_teacher, teacher_login, get_teacher_subjects, get_attendance_for_teacher, get_all_students
+from src.database.db import (
+    check_teacher_exists, create_teacher, teacher_login, get_teacher_subjects,
+    get_attendance_for_teacher, get_all_students, get_disputes_for_teacher,
+    reply_to_dispute, resolve_dispute,
+)
 from src.components.dialog_create_subject import create_subject_dialog
 from src.components.dialog_share_subject import share_subject_dialog
 from src.components.dialog_add_photo import add_photos_dialog
@@ -504,6 +508,74 @@ def set_global_styles():
             .status-pill.mid { background: rgba(245, 166, 35, 0.15); color: #B8791A; }
             .status-pill.poor { background: rgba(196, 69, 58, 0.12); color: #C4453A; }
 
+            /* Reported Issues tab: one card per dispute */
+            [class*="st-key-dispute-entry-"] {
+                background: #FFFFFF !important;
+                border-radius: 12px !important;
+                border-left: 4px solid #F5A623 !important;
+                padding: 14px 18px !important;
+                margin-bottom: 12px !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+            }
+            [class*="st-key-dispute-entry-resolved-"] {
+                border-left-color: #1F9D55 !important;
+                opacity: 0.72;
+            }
+            .dispute-entry-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            .dispute-entry-student {
+                font-family: var(--font-heading);
+                font-weight: 700;
+                font-size: 1rem;
+                color: var(--color-secondary);
+            }
+            .dispute-entry-meta {
+                font-family: var(--font-body);
+                font-size: 0.76rem;
+                color: var(--color-text-muted);
+                margin-top: 1px;
+            }
+            .dispute-entry-message {
+                font-family: var(--font-body);
+                font-size: 0.85rem;
+                color: var(--color-text);
+                margin-top: 8px;
+                line-height: 1.4;
+            }
+            .dispute-badge {
+                font-family: var(--font-heading);
+                font-weight: 700;
+                font-size: 0.72rem;
+                padding: 3px 12px;
+                border-radius: 20px;
+                white-space: nowrap;
+            }
+            .dispute-badge.open { background: rgba(245, 166, 35, 0.15); color: #B8791A; }
+            .dispute-badge.resolved { background: rgba(31, 157, 85, 0.12); color: #1F9D55; }
+            .dispute-reply {
+                font-family: var(--font-body);
+                font-size: 0.85rem;
+                color: var(--color-text);
+                margin-top: 8px;
+                padding: 8px 12px;
+                background: rgba(24, 164, 169, 0.07);
+                border-radius: 8px;
+                line-height: 1.4;
+            }
+            .dispute-reply-label {
+                font-family: var(--font-heading);
+                font-weight: 700;
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.4px;
+                color: var(--color-primary-dark);
+                margin-bottom: 3px;
+            }
+
             @keyframes fadeInUp {
                 from { opacity: 0; transform: translateY(20px); }
                 to { opacity: 1; transform: translateY(0); }
@@ -538,6 +610,7 @@ def _fmt_dt(ts, fmt='%b %d, %Y %I:%M %p'):
 
 def teacher_dashboard():
     teacher_data = st.session_state.teacher_data
+    teacher_id = teacher_data['teacher_id']
     c1, c2 = st.columns(2, vertical_alignment='center', gap='xxlarge')
     with c1:
         header_dashboard()
@@ -554,8 +627,14 @@ def teacher_dashboard():
     if "current_teacher_tab" not in st.session_state:
         st.session_state.current_teacher_tab = 'take_attendance'
 
+    # Fetched once here so the open-count badge in the tab label and the tab
+    # body itself (when active) share the same query instead of double-fetching.
+    disputes = get_disputes_for_teacher(teacher_id)
+    open_dispute_count = sum(1 for d in disputes if d.get('status') != 'resolved')
+    issues_label = f"Reported Issues ({open_dispute_count})" if open_dispute_count else "Reported Issues"
+
     with st.container(key="teacher-nav-tabs"):
-        tab1, tab2, tab3 = st.columns(3)
+        tab1, tab2, tab3, tab4 = st.columns(4)
 
         with tab1:
             type1 = "primary" if st.session_state.current_teacher_tab == 'take_attendance' else "tertiary"
@@ -575,6 +654,12 @@ def teacher_dashboard():
                 st.session_state.current_teacher_tab = 'attendance_records'
                 st.rerun()
 
+        with tab4:
+            type4 = "primary" if st.session_state.current_teacher_tab == 'reported_issues' else "tertiary"
+            if st.button(issues_label, type=type4, width='stretch'):
+                st.session_state.current_teacher_tab = 'reported_issues'
+                st.rerun()
+
     st.markdown("<br>", unsafe_allow_html=True)
 
     if st.session_state.current_teacher_tab == "take_attendance":
@@ -583,6 +668,8 @@ def teacher_dashboard():
         teacher_tab_manage_subjects()
     if st.session_state.current_teacher_tab == "attendance_records":
         teacher_tab_attendance_records()
+    if st.session_state.current_teacher_tab == "reported_issues":
+        teacher_tab_reported_issues(disputes)
 
 
 
@@ -696,7 +783,12 @@ def teacher_tab_take_attendance():
                                 "Subject": subject_name,
                                 "Time": readable_time,
                                 "Source": ", ".join(sources) if is_present else "-",
-                                "Status": "✅ Present" if is_present else "❌ Absent"
+                                "Status": "✅ Present" if is_present else "❌ Absent",
+                                # FEATURE 4: 'students(*)' already selects every
+                                # column including the new 'avatar' one -- no
+                                # query change needed here, just carrying it
+                                # through to the results table.
+                                "Avatar": student.get('avatar', '🙂'),
                             })
 
                             attendance_to_log.append({
@@ -771,7 +863,7 @@ def teacher_tab_manage_subjects():
             ]
 
             def share_btn(sub=sub):
-                if st.button(f"Share Code: {sub['name']}", key=f"share_{sub['subject_code']}"):
+                if st.button(f"Share Code: {sub['name']}", key=f"share_{sub['subject_id']}"):
                     share_subject_dialog(sub['name'], sub['subject_code'])
                 st.space()
 
@@ -890,6 +982,85 @@ def teacher_tab_attendance_records():
             </div>
         </div>
     """, unsafe_allow_html=True)
+
+
+def _render_dispute_entry(d, resolved):
+    dispute_id = d['dispute_id']
+    student_name = (d.get('students') or {}).get('name', 'Unknown student')
+    subject_name = (d.get('subjects') or {}).get('name', 'Unknown subject')
+    class_date = d.get('class_date', '—')
+    message = d.get('student_message', '')
+    reply = d.get('teacher_reply') or ''
+    status_class = 'resolved' if resolved else 'open'
+    status_label = '✅ Resolved' if resolved else '🟡 Open'
+
+    # 'resolved'/'open' baked into the container key (not just a markup
+    # class) so the CSS can grey out resolved entries -- same pattern as
+    # the subject cards' performance-tier-in-key trick in student_screen.py.
+    with st.container(key=f"dispute-entry-{status_class}-{dispute_id}"):
+        st.markdown(f"""
+            <div class="dispute-entry-top">
+                <div>
+                    <div class="dispute-entry-student">{student_name}</div>
+                    <div class="dispute-entry-meta">{subject_name} &middot; {class_date}</div>
+                </div>
+                <div class="dispute-badge {status_class}">{status_label}</div>
+            </div>
+            <div class="dispute-entry-message">{message}</div>
+        """, unsafe_allow_html=True)
+
+        if reply:
+            st.markdown(
+                f'<div class="dispute-reply"><div class="dispute-reply-label">Your reply</div>{reply}</div>',
+                unsafe_allow_html=True,
+            )
+
+        # Reply is always available, even for resolved disputes -- previously
+        # this was gated behind `if not resolved:` along with the resolve
+        # button, which meant a dispute resolved before ever being replied
+        # to could never receive a reply again (the whole input+button
+        # block disappeared for good). Only "Mark as Resolved" itself should
+        # be one-directional/gated.
+        reply_col, send_col = st.columns([3, 1])
+        with reply_col:
+            new_reply = st.text_input(
+                "Reply", value=reply, key=f"reply_input_{dispute_id}",
+                label_visibility="collapsed", placeholder="Type a reply to the student...",
+            )
+        with send_col:
+            if st.button("Send Reply", key=f"send_reply_{dispute_id}", width='stretch'):
+                reply_to_dispute(dispute_id, new_reply)
+                st.toast("Reply sent!")
+                st.rerun()
+
+        if not resolved:
+            if st.button("✅ Mark as Resolved", key=f"resolve_{dispute_id}", type='secondary', width='stretch'):
+                resolve_dispute(dispute_id)
+                st.toast("Marked as resolved!")
+                st.rerun()
+
+
+def teacher_tab_reported_issues(disputes):
+    st.markdown('<div class="section-header"><span class="section-dot"></span>Reported Issues</div>', unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    if not disputes:
+        st.info("No reported issues yet.")
+        return
+
+    open_disputes = [d for d in disputes if d.get('status') != 'resolved']
+    resolved_disputes = [d for d in disputes if d.get('status') == 'resolved']
+
+    st.subheader(f"Open ({len(open_disputes)})")
+    if not open_disputes:
+        st.caption("No open issues -- you're all caught up.")
+    for d in open_disputes:
+        _render_dispute_entry(d, resolved=False)
+
+    if resolved_disputes:
+        st.subheader(f"Resolved ({len(resolved_disputes)})")
+        for d in resolved_disputes:
+            _render_dispute_entry(d, resolved=True)
 
 
 def login_teacher(username, password):

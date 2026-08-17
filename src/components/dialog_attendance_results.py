@@ -3,6 +3,7 @@ from src.database.db import enroll_student_to_subject
 from src.database.config import supabase
 import time
 
+from src.screens.student_screen import _render_avatar
 
 from src.database.db import create_attendance
 
@@ -13,6 +14,24 @@ def show_attendance_result(df, logs, key_prefix="default"):
         [data-testid="stDataFrame"] { border-radius: 8px !important; overflow: hidden !important; }
         </style>
     """, unsafe_allow_html=True)
+
+    # FEATURE 4: avatar + name strip above the review table. st.dataframe
+    # can't render a live/autoplay <video> per cell, so this sits alongside
+    # it rather than trying to embed avatars inside the dataframe itself.
+    # Only appears when the caller's results include an 'Avatar' column --
+    # today that's teacher_screen.py's face-analysis results; the voice
+    # attendance flow (dialog_voice_attendance.py) doesn't set one yet.
+    if 'Avatar' in df.columns and 'Name' in df.columns:
+        chips = ''.join(
+            f'<div style="display:flex;align-items:center;gap:6px;background:rgba(24,164,169,0.06);'
+            f'padding:6px 12px;border-radius:20px;">'
+            f'<span style="display:inline-flex;width:28px;height:28px;border-radius:50%;overflow:hidden;">'
+            f'{_render_avatar(row["Avatar"], size_px=28)}</span>'
+            f'<span style="font-family:Inter,sans-serif;font-size:0.82rem;color:#1E2430;">{row["Name"]}</span>'
+            f'</div>'
+            for _, row in df.iterrows()
+        )
+        st.markdown(f'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">{chips}</div>', unsafe_allow_html=True)
 
     st.write('Please review attendance before confirming.')
     st.dataframe(df, hide_index=True, width='stretch')
