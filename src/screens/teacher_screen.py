@@ -116,6 +116,29 @@ def set_global_styles():
                 border-color: var(--color-primary) !important;
                 box-shadow: 0 0 0 3px rgba(24, 164, 169, 0.15) !important;
             }
+            /* Password show/hide toggle: safety net, not a confirmed-needed
+               fix. Live DOM inspection (Chrome DevTools Protocol, twice,
+               across separate sessions) shows this button already renders a
+               real inline <svg> eye icon -- buttonInnerText comes back
+               empty, confirming nothing is visually rendered as text; the
+               only "password" text found is the SVG's own <title>
+               accessibility element, which browsers never render visually.
+               Selectors below DO match the real button (its aria-label/
+               title are literally "Show password text"), so naively adding
+               an ::after emoji unconditionally would draw a SECOND icon
+               next to the working SVG. :not(:has(svg)) keeps the fallback
+               dormant unless a future Streamlit build ever drops the SVG
+               and falls back to bare ligature text. */
+            button[aria-label*="password" i]:not(:has(svg)),
+            button[title*="password" i]:not(:has(svg)) {
+                font-size: 0 !important;
+            }
+            button[aria-label*="password" i]:not(:has(svg))::after,
+            button[title*="password" i]:not(:has(svg))::after {
+                content: "👁️";
+                font-size: 16px !important;
+            }
+
             div[role="listbox"] {
                 background-color: #FFFFFF !important;
             }
