@@ -38,7 +38,11 @@ def landing_screen():
         }
 
         [data-testid="stMainBlockContainer"] {
-            max-width: 1300px !important;
+            /* Standardized to the same 1150px contained-width convention
+               used everywhere else (base_layout.py's .block-container) --
+               this screen doesn't call style_base_layout() so it sets its
+               own equivalent rule via the testid instead. */
+            max-width: 1150px !important;
             margin: 0 auto !important;
         }
 
@@ -194,7 +198,7 @@ def landing_screen():
         }
 
         /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
             .hero-wrap h1 { font-size: 2.8rem !important; }
             .hero-wrap p.tagline { font-size: 1.1rem !important; }
             .grid-row {

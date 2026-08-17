@@ -69,6 +69,16 @@ def style_base_layout():
 
             .block-container {
                 padding-top:1.5rem !important;
+                /* Contained width on large/wide screens (1440px+) so content
+                   doesn't stretch edge-to-edge and look sparse -- has no
+                   effect on narrower viewports since the viewport itself is
+                   already narrower than this. Shared here (rather than
+                   duplicated per-screen) since home/student/teacher all call
+                   style_base_layout(); landing_screen.py sets its own
+                   equivalent since it doesn't call this function. */
+                max-width: 1150px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
             }
 
             h1 {

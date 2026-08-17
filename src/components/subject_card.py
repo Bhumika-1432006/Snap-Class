@@ -56,6 +56,8 @@ def subject_card(name, code, section, stats=None, footer_callback=None):
             display: flex;
             align-items: center;
             gap: 8px;
+            max-width: 100%;
+            flex-wrap: wrap;
         }
         .subject-card .attendance-pct {
             font-family: var(--font-heading, 'Poppins', sans-serif);
@@ -65,6 +67,7 @@ def subject_card(name, code, section, stats=None, footer_callback=None):
         }
         .subject-card .progress-track {
             width: 70px;
+            max-width: 100%;
             height: 6px;
             border-radius: 4px;
             background: rgba(24, 164, 169, 0.15);

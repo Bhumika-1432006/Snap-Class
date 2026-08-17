@@ -86,20 +86,32 @@ def set_global_styles():
                 color: var(--color-text) !important;
             }
 
-            /* 3. Inputs / selects: rounded, teal focus ring, no black border */
-            .stTextInput input,
-            .stDateInput input,
+            /* 3. Inputs / selects: rounded, teal focus ring, no black border.
+               FIX: box styling (bg/border/radius) now lives on the wrapper
+               div[data-baseweb="base-input"] -- confirmed via Streamlit's
+               own source (base-input.js: `"data-baseweb": ... || "base-input"`)
+               -- instead of the bare <input>. BaseWeb lays the input and its
+               endEnhancer slot (the password show/hide eye icon) out as flex
+               children of that wrapper; skinning only the inner <input> gave
+               it an independent box that visually overlapped the icon
+               instead of sitting cleanly beside it. */
+            div[data-baseweb="base-input"],
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
-                color: var(--color-text) !important;
                 border: 1px solid rgba(24, 164, 169, 0.3) !important;
                 border-radius: 10px !important;
+            }
+            .stTextInput input,
+            .stDateInput input {
+                background-color: transparent !important;
+                border: none !important;
+                color: var(--color-text) !important;
             }
             .stTextInput input::placeholder {
                 color: var(--color-text-muted) !important;
             }
-            .stTextInput:focus-within input,
-            .stDateInput:focus-within input,
+            .stTextInput:focus-within div[data-baseweb="base-input"],
+            .stDateInput:focus-within div[data-baseweb="base-input"],
             div[data-baseweb="select"]:focus-within > div {
                 border-color: var(--color-primary) !important;
                 box-shadow: 0 0 0 3px rgba(24, 164, 169, 0.15) !important;
@@ -172,6 +184,32 @@ def set_global_styles():
             div.stButton > button:disabled {
                 opacity: 0.45 !important;
                 transform: none !important;
+            }
+            /* FIX: Streamlit renders a button's label and its keyboard-
+               shortcut hint (st.button(..., shortcut=...)) as sibling flex
+               children inside the button, wrapped in an element flagged
+               data-has-shortcut="true" (confirmed via Streamlit's Button.js
+               source). `white-space: nowrap` above is needed so pill-button
+               labels never wrap mid-word, but it was inherited into that
+               inner row too with no gap protecting the hint from the label,
+               so on narrower buttons ("Login", stacked in a half-width
+               column) they visually crammed together. Give the hint its own
+               spacing and a distinct, muted, smaller treatment instead of
+               competing with the label text. aria-label is the stable
+               selector for the hint span itself (Streamlit renders it as
+               aria-label="Shortcut <keys>").
+            */
+            div.stButton > button [data-has-shortcut] {
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: 8px !important;
+            }
+            div.stButton > button [aria-label^="Shortcut"] {
+                flex-shrink: 0 !important;
+                font-size: 0.7rem !important;
+                font-weight: 600 !important;
+                opacity: 0.75 !important;
+                white-space: nowrap !important;
             }
 
             /* Solid-indigo variant, scoped via container key -- Streamlit only
@@ -268,6 +306,9 @@ def set_global_styles():
                 grid-template-columns: repeat(3, 1fr);
                 gap: 10px;
                 margin-bottom: 22px;
+            }
+            @media (max-width: 480px) {
+                .login-stat-row { grid-template-columns: 1fr; }
             }
             .login-stat-tile {
                 background: rgba(255, 255, 255, 0.14);
@@ -373,7 +414,7 @@ def set_global_styles():
                 gap: 14px;
                 margin: 4px 0 6px 0;
             }
-            @media (max-width: 800px) {
+            @media (max-width: 768px) {
                 .mini-stat-grid { grid-template-columns: 1fr; }
             }
             .mini-stat-card {

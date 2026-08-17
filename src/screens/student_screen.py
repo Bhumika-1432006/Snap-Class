@@ -207,13 +207,25 @@ def set_global_styles():
                 transform: none;
             }
 
-            /* 4. Input and Selectbox, on-brand */
-            .stTextInput input,
+            /* 4. Input and Selectbox, on-brand.
+               Box styling lives on the wrapper div[data-baseweb="base-input"]
+               (BaseWeb's real input container, confirmed via its source),
+               not the bare <input> -- matches the fix applied in
+               teacher_screen.py, where styling the inner <input> directly
+               was found to overlap BaseWeb's endEnhancer icon slot (e.g. a
+               password show/hide toggle). No password field exists on this
+               screen today, but this keeps both screens' input theming
+               consistent and avoids the same bug if one's ever added here. */
+            div[data-baseweb="base-input"],
             div[data-baseweb="select"] > div {
                 background-color: #FFFFFF !important;
-                color: var(--color-text) !important;
                 border: 1px solid rgba(24, 164, 169, 0.3) !important;
                 border-radius: 10px !important;
+            }
+            .stTextInput input {
+                background-color: transparent !important;
+                border: none !important;
+                color: var(--color-text) !important;
             }
             .stTextInput input::placeholder {
                 color: var(--color-text-muted) !important;
@@ -342,8 +354,11 @@ def set_global_styles():
                 gap: 12px;
                 margin: 8px 0 16px 0;
             }
-            @media (max-width: 900px) {
+            @media (max-width: 768px) {
                 .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            }
+            @media (max-width: 480px) {
+                .stat-grid { grid-template-columns: 1fr; }
             }
             .stat-card {
                 background: #FFFFFF;
@@ -403,7 +418,7 @@ def set_global_styles():
                 gap: 16px;
                 margin: 0 0 16px 0;
             }
-            @media (max-width: 700px) {
+            @media (max-width: 768px) {
                 .insight-grid { grid-template-columns: 1fr; }
             }
             .insight-card {
@@ -855,6 +870,14 @@ def set_global_styles():
                 font-size: 1.1rem;
                 color: var(--color-accent);
                 text-align: center;
+            }
+            /* This 3-column grid (profile | VS | profile) had no mobile
+               override at all -- on a narrow phone it would squeeze two
+               full stat blocks and a divider into one cramped row. Stack
+               instead, with VS becoming a horizontal divider between them. */
+            @media (max-width: 640px) {
+                .beef-grid { grid-template-columns: 1fr; }
+                .beef-vs { padding: 4px 0; }
             }
         </style>
     """, unsafe_allow_html=True)
