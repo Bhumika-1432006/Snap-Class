@@ -1228,7 +1228,7 @@ def teacher_screen_login():
                 <div class="teacher-auth-subtitle">Sign in with your username and password</div>
             """, unsafe_allow_html=True)
 
-            teacher_username = st.text_input("Enter username", placeholder='ananyaroy')
+            teacher_username = st.text_input("Enter username", placeholder='Enter username')
 
             teacher_pass = st.text_input("Enter password", type='password', placeholder="Enter password")
 
@@ -1287,9 +1287,9 @@ def teacher_screen_register():
             <div class="teacher-auth-subtitle">Create your teacher account to get started</div>
         """, unsafe_allow_html=True)
 
-        teacher_username = st.text_input("Enter username", placeholder='ananyaroy')
+        teacher_username = st.text_input("Enter username", placeholder='Enter username')
 
-        teacher_name = st.text_input("Enter name", placeholder='Ananya Roy')
+        teacher_name = st.text_input("Enter name", placeholder='Enter your name')
 
         teacher_pass = st.text_input("Enter password", type='password', placeholder="Enter password")
 
