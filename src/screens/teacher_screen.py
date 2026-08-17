@@ -309,6 +309,19 @@ def set_global_styles():
             }
             @media (max-width: 480px) {
                 .login-stat-row { grid-template-columns: 1fr; }
+                /* Login/Register button pairs (Login + Register Instead,
+                   Register now + Login Instead) sat side-by-side in
+                   st.columns(2) with no narrow-screen handling, so each
+                   column got too cramped to fit its own button -- especially
+                   "Register Instead"/"Login Instead", which are longer than
+                   "Login"/"Register now". Scoped via container(key=...)
+                   wrappers so this doesn't touch any other st.columns(2)
+                   row elsewhere on the page. */
+                .st-key-login-action-buttons div[data-testid="stColumn"],
+                .st-key-register-action-buttons div[data-testid="stColumn"] {
+                    width: 100% !important;
+                    flex: 1 1 100% !important;
+                }
             }
             .login-stat-tile {
                 background: rgba(255, 255, 255, 0.14);
@@ -1221,21 +1234,22 @@ def teacher_screen_login():
 
             st.divider()
 
-            btnc1, btnc2 = st.columns(2)
+            with st.container(key="login-action-buttons"):
+                btnc1, btnc2 = st.columns(2)
 
-            with btnc1:
-                if st.button('Login', shortcut='control+enter', width='stretch', type='primary'):
-                    if login_teacher(teacher_username, teacher_pass):
-                        st.toast("welcome back!", icon="👋")
-                        import time
-                        time.sleep(1)
-                        st.rerun()
-                    else:
-                        st.error("Invalid username and password combo")
+                with btnc1:
+                    if st.button('Login', shortcut='control+enter', width='stretch', type='primary'):
+                        if login_teacher(teacher_username, teacher_pass):
+                            st.toast("welcome back!", icon="👋")
+                            import time
+                            time.sleep(1)
+                            st.rerun()
+                        else:
+                            st.error("Invalid username and password combo")
 
-            with btnc2:
-                if st.button('Register Instead', type="secondary", width='stretch'):
-                    st.session_state.teacher_login_type = 'register'
+                with btnc2:
+                    if st.button('Register Instead', type="secondary", width='stretch'):
+                        st.session_state.teacher_login_type = 'register'
 
     footer_dashboard()
 
@@ -1283,23 +1297,24 @@ def teacher_screen_register():
 
         st.divider()
 
-        btnc1, btnc2 = st.columns(2)
+        with st.container(key="register-action-buttons"):
+            btnc1, btnc2 = st.columns(2)
 
-        with btnc1:
-            if st.button('Register now', shortcut='control+enter', width='stretch', type='primary'):
-                success, message = register_teacher(teacher_username, teacher_name, teacher_pass, teacher_pass_confirm)
-                if success:
-                    st.success(message)
-                    import time
-                    time.sleep(2)
-                    st.session_state.teacher_login_type = "login"
-                    st.rerun()
-                else:
-                    st.error(message)
+            with btnc1:
+                if st.button('Register now', shortcut='control+enter', width='stretch', type='primary'):
+                    success, message = register_teacher(teacher_username, teacher_name, teacher_pass, teacher_pass_confirm)
+                    if success:
+                        st.success(message)
+                        import time
+                        time.sleep(2)
+                        st.session_state.teacher_login_type = "login"
+                        st.rerun()
+                    else:
+                        st.error(message)
 
 
-        with btnc2:
-            if st.button('Login Instead', type="secondary", width='stretch'):
-                st.session_state.teacher_login_type = 'login'
+            with btnc2:
+                if st.button('Login Instead', type="secondary", width='stretch'):
+                    st.session_state.teacher_login_type = 'login'
 
     footer_dashboard()

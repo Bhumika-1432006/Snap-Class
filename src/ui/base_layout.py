@@ -130,6 +130,25 @@ def style_base_layout():
             button:hover{
                 transform :scale(1.05)}
 
+            /* The bare `button{}` rule above (teal, this app's default
+               button skin) unintentionally also matches Streamlit's own
+               internal "Browse files" button inside st.file_uploader's
+               dropzone -- confirmed via live DOM inspection: that button
+               carries data-testid="stBaseButton-secondary" but no `kind`
+               HTML attribute, so it skips the kind="secondary"/kind=
+               "tertiary" rules above and falls through to the unqualified
+               one. Forcing our padding/solid-background onto it inflated
+               the button well past Streamlit's own tiny native size,
+               crowding into the space its dropzone layout reserves for the
+               "Drag and drop files here" instructions text beside it.
+               `all: revert` hands every property back to Streamlit's own
+               component stylesheet for just this button, restoring its
+               native compact appearance without touching any other button
+               on the page. */
+            [data-testid="stFileUploaderDropzone"] button {
+                all: revert !important;
+            }
+
             /* --- Dark-mode safety net ---
                config.toml's [theme] base="light" is the primary fix, but
                native BaseWeb components (dialogs, the date_input calendar,

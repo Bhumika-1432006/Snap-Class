@@ -34,7 +34,10 @@ def show_attendance_result(df, logs, key_prefix="default"):
         st.markdown(f'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">{chips}</div>', unsafe_allow_html=True)
 
     st.write('Please review attendance before confirming.')
-    st.dataframe(df, hide_index=True, width='stretch')
+    # 'Avatar' is already shown via the chip strip above -- drop it here so
+    # it doesn't also show up as a raw video/emoji URL string in the table.
+    display_df = df.drop(columns=['Avatar']) if 'Avatar' in df.columns else df
+    st.dataframe(display_df, hide_index=True, width='stretch')
 
     # --- CSV DOWNLOAD LOGIC ---
     # Create a clean version for Excel: remove emojis and force Time as text

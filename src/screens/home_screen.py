@@ -54,7 +54,50 @@ def home_screen():
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
+                /* Deliberately NOT setting height here -- see note below. */
+            }
+
+            /* Verified via live DOM inspection (Chrome DevTools Protocol,
+               real computed styles, not assumption): stColumn's only direct
+               child is a single stVerticalBlock wrapper -- the heading,
+               description, image, and button are all children of THAT, not
+               of stColumn.
+
+               Two things had to be verified live, because both were
+               counter-intuitive:
+
+               1) The row wrapper (stHorizontalBlock) already has
+                  align-items: stretch by default, which SHOULD equalize
+                  both cards' height automatically. But giving stColumn its
+                  own explicit `height: 100%` (an earlier attempt) broke
+                  that: stColumn's parent row has no *explicit* height of
+                  its own (only a layout-computed one), so `height: 100%`
+                  on stColumn was an invalid percentage reference that
+                  silently prevented the browser's native stretch algorithm
+                  from equalizing the two cards. Removing it and letting
+                  align-items: stretch do its job (confirmed live) is what
+                  actually equalizes the two card heights.
+
+               2) With stColumn no longer given an explicit height, its
+                  child stVerticalBlock can't use `height: 100%` either
+                  (same percentage-reference problem, one level down --
+                  confirmed live that it silently no-ops the same way).
+                  `flex-grow: 1` sidesteps this entirely: it's part of the
+                  flex algorithm's own space distribution, not a CSS
+                  percentage needing a definite parent height, so it
+                  reliably makes stVerticalBlock fill however tall the
+                  (now correctly stretched) stColumn turns out to be --
+                  which is what lets margin-top: auto below still push the
+                  button to the bottom. */
+            .st-key-role-cards div[data-testid="stVerticalBlock"] {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                flex-grow: 1 !important;
                 gap: 22px !important;
+            }
+            .st-key-role-cards div[data-testid="stVerticalBlock"] > div[data-testid="stElementContainer"]:last-child {
+                margin-top: auto !important;
             }
 
             .st-key-role-cards h2 {
@@ -106,6 +149,16 @@ def home_screen():
                 width: 100% !important;
                 display: flex !important;
                 justify-content: center !important;
+            }
+            /* REAL FIX -- see landing_screen.py for the full explanation
+               (verified live via Chrome DevTools Protocol): div.stButton's
+               `width: 100%` resolves against Streamlit's
+               data-testid="stElementContainer" parent, which is
+               `width: fit-content` by default since these buttons don't
+               pass width='stretch' in Python. Without widening that parent,
+               "100%" was a no-op. */
+            div[data-testid="stElementContainer"]:has(> div.stButton) {
+                width: 100% !important;
             }
             div.stButton > button {
                 background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%) !important;

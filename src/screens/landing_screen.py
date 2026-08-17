@@ -82,12 +82,36 @@ def landing_screen():
         }
 
         div.stButton {
-            display: flex;
-            justify-content: center;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
             margin: 22px 0 90px 0 !important;
+        }
+        /* REAL FIX (confirmed via live CDP measurement, not assumption):
+           div.stButton itself IS the correct, currently-matching selector
+           in Streamlit 1.57 (verified: <div class="stButton ..."
+           data-testid="stButton"> exists in the real rendered DOM). The
+           centering never worked because `width: 100% !important` above
+           resolves against div.stButton's *parent* -- Streamlit's
+           data-testid="stElementContainer" wrapper -- which is sized
+           `width: fit-content` by Streamlit itself whenever the widget
+           doesn't pass width='stretch' in Python. So "100%" was 100% of a
+           box already exactly the button's own size: a no-op. Forcing that
+           parent to be full-width is what actually gives div.stButton
+           something wider than itself to center within. Live-verified this
+           produces equal left/right gaps (was a 0px-effective rule before). */
+        div[data-testid="stElementContainer"]:has(> div.stButton) {
+            width: 100% !important;
         }
 
         div.stButton > button {
+            /* Streamlit's own BaseButton renders with containerWidth:true
+               internally, so once the stElementContainer fix above gave it
+               a full-width box to live in, the button itself stretched to
+               fill it. Pin the button back to its natural content size so
+               only the WRAPPER stays full-width/centered, not the pill
+               itself. */
+            width: fit-content !important;
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%) !important;
             color: #ffffff !important;
             font-family: var(--font-heading) !important;
@@ -222,11 +246,9 @@ def landing_screen():
 
 
     # --- CENTERED BUTTON ---
-    col1, col2, col3 = st.columns([1.6, 1, 1])
-    with col2:
-        if st.button("Get Started"):
-            st.session_state['login_type'] = 'home'
-            st.rerun()
+    if st.button("Get Started"):
+        st.session_state['login_type'] = 'home'
+        st.rerun()
 
     # --- STEPS ---
     st.markdown('<p class="steps-heading">How It Works</p>', unsafe_allow_html=True)
