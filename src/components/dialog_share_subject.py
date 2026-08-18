@@ -3,28 +3,15 @@ import streamlit as st
 import qrcode
 import io
 import base64
-import socket
 from urllib.parse import quote
-
-
-def get_local_ip():
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-        s.close()
-        return ip
-    except:
-        return "localhost"
 
 
 @st.dialog(" ")
 def share_subject_dialog(subject_name, subject_code):
-    # LAN IP (not localhost) so phones on the same network can scan the QR
-    # and actually reach the app from their own device. Detected at share
-    # time instead of hardcoded, so it stays correct if the machine's IP
-    # changes (e.g. DHCP lease renewal, different Wi-Fi network).
-    base_url = f"http://{get_local_ip()}:8501"
+    # Hosted deployment's public URL -- a LAN IP only works for people on the
+    # same WiFi network as whoever happens to be running `streamlit run
+    # app.py` locally, which breaks for anyone using the actual hosted app.
+    base_url = "https://snap-class--main.streamlit.app"
     enrollment_url = f"{base_url}/?enroll={subject_code}"
 
     qr_img = qrcode.make(enrollment_url)
