@@ -1,4 +1,4 @@
-import streamlit as st
+﻿import streamlit as st
 
 import qrcode
 import io
@@ -9,9 +9,6 @@ from urllib.parse import quote
 
 @st.dialog(" ")
 def share_subject_dialog(subject_name, subject_code):
-    # Hosted deployment's public URL -- a LAN IP only works for people on the
-    # same WiFi network as whoever happens to be running `streamlit run
-    # app.py` locally, which breaks for anyone using the actual hosted app.
     base_url = "https://snap-class--main.streamlit.app"
     enrollment_url = f"{base_url}/?enroll={subject_code}"
 
@@ -27,9 +24,6 @@ def share_subject_dialog(subject_name, subject_code):
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Inter:wght@400;500;600&display=swap');
 
-            /* Scoped to whichever dialog is currently open -- this markdown
-               block only exists in the DOM while share_subject_dialog() is
-               being rendered, so it's effectively self-contained. */
             div[data-testid="stDialog"] > div:first-child > div:first-child {
                 border-top: 4px solid #18A4A9 !important;
             }
@@ -115,26 +109,26 @@ def share_subject_dialog(subject_name, subject_code):
         st.markdown(f'<div class="share-url-box">{enrollment_url}</div>', unsafe_allow_html=True)
 
         copy_btn_html = f"""
-            <button class="copy-link-btn" onclick="
+            <button class="copy-link-btn" onclick='
                 var text = {json.dumps(enrollment_url)};
                 var btn = this;
-                function showOk() {{ btn.innerText = 'Copied!'; setTimeout(function(){{ btn.innerText = 'Copy to Clipboard'; }}, 1500); }}
-                function showFail() {{ btn.innerText = 'Failed — select manually'; setTimeout(function(){{ btn.innerText = 'Copy to Clipboard'; }}, 2000); }}
+                function showOk() {{ btn.innerText = "Copied!"; setTimeout(function(){{ btn.innerText = "Copy to Clipboard"; }}, 1500); }}
+                function showFail() {{ btn.innerText = "Failed select manually"; setTimeout(function(){{ btn.innerText = "Copy to Clipboard"; }}, 2000); }}
                 if (navigator.clipboard && window.isSecureContext) {{
                     navigator.clipboard.writeText(text).then(showOk, showFail);
                 }} else {{
-                    var ta = document.createElement('textarea');
+                    var ta = document.createElement("textarea");
                     ta.value = text;
-                    ta.style.position = 'fixed';
-                    ta.style.opacity = '0';
+                    ta.style.position = "fixed";
+                    ta.style.opacity = "0";
                     document.body.appendChild(ta);
                     ta.focus();
                     ta.select();
-                    var copied = document.execCommand('copy');
+                    var copied = document.execCommand("copy");
                     document.body.removeChild(ta);
                     if (copied) {{ showOk(); }} else {{ showFail(); }}
                 }}
-            ">Copy to Clipboard</button>
+            '>Copy to Clipboard</button>
         """
         st.markdown(copy_btn_html, unsafe_allow_html=True)
 
