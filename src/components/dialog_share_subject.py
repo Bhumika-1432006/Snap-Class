@@ -4,6 +4,7 @@ import qrcode
 import io
 import base64
 import json
+import html
 from urllib.parse import quote
 
 
@@ -51,6 +52,9 @@ def share_subject_dialog(subject_name, subject_code):
                 color: #1E2430;
                 word-break: break-all;
                 margin-bottom: 14px;
+                width: 100%;
+                box-sizing: border-box;
+                cursor: pointer;
             }
             .copy-link-btn, .whatsapp-btn {
                 display: block;
@@ -106,27 +110,35 @@ def share_subject_dialog(subject_name, subject_code):
 
     with col1:
         st.markdown('<div class="share-col-heading">Copy Link</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="share-url-box">{enrollment_url}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<input class="share-url-box" type="text" readonly value="{html.escape(enrollment_url)}" onclick="this.select();" />',
+            unsafe_allow_html=True,
+        )
 
         copy_btn_html = f"""
             <button class="copy-link-btn" onclick='
                 var text = {json.dumps(enrollment_url)};
                 var btn = this;
                 function showOk() {{ btn.innerText = "Copied!"; setTimeout(function(){{ btn.innerText = "Copy to Clipboard"; }}, 1500); }}
-                function showFail() {{ btn.innerText = "Failed select manually"; setTimeout(function(){{ btn.innerText = "Copy to Clipboard"; }}, 2000); }}
+                function showFail() {{ btn.innerText = "Failed \\u2014 tap the link box above to select it"; setTimeout(function(){{ btn.innerText = "Copy to Clipboard"; }}, 2500); }}
                 if (navigator.clipboard && window.isSecureContext) {{
-                    navigator.clipboard.writeText(text).then(showOk, showFail);
+                    navigator.clipboard.writeText(text).then(showOk, function(err) {{ console.error("clipboard.writeText failed:", err); showFail(); }});
                 }} else {{
-                    var ta = document.createElement("textarea");
-                    ta.value = text;
-                    ta.style.position = "fixed";
-                    ta.style.opacity = "0";
-                    document.body.appendChild(ta);
-                    ta.focus();
-                    ta.select();
-                    var copied = document.execCommand("copy");
-                    document.body.removeChild(ta);
-                    if (copied) {{ showOk(); }} else {{ showFail(); }}
+                    try {{
+                        var ta = document.createElement("textarea");
+                        ta.value = text;
+                        ta.style.position = "fixed";
+                        ta.style.opacity = "0";
+                        document.body.appendChild(ta);
+                        ta.focus();
+                        ta.select();
+                        var copied = document.execCommand("copy");
+                        document.body.removeChild(ta);
+                        if (copied) {{ showOk(); }} else {{ console.error("execCommand copy returned false"); showFail(); }}
+                    }} catch (e) {{
+                        console.error("copy fallback threw:", e);
+                        showFail();
+                    }}
                 }}
             '>Copy to Clipboard</button>
         """

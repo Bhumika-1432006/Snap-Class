@@ -1,4 +1,4 @@
-import streamlit as st
+﻿import streamlit as st
 from src.database.db import enroll_student_to_subject
 from src.database.config import supabase
 
@@ -7,12 +7,14 @@ import time
 
 @st.dialog("Enroll in Subject")
 def enroll_dialog():
-    # Consumed once: if a QR/link enrollment code is pending, pre-fill it and
-    # clear it so this dialog doesn't keep popping back open on every rerun.
-    prefill_code = st.session_state.pop('enroll_code', '') if 'enroll_code' in st.session_state else ''
+    # Bind to session_state via key= so the value persists correctly across
+    # reruns (e.g. when the Enroll button itself triggers a rerun) instead
+    # of resetting to empty right when the button's logic reads it.
+    if 'enroll_dialog_value' not in st.session_state:
+        st.session_state['enroll_dialog_value'] = st.session_state.pop('enroll_code', '')
 
     st.write('Enter the subject code provided by your teacher to enroll')
-    join_code = st.text_input('Subject Code', placeholder='Eg. CS101', value=prefill_code)
+    join_code = st.text_input('Subject Code', placeholder='Eg. CS101', key='enroll_dialog_value')
 
     if st.button('Enroll now', type='primary', width='stretch'):
         if join_code:
