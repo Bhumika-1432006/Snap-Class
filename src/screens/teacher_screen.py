@@ -1,4 +1,4 @@
-import streamlit as st
+﻿import streamlit as st
 
 from src.ui.base_layout import style_background_dashboard, style_base_layout
 
@@ -656,6 +656,12 @@ def set_global_styles():
             @keyframes fadeInUp {
                 from { opacity: 0; transform: translateY(20px); }
                 to { opacity: 1; transform: translateY(0); }
+            }
+            /* Hide broken ligature-text fallback on Streamlit's native
+               password-reveal icon. */
+            div[data-testid="stTextInputRootElement"] button {
+                font-size: 0 !important;
+                color: transparent !important;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -1343,3 +1349,5 @@ def teacher_screen_register():
                     st.session_state.teacher_login_type = 'login'
 
     footer_dashboard()
+
+
