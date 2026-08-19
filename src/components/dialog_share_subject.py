@@ -3,6 +3,7 @@ import streamlit as st
 import qrcode
 import io
 import base64
+import json
 from urllib.parse import quote
 
 
@@ -113,12 +114,15 @@ def share_subject_dialog(subject_name, subject_code):
         st.markdown('<div class="share-col-heading">Copy Link</div>', unsafe_allow_html=True)
         st.markdown(f'<div class="share-url-box">{enrollment_url}</div>', unsafe_allow_html=True)
 
-        copy_btn_html = """
+        copy_btn_html = f"""
             <button class="copy-link-btn" onclick="
-                var text = '__URL__';
-                if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(text);
-                } else {
+                var text = {json.dumps(enrollment_url)};
+                var btn = this;
+                function showOk() {{ btn.innerText = 'Copied!'; setTimeout(function(){{ btn.innerText = 'Copy to Clipboard'; }}, 1500); }}
+                function showFail() {{ btn.innerText = 'Failed — select manually'; setTimeout(function(){{ btn.innerText = 'Copy to Clipboard'; }}, 2000); }}
+                if (navigator.clipboard && window.isSecureContext) {{
+                    navigator.clipboard.writeText(text).then(showOk, showFail);
+                }} else {{
                     var ta = document.createElement('textarea');
                     ta.value = text;
                     ta.style.position = 'fixed';
@@ -126,13 +130,12 @@ def share_subject_dialog(subject_name, subject_code):
                     document.body.appendChild(ta);
                     ta.focus();
                     ta.select();
-                    document.execCommand('copy');
+                    var copied = document.execCommand('copy');
                     document.body.removeChild(ta);
-                }
-                this.innerText = 'Copied!';
-                setTimeout(() => { this.innerText = 'Copy to Clipboard'; }, 1500);
+                    if (copied) {{ showOk(); }} else {{ showFail(); }}
+                }}
             ">Copy to Clipboard</button>
-        """.replace("__URL__", enrollment_url)
+        """
         st.markdown(copy_btn_html, unsafe_allow_html=True)
 
         st.markdown(
