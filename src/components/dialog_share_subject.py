@@ -110,6 +110,13 @@ def share_subject_dialog(subject_name, subject_code):
 
     with col1:
         st.markdown('<div class="share-col-heading">Copy Link</div>', unsafe_allow_html=True)
+
+        # Guaranteed path: st.code()'s built-in copy button is Streamlit's own
+        # native component, not raw HTML we inject -- it works regardless of
+        # whatever is blocking the custom button below, so a working copy
+        # affordance exists even if that JS never fires.
+        st.code(enrollment_url, language=None)
+
         st.markdown(
             f'<input class="share-url-box" type="text" readonly value="{html.escape(enrollment_url)}" onclick="this.select();" />',
             unsafe_allow_html=True,
@@ -120,7 +127,8 @@ def share_subject_dialog(subject_name, subject_code):
                 var text = {json.dumps(enrollment_url)};
                 var btn = this;
                 function showOk() {{ btn.innerText = "Copied!"; setTimeout(function(){{ btn.innerText = "Copy to Clipboard"; }}, 1500); }}
-                function showFail() {{ btn.innerText = "Failed \\u2014 tap the link box above to select it"; setTimeout(function(){{ btn.innerText = "Copy to Clipboard"; }}, 2500); }}
+                function showFail() {{ btn.innerText = "Failed \\u2014 use the code box above to copy"; setTimeout(function(){{ btn.innerText = "Copy to Clipboard"; }}, 2500); }}
+                try {{ window.focus(); document.body.focus(); }} catch (e) {{}}
                 if (navigator.clipboard && window.isSecureContext) {{
                     navigator.clipboard.writeText(text).then(showOk, function(err) {{ console.error("clipboard.writeText failed:", err); showFail(); }});
                 }} else {{

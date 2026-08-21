@@ -1,4 +1,4 @@
-﻿import streamlit as st
+import streamlit as st
 
 from src.ui.base_layout import style_background_dashboard, style_base_layout
 
@@ -116,27 +116,44 @@ def set_global_styles():
                 border-color: var(--color-primary) !important;
                 box-shadow: 0 0 0 3px rgba(24, 164, 169, 0.15) !important;
             }
-            /* Password show/hide toggle: safety net, not a confirmed-needed
-               fix. Live DOM inspection (Chrome DevTools Protocol, twice,
-               across separate sessions) shows this button already renders a
-               real inline <svg> eye icon -- buttonInnerText comes back
-               empty, confirming nothing is visually rendered as text; the
-               only "password" text found is the SVG's own <title>
-               accessibility element, which browsers never render visually.
-               Selectors below DO match the real button (its aria-label/
-               title are literally "Show password text"), so naively adding
-               an ::after emoji unconditionally would draw a SECOND icon
-               next to the working SVG. :not(:has(svg)) keeps the fallback
-               dormant unless a future Streamlit build ever drops the SVG
-               and falls back to bare ligature text. */
-            button[aria-label*="password" i]:not(:has(svg)),
-            button[title*="password" i]:not(:has(svg)) {
+            /* Password show/hide toggle. Root cause (confirmed by reading
+               the installed streamlit package's own base-input.js bundle):
+               this button renders baseui's native MaskToggle <svg>, filled
+               with currentColor -- it is NOT a Material-Symbols ligature.
+               It was invisible because a later rule set color:transparent
+               on the button, which killed that currentColor fill; what was
+               left visible was Streamlit's own theme primaryColor (teal,
+               see .streamlit/config.toml) painted behind it by baseui's
+               native hover/focus circle -- that circle alone is the
+               "teal blob" from the bug report. Rather than depend on any
+               of that internal rendering (which changed shape across the
+               2914583a/11e2486c attempts), hide whatever Streamlit renders
+               natively and paint our own inline-SVG eye icon instead. */
+            div[data-testid="stTextInputRootElement"] button[aria-label*="password" i] {
+                background-color: transparent !important;
+                background-repeat: no-repeat !important;
+                background-position: center !important;
+                background-size: 20px 20px !important;
                 font-size: 0 !important;
+                width: 32px !important;
+                height: 32px !important;
+                min-width: 32px !important;
+                padding: 0 !important;
+                border: none !important;
+                border-radius: 50% !important;
+                box-shadow: none !important;
             }
-            button[aria-label*="password" i]:not(:has(svg))::after,
-            button[title*="password" i]:not(:has(svg))::after {
-                content: "👁️";
-                font-size: 16px !important;
+            div[data-testid="stTextInputRootElement"] button[aria-label*="password" i] > * {
+                visibility: hidden !important;
+            }
+            div[data-testid="stTextInputRootElement"] button[aria-label*="Show password" i] {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2352606D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E") !important;
+            }
+            div[data-testid="stTextInputRootElement"] button[aria-label*="Hide password" i] {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2352606D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.6 21.6 0 0 1 5.06-6.06M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a21.6 21.6 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24'/%3E%3Cline x1='1' y1='1' x2='23' y2='23'/%3E%3C/svg%3E") !important;
+            }
+            div[data-testid="stTextInputRootElement"] button[aria-label*="password" i]:hover {
+                background-color: rgba(30, 36, 48, 0.06) !important;
             }
 
             div[role="listbox"] {
@@ -656,12 +673,6 @@ def set_global_styles():
             @keyframes fadeInUp {
                 from { opacity: 0; transform: translateY(20px); }
                 to { opacity: 1; transform: translateY(0); }
-            }
-            /* Hide broken ligature-text fallback on Streamlit's native
-               password-reveal icon. */
-            div[data-testid="stTextInputRootElement"] button {
-                font-size: 0 !important;
-                color: transparent !important;
             }
         </style>
     """, unsafe_allow_html=True)
